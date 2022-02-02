@@ -5,8 +5,13 @@
 #include <opencv2/opencv.hpp>
 #include "BackgroundMatting.h"
 #include <net.h>
+#include "VideoWriter.h"
 
-int main()
+#pragma comment(lib, "./lib/avcodec.lib")
+#pragma comment(lib, "./lib/avutil.lib")
+#pragma comment(lib, "./lib/avformat.lib")
+
+void test_image()
 {
 	BackgroundMatting bgm;
 	bgm.load();
@@ -27,7 +32,27 @@ int main()
 	cv::imshow("mask", alpha);
 
 	cv::waitKey(0);
-	
-	
-	
+}
+
+void test_videowriter()
+{
+	VideoWriter writer = VideoWriter(1440, 1080, "test_out.mp4");
+	cv::VideoCapture capture("test.flv");
+	int i = 0;
+	while (i < 100)
+	{
+		cv::Mat frame;
+		capture >> frame;
+		writer.write(frame);
+		cv::waitKey(25);
+		
+		i++;
+	}
+	writer.flush();
+}
+
+int main()
+{
+	test_videowriter();
+	return 0;
 }
