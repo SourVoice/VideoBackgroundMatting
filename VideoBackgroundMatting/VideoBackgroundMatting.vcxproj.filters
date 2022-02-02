@@ -31,9 +31,6 @@
     <ClInclude Include="x64\Debug\uic\ui_mainwindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="XVideoThread.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -42,16 +39,10 @@
     <ClCompile Include="mainwindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="video.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="videosurface.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="XFFmpeg.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="XVideoThread.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -64,6 +55,9 @@
     </None>
     <None Include="MainWindow.pro">
       <Filter>Translation Files</Filter>
+    </None>
+    <None Include="myQss.qss">
+      <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -91,9 +85,6 @@
     <QtMoc Include="mainwindow.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="video.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <QtMoc Include="videosurface.h">
       <Filter>Header Files</Filter>
     </QtMoc>
@@ -102,7 +93,7 @@
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="commentBakcup.txt">
+    <Text Include="源qss备份.txt">
       <Filter>Source Files</Filter>
     </Text>
   </ItemGroup>

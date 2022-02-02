@@ -44,7 +44,7 @@
         <file>images/turn-left.png</file>
         <file>images/turn-right.png</file>
     </qresource>
-    <qresource prefix="/">
+    <qresource prefix="/qssFile">
         <file>myQss.qss</file>
     </qresource>
 </RCC>
