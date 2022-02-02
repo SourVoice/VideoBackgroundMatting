@@ -6,6 +6,7 @@
 #include "BackgroundMatting.h"
 #include <net.h>
 #include "VideoWriter.h"
+#include <ctime>
 
 #pragma comment(lib, "./lib/avcodec.lib")
 #pragma comment(lib, "./lib/avutil.lib")
@@ -38,16 +39,23 @@ void test_videowriter()
 {
 	VideoWriter writer = VideoWriter(1440, 1080, "test_out.mp4");
 	cv::VideoCapture capture("test.flv");
-	int i = 0;
-	while (i < 100)
+	int i = 1;
+	
+	double total = 0.0;
+	double start = clock();
+	while (i <= 1000)
 	{
+		//double start = clock();
 		cv::Mat frame;
 		capture >> frame;
 		writer.write(frame);
-		cv::waitKey(25);
-		
+		//double current = clock();
+		//total += (current - start);
+		//std::cout << total / i << "ms" << std::endl;
 		i++;
 	}
+	double current = clock();
+	std::cout << (current - start) / i << "ms" << std::endl;
 	writer.flush();
 }
 

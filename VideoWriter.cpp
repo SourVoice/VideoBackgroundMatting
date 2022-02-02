@@ -54,8 +54,8 @@ int VideoWriter::init()
 	vStream->codecpar->codec_id = AV_CODEC_ID_H264;
 	vStream->codecpar->sample_aspect_ratio = av_make_q(4, 3);  // 这里设置4：3，视频就可以按照16：9显示
 
-	//pCodec = avcodec_find_encoder_by_name("h264_qsv");
-	pCodec = avcodec_find_encoder_by_name("libx264");
+	pCodec = avcodec_find_encoder_by_name("h264_qsv");
+	//pCodec = avcodec_find_encoder_by_name("libx264");
 
 	if (!pCodec) {
 		av_log(nullptr, AV_LOG_FATAL, "Can not find encoder.\n");
@@ -176,7 +176,6 @@ void VideoWriter::bgr2nv12(cv::Mat bgr)
 	// copy uv data
 	int32_t u_size = y_size / 4;
 
-
 	uint8_t *uv_p = uv_buf;
 	uint8_t *u_data = yuv + y_size;
 	uint8_t *v_data = u_data + u_size;
@@ -218,3 +217,4 @@ int VideoWriter::flush()
 	
 	return 0;
 }
+

@@ -4,6 +4,7 @@
 #include <iostream>
 #include <opencv2/opencv.hpp>
 
+
 extern "C"
 {
 #include <libavutil/opt.h>
@@ -22,6 +23,7 @@ public:
 	int init();
 	int write(cv::Mat bgr);
 	int flush();
+
 private:
 	
 	int input_w, input_h;
