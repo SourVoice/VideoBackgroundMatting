@@ -15,23 +15,20 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="XFFmpeg.h" />
-    <ClInclude Include="XVideoThread.h" />
     <QtMoc Include="videosurface.h" />
-    <QtMoc Include="video.h" />
     <QtMoc Include="mainwindow.h" />
     <ClInclude Include="x64\Debug\uic\ui_mainwindow.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mainwindow.cpp" />
-    <ClCompile Include="video.cpp" />
     <ClCompile Include="videosurface.cpp" />
     <ClCompile Include="XFFmpeg.cpp" />
-    <ClCompile Include="XVideoThread.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="en_tr.qm" />
-    <None Include="MainWindow.pro" />
+    <None Include="myQss.qss" />
+    <None Include="README.md" />
     <None Include="zh_tr.qm" />
   </ItemGroup>
   <ItemGroup>
@@ -46,7 +43,7 @@
     <QtTranslation Include="zh_tr.ts" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="commentBakcup.txt" />
+    <Text Include="源qss备份.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{3B1B6079-69EF-4518-BC0B-924061495D7B}</ProjectGuid>
