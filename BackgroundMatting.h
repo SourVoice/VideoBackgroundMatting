@@ -23,5 +23,6 @@ private:
 	ncnn::Mat r1i, r2i, r3i, r4i;
 	ncnn::Mat r4o, r3o, r2o, r1o;
 	bool is_first;
+	int device_count; 
 };
 

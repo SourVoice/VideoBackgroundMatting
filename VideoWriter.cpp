@@ -2,8 +2,10 @@
 #include "VideoWriter.h"
 
 
-VideoWriter::VideoWriter(int w, int h, std::string file_out)
+VideoWriter::VideoWriter(int w, int h, std::string file_out, int fps)
 {
+	this->fps = fps;
+	this->bit_rate = 1000 * (w > h ? w : h) * 2;
 	input_w = w;
 	input_h = h;
 	filename_out = file_out;
@@ -48,12 +50,12 @@ int VideoWriter::init()
 	//Set codec parameter
 	vStream->codecpar->width = input_w;
 	vStream->codecpar->height = input_h;
-	vStream->codecpar->bit_rate = BIT_RATE;
+	vStream->codecpar->bit_rate = bit_rate;
 	vStream->codecpar->format = AV_PIX_FMT_NV12;
 	vStream->codecpar->codec_type = AVMEDIA_TYPE_VIDEO;
-	vStream->codecpar->codec_id = AV_CODEC_ID_H264;
+	vStream->codecpar->codec_id = AV_CODEC_ID_H264;// AV_CODEC_ID_H264;
 	vStream->codecpar->sample_aspect_ratio = av_make_q(4, 3);  // 这里设置4：3，视频就可以按照16：9显示
-
+	
 	pCodec = avcodec_find_encoder_by_name("h264_qsv");
 	//pCodec = avcodec_find_encoder_by_name("libx264");
 
@@ -77,13 +79,17 @@ int VideoWriter::init()
 	pCodecCtx->gop_size = 64;
 	pCodecCtx->max_b_frames = 0;
 	pCodecCtx->time_base.num = 1;
-	pCodecCtx->time_base.den = FRAME_RATE;
-	pCodecCtx->bit_rate = BIT_RATE;
+	pCodecCtx->time_base.den = fps;
+	pCodecCtx->bit_rate = bit_rate;
+	pCodecCtx->thread_count = 4;
+	
+	//pCodecCtx->qmin = 10;
+	//pCodecCtx->qmax = 30;
 
-	pCodecCtx->qmin = 10;
-	pCodecCtx->qmax = 51;
-	pCodecCtx->qcompress = 0.6;
-	av_opt_set(pCodecCtx->priv_data, "preset", "fast", 0);
+	//pCodecCtx->qcompress = 0.6;
+	av_opt_set(pCodecCtx->priv_data, "preset", "veryfast", 0);
+	//av_opt_set(pCodecCtx->priv_data, "tune", "zerolatency", 0);
+	//av_opt_set(pCodecCtx->priv_data, "profile", "high", 0);
 
 	//Open codec
 	if (avcodec_open2(pCodecCtx, pCodec, nullptr) != 0) {
@@ -116,18 +122,18 @@ int VideoWriter::init()
 
 	AVDictionary* opt = NULL;
 
-	int frame_rate = FRAME_RATE;
+	int frame_rate = fps;
 	av_dict_set_int(&opt, "video_track_timescale", frame_rate, 0);
 
 	//Allocate the stream private data and write the stream header to an output media file
 	avformat_write_header(pFmtCtx, &opt);
-
+	
 	return 1;
 }
 
 int VideoWriter::write(cv::Mat bgr)
 {
-	bgr2nv12(bgr);
+	rgb2nv12(bgr);
 	pFrame->data[0] = y_buf;
 	pFrame->data[1] = uv_buf;
 	pFrame->pts = frame_cnt++;
@@ -159,10 +165,10 @@ int VideoWriter::write(cv::Mat bgr)
 
 
 
-void VideoWriter::bgr2nv12(cv::Mat bgr)
+void VideoWriter::rgb2nv12(cv::Mat rgb)
 {
 	cv::Mat yuv_mat;
-	cv::cvtColor(bgr, yuv_mat, cv::COLOR_BGR2YUV_I420);
+	cv::cvtColor(rgb, yuv_mat, cv::COLOR_RGB2YUV_I420);
 
 	uint8_t *yuv = yuv_mat.ptr<uint8_t>();
 

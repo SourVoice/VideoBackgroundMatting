@@ -1,6 +1,4 @@
 #pragma once
-#define FRAME_RATE 30;
-#define BIT_RATE 4000000;
 #include <iostream>
 #include <opencv2/opencv.hpp>
 
@@ -17,7 +15,7 @@ extern "C"
 class VideoWriter
 {
 public:
-	VideoWriter(int w, int h, std::string file_out);
+	VideoWriter(int w, int h, std::string file_out, int fps);
 	~VideoWriter();
 
 	int init();
@@ -25,7 +23,8 @@ public:
 	int flush();
 
 private:
-	
+	int fps = 30;
+	int bit_rate = 2048 * 1024;
 	int input_w, input_h;
 	std::string filename_out;
 
@@ -40,7 +39,7 @@ private:
 	uint8_t* y_buf;
 	uint8_t* uv_buf;
 
-	void bgr2nv12(cv::Mat bgr);
+	void rgb2nv12(cv::Mat bgr);
 	
 };
 

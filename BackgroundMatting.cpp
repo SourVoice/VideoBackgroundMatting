@@ -5,6 +5,13 @@
 BackgroundMatting::BackgroundMatting()
 {
 	is_first = true;
+	device_count = 8;
+#if NCNN_VULKAN
+	device_count = ncnn::get_gpu_count();
+	net.opt.use_vulkan_compute = 1;
+	net.opt.num_threads = device_count;
+#endif
+	net.opt.num_threads = device_count;
 }
 
 
@@ -53,7 +60,7 @@ void BackgroundMatting::process(cv::Mat img, cv::Mat &mask, cv::Mat &foreground)
 	}
 
 	ncnn::Extractor ex = net.create_extractor();
-	ex.set_num_threads(4);
+	ex.set_num_threads(device_count);
 
 	ex.input("src1", ncnn_in1);
 	ex.input("src2", ncnn_in);
@@ -79,7 +86,8 @@ void BackgroundMatting::process(cv::Mat img, cv::Mat &mask, cv::Mat &foreground)
 	cv::Mat cv_fgr = cv::Mat::zeros(fgr.h, fgr.w, CV_8UC3);
 	cv::Mat cv_foreground = cv::Mat(fgr.h, fgr.w, CV_32FC3);
 
-	if (target_size == 512)
+	memcpy(cv_foreground.data, fgr_data, fgr.h * fgr.w * 3);
+	/*if (target_size == 512)
 	{
 		for (int i = 0; i < 512; i++)
 		{
@@ -101,7 +109,7 @@ void BackgroundMatting::process(cv::Mat img, cv::Mat &mask, cv::Mat &foreground)
 				cv_foreground.at<cv::Vec3f>(i, j)[2] = fgr_data[2 * 480 * 640 + i * 480 + j];
 			}
 		}
-	}
+	}*/
 	
 	cv_pha.convertTo(cv_mask, CV_8UC1, 255.0, 0);
 	cv_foreground.convertTo(cv_fgr, CV_8UC3, 255.0, 0);
