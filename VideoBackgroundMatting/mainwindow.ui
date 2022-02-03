@@ -43,7 +43,7 @@ color:black;
        <string notr="true"/>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -746,7 +746,7 @@ background-image: url(:/myImage/images/turn-right.png);</string>
       <string notr="true">border-radius:32px;
 background-repeat:no-repeat;
 background-position:center;
-background-image: url(:/myImage/images/shuiping.png);</string>
+background-image: url(:/myImage/images/horizon.png);</string>
      </property>
      <property name="text">
       <string/>
@@ -765,7 +765,7 @@ background-image: url(:/myImage/images/shuiping.png);</string>
       <string notr="true">border-radius:32px;
 background-repeat:no-repeat;
 background-position:center;
-background-image: url(:/myImage/images/chuizhi.png);</string>
+background-image: url(:/myImage/images/vertical.png);</string>
      </property>
      <property name="text">
       <string/>
@@ -1478,7 +1478,7 @@ background-image: url(:/myImage/images/chuizhi.png);</string>
   <action name="action_J">
    <property name="icon">
     <iconset resource="myimage.qrc">
-     <normaloff>:/myImage/images/junzhi.png</normaloff>:/myImage/images/junzhi.png</iconset>
+     <normaloff>:/myImage/images/averageFiltering.png</normaloff>:/myImage/images/averageFiltering.png</iconset>
    </property>
    <property name="text">
     <string>均值滤波(&amp;J)</string>
@@ -1490,7 +1490,7 @@ background-image: url(:/myImage/images/chuizhi.png);</string>
   <action name="action_B">
    <property name="icon">
     <iconset resource="myimage.qrc">
-     <normaloff>:/myImage/images/bianyuan.png</normaloff>:/myImage/images/bianyuan.png</iconset>
+     <normaloff>:/myImage/images/edgeFliter.png</normaloff>:/myImage/images/edgeFliter.png</iconset>
    </property>
    <property name="text">
     <string>边缘检测(&amp;B)</string>
@@ -1502,7 +1502,7 @@ background-image: url(:/myImage/images/chuizhi.png);</string>
   <action name="action_Y">
    <property name="icon">
     <iconset resource="myimage.qrc">
-     <normaloff>:/myImage/images/fuhe.png</normaloff>:/myImage/images/fuhe.png</iconset>
+     <normaloff>:/myImage/images/original-edgeFliter.png</normaloff>:/myImage/images/original-edgeFliter.png</iconset>
    </property>
    <property name="text">
     <string>边缘+原图(&amp;Y)</string>

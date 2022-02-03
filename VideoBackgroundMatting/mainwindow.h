@@ -8,21 +8,14 @@
 #include <iostream>
 #include <sstream>
 using namespace std;
+//Opencv
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/opencv.hpp>
 #include <opencv2/imgproc/types_c.h>
 #include <opencv2/imgproc/imgproc_c.h>
-extern "C" {
-    #include <libavcodec/avcodec.h>
-    #include <libavformat/avformat.h>
-    #include <libavdevice/avdevice.h>
-    #include <libswresample/swresample.h>
-    #include <libavutil/imgutils.h>
-    #include <libavutil/pixdesc.h>
-    #include <libswscale/swscale.h>
-}
+//Qt
 #include <QMainWindow>
 #include <QLabel>
 #include <QMessageBox>
@@ -57,24 +50,43 @@ public:
 
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    //void showascii();
-    QImage gray(QImage image);                                      //灰度化
-    //QImage gray2(QImage image);                                   //灰度化2
+
+    //图片部分
+    int index = 0;                                                  //图片index
+    QString origin_path;                                            //目前处理的图片的原图路径
+    QStringList srcDirPathList;                                     //图片list
+
     QImage setRGB(QImage image,int value_r,int value_g,int value_b);//调整rgb
     QImage AdjustContrast(QImage image, int value);                 //调整对比度
     QImage ImageCenter(QImage  qimage,QLabel *qLabel);              //调整图片比例
     QImage AdjustSaturation(QImage image, int value);               //调整饱和度
-    QImage bianyuan(QImage image);                                  //边缘
-    cv::Mat masaike(cv::Mat image);                                 //马赛克
-    QStringList srcDirPathList;                                     //图片list
-    int index =0;                                                   //图片index
-    int type=0;                                                     //视频操作类型
-    QImage Mat2QImage(const cv::Mat& mat);                        
-    Mat Avframe2cvMat(AVFrame* avframe, int w, int h);
-    QString stom(int s);
+    QImage gray(QImage image);                                      //灰度化
     QImage AverageFiltering(QImage image);                          //均值滤波
-    QImage OriginalPlusEdgeFliter(QImage images);                   //原图+边缘滤波复合调用函数 
-    QImage gamma(QImage image);
+    QImage EdgeFliter(QImage image);                                //边缘检测
+    QImage OriginalPlusEdgeFliter(QImage images);                   //原图+边缘检测复合调用函数
+    QImage gamma(QImage image);                                     //伽马变换
+
+    //视频部分
+    QImage Mat2QImage(const cv::Mat& mat);
+    Mat Avframe2cvMat(AVFrame* avframe, int w, int h);
+    cv::Mat Mosaic(cv::Mat image);                                  //马赛克
+    QString stom(int s);                                            //video播放,时间转换函数
+
+    XFFmpeg* ffmpeg;                                                //ffmpeg解码
+    cv::VideoCapture capture;                                       //用来读取视频结构(仅作测试使用)
+    QString video_path;                                             //视频路径
+
+    int type = 0;                                                   //视频操作类型
+    double currentVideoTime = 0;
+    double totalVideoTime = 0;
+    bool isStart = false;
+    
+    //其他
+public:
+    Ui::MainWindow* ui;
+    QMessageBox customMsgBox;
+
+    bool language = true;
 
 private slots:
 
@@ -85,7 +97,9 @@ private slots:
     void on_pushButton_clicked();
 
     void onTimeout(const QImage& image);
-    
+    void onGetCurrentVideoTime(const double& time);
+    void onGetTotalVideoTime(const double& time);
+
     void updatePosition();
 
     void on_action_Save_triggered();
@@ -168,16 +182,6 @@ private slots:
 
     void on_pushButton_5_clicked();
 
-public:
-    Ui::MainWindow *ui;
-    QMessageBox customMsgBox;
 
-    QString origin_path;        //目前处理的图片的原图
-    cv::VideoCapture capture;   //用来读取视频结构
-    QString video_path;         //视频路径
-    XFFmpeg *ffmpeg;            //ffmpeg解码
-
-    bool isStart = false;
-    bool language = true;
 };
 #endif // MAINWINDOW_H

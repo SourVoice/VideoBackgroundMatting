@@ -10,11 +10,6 @@ MainWindow::MainWindow(QWidget* parent) :QMainWindow(parent), ui(new Ui::MainWin
 	ui->pushButton_3->setDisabled(true);
 	ui->pushButton_4->setDisabled(true);
 
-	//视频
-	//connect(ui->pushButton_5, SIGNAL(clicked()), this, SLOT(onBtnClicked()));
-	//connect(&timer, SIGNAL(timeout()), this, SLOT(onTimeout()));
-	//connect(&timer, SIGNAL(timeout()), this, SLOT(updatePosition()));
-
 	setWindowFlags(windowFlags() & ~Qt::WindowMaximizeButtonHint);    // 禁止最大化按钮
 	setFixedSize(this->width(), this->height());                     // 禁止拖动窗口大小
 
@@ -140,17 +135,6 @@ void MainWindow::on_action_Open_triggered()
 		ui->label_other_1->setVisible(true);
 		ui->label_other_3->setVisible(false);
 	}
-}
-
-void split(const string& s, vector<int>& sv, const char flag = ' ') {
-	sv.clear();
-	istringstream iss(s);
-	string temp;
-
-	while (getline(iss, temp, flag)) {
-		sv.push_back(stoi(temp));
-	}
-	return;
 }
 
 //图片居中显示,图片大小与label大小相适应
@@ -476,9 +460,6 @@ void MainWindow::on_action_Save_triggered()
 	}
 }
 
-
-
-
 //灰度化
 QImage MainWindow::gray(QImage image) {
 	QImage newImage = image.convertToFormat(QImage::Format_ARGB32);
@@ -548,7 +529,6 @@ QImage MainWindow::AverageFiltering(QImage image) {
 	return image;
 }
 
-
 //均值滤波
 void MainWindow::on_pushButton_junzhi_clicked()
 {
@@ -563,7 +543,6 @@ void MainWindow::on_pushButton_junzhi_clicked()
 		QMessageBox::warning(nullptr, "提示", "请先选择一张图片！", QMessageBox::Yes | QMessageBox::Yes);
 	}
 }
-
 
 //翻译
 void MainWindow::on_action_L_triggered()
@@ -581,7 +560,6 @@ void MainWindow::on_action_L_triggered()
 	language = !language;
 	ui->retranslateUi(this);//重新翻译刷新界面
 }
-
 
 //亮度调节
 void MainWindow::on_horizontalSlider_valueChanged(int value)
@@ -613,9 +591,8 @@ void MainWindow::on_horizontalSlider_valueChanged(int value)
 
 }
 
-
 //边缘检测
-QImage MainWindow::bianyuan(QImage image) {
+QImage MainWindow::EdgeFliter(QImage image) {
 	QImage newImage = image.convertToFormat(QImage::Format_ARGB32);
 	QColor color0;
 	QColor color1;
@@ -657,14 +634,12 @@ QImage MainWindow::bianyuan(QImage image) {
 	return newImage;
 }
 
-
-
-//边缘检测
+//均值滤波
 void MainWindow::on_pushButton_junzhi_2_clicked()
 {
 	if (origin_path != nullptr) {
 		QImage image(origin_path);
-		QImage newImage = bianyuan(image);
+		QImage newImage = EdgeFliter(image);
 		QImage Image = ImageCenter(newImage, ui->label_show);
 		ui->label_show->setPixmap(QPixmap::fromImage(Image));
 		ui->label_show->setAlignment(Qt::AlignCenter);
@@ -674,8 +649,7 @@ void MainWindow::on_pushButton_junzhi_2_clicked()
 	}
 }
 
-
-//原图+边缘滤波复合调用函数
+//原图+边缘检测复合调用函数
 QImage MainWindow::OriginalPlusEdgeFliter(QImage images) {
 	QImage image2 = images.convertToFormat(QImage::Format_ARGB32);
 	QColor color0;
@@ -742,7 +716,6 @@ QImage MainWindow::OriginalPlusEdgeFliter(QImage images) {
 	return image2;
 }
 
-
 //边缘检测+原图复合
 void MainWindow::on_pushButton_junzhi_3_clicked()
 {
@@ -758,7 +731,6 @@ void MainWindow::on_pushButton_junzhi_3_clicked()
 		QMessageBox::warning(nullptr, "提示", "请先选择一张图片！", QMessageBox::Yes | QMessageBox::Yes);
 	}
 }
-
 
 //更改比例
 void MainWindow::on_horizontalSlider_2_valueChanged(int value1)
@@ -839,7 +811,6 @@ void MainWindow::on_horizontalSlider_2_valueChanged(int value1)
 	}
 }
 
-
 //保存
 void MainWindow::on_pushButton_save_clicked()
 {
@@ -848,7 +819,7 @@ void MainWindow::on_pushButton_save_clicked()
 		if (ui->label_show->pixmap() != nullptr) {
 
 			QImage image2(ui->label_show->pixmap()->toImage());
-			QImage simage("E:/Qt/qtworks/MainWindow/images/name1.png");
+			QImage simage(":/images/name1.png");
 
 			int swidth = simage.width();
 			int sheight = simage.height();
@@ -876,7 +847,7 @@ void MainWindow::on_pushButton_save_clicked()
 
 			QString filename = QFileDialog::getSaveFileName(this,
 				tr("保存图片"),
-				"E:/Qtworks/MainWindow/images/signed_images.png",
+				":/images/signed_images.png",
 				tr("*.png;; *.jpg;; *.bmp;; *.tif;; *.GIF")); //选择路径
 			if (filename.isEmpty())
 			{
@@ -906,7 +877,7 @@ void MainWindow::on_pushButton_save_clicked()
 		if (ui->label_show->pixmap() != nullptr) {
 			QString filename = QFileDialog::getSaveFileName(this,
 				tr("保存图片"),
-				"E:/Qtworks/MainWindow/images",
+				":/images",
 				tr("*.png;; *.jpg;; *.bmp;; *.tif;; *.GIF")); //选择路径
 			if (filename.isEmpty())
 			{
@@ -1026,7 +997,6 @@ void MainWindow::on_horizontalSlider_B_valueChanged(int value)
 		QMessageBox::warning(nullptr, "提示", "请先打开图片！", QMessageBox::Yes | QMessageBox::Yes);
 	}
 }
-
 
 QImage MainWindow::gamma(QImage image) {
 	double d = 1.2;
@@ -1248,7 +1218,10 @@ void MainWindow::on_action_V_triggered()
 	ui->pushButton_6->setEnabled(true);
 
 	XFFmpeg* ffmpeg = new XFFmpeg(this);
+	connect(ffmpeg, SIGNAL(receiveTotalVideoTime(double)), this, SLOT(onGetTotalVideoTime(double)));
+	connect(ffmpeg, SIGNAL(receiveCurrentVideoTime(double)), this, SLOT(onGetCurrentVideoTime(double)));
 	connect(ffmpeg, SIGNAL(receiveImage(QImage)), this, SLOT(onTimeout(QImage)));
+
 	ffmpeg->Open(video_path);
 
 	type = 0;                                               //默认打开不进行处理
@@ -1259,11 +1232,9 @@ void MainWindow::on_action_V_triggered()
 
 	ffmpeg->start();
 
-	AVFrame* frame = av_frame_alloc();
-	AVCodecContext* dec_ctx = NULL;
 }
 
-//
+//ffmpeg->start()响应
 void MainWindow::onTimeout(const QImage& image)
 {
 	Mat cv_frame;
@@ -1271,8 +1242,6 @@ void MainWindow::onTimeout(const QImage& image)
 	//cv::Mat result; // deep copy just in case (my lack of knowledge with open cv)  
 	cvtColor(tmp, cv_frame, CV_BGR2RGB);
 	tmp.~Mat();
-	//if (!frame)
-	//    QMessageBox::warning(nullptr, "提示", "打开视频失败！(Line: 1329)", QMessageBox::Yes |  QMessageBox::Yes);
 
 	//AVFrame* copyFrame = av_frame_alloc();
 	//copyFrame->format = frame->format;
@@ -1323,7 +1292,7 @@ void MainWindow::onTimeout(const QImage& image)
 		qDebug() << TIMEMS << "type4";
 	}
 	else if (type == 5) {
-		cv_frame = masaike(cv_frame);
+		cv_frame = Mosaic(cv_frame);
 		qDebug() << TIMEMS << "type5";
 	}
 
@@ -1341,19 +1310,22 @@ void MainWindow::onTimeout(const QImage& image)
 
 
 	////=====================================进度位置()
-	//long totalFrameNumber = capture.get(CAP_PROP_FRAME_COUNT);
-	//ui->VideohorizontalSlider_2->setMaximum(totalFrameNumber);
-	//long frameNow = capture.get(CAP_PROP_POS_FRAMES);
-	//ui->VideohorizontalSlider_2->setValue(frameNow);
-
-	//long currentVideoTime = ffmpeg->getCurrentVideoTime();
-	//long totalVideoTime = ffmpeg->totalVideoTime;
-	//ui->VideohorizontalSlider_2->setValue(currentVideoTime);
-	//ui->VideohorizontalSlider_2->setMaximum(totalVideoTime);
+	ui->VideohorizontalSlider_2->setValue(currentVideoTime);
+	ui->VideohorizontalSlider_2->setMaximum(totalVideoTime);
 
 	//======================================lable_l2播放时间显示
 	//double frame_rate = ffmpeg->getFrameRate();//获取fps
-	//ui->label_12->setText(stom((long)currentVideoTime) + "/" + stom((long)totalVideoTime));
+	ui->label_12->setText(stom((long)currentVideoTime) + "/" + stom((long)totalVideoTime));
+}
+
+void MainWindow::onGetCurrentVideoTime(const double& time)
+{
+	this->currentVideoTime = time;
+}
+
+void MainWindow::onGetTotalVideoTime(const double& time)
+{
+	this->totalVideoTime = time;
 }
 
 //Mat转图像
@@ -1435,7 +1407,6 @@ QString MainWindow::stom(int s) {
 	return m;
 }
 
-
 //暂停/播放
 void MainWindow::on_pushButton_6_clicked()
 {
@@ -1490,7 +1461,6 @@ void MainWindow::on_pushButton_11_clicked()
 	type = 4;
 }
 
-
 //缩放
 void MainWindow::on_horizontalSlider_suofang_valueChanged(int value)
 {
@@ -1499,9 +1469,7 @@ void MainWindow::on_horizontalSlider_suofang_valueChanged(int value)
 	cout << value << endl;
 }
 
-
-
-Mat MainWindow::masaike(Mat src) {
+Mat MainWindow::Mosaic(Mat src) {
 	int width = src.rows;	//图片的长度
 	int height = src.cols;	//图片的宽度
 
@@ -1525,13 +1493,11 @@ Mat MainWindow::masaike(Mat src) {
 	return src;
 }
 
-
 //马赛克
 void MainWindow::on_pushButton_2_clicked()
 {
 	type = 5;
 }
-
 
 //工具栏灰度化
 void MainWindow::on_action_H_triggered()
@@ -1550,7 +1516,6 @@ void MainWindow::on_action_H_triggered()
 	}
 }
 
-
 //工具栏均值滤波
 void MainWindow::on_action_J_triggered()
 {
@@ -1566,13 +1531,12 @@ void MainWindow::on_action_J_triggered()
 	}
 }
 
-
 //工具栏边缘检测
 void MainWindow::on_action_B_triggered()
 {
 	if (origin_path != nullptr) {
 		QImage image(origin_path);
-		QImage newImage = bianyuan(image);
+		QImage newImage = EdgeFliter(image);
 		QImage Image = ImageCenter(newImage, ui->label_show);
 		ui->label_show->setPixmap(QPixmap::fromImage(Image));
 		ui->label_show->setAlignment(Qt::AlignCenter);
@@ -1581,8 +1545,6 @@ void MainWindow::on_action_B_triggered()
 		QMessageBox::warning(nullptr, "提示", "请先选择一张图片！", QMessageBox::Yes | QMessageBox::Yes);
 	}
 }
-
-
 
 //工具栏伽马变换
 void MainWindow::on_action_G_triggered()
@@ -1598,7 +1560,6 @@ void MainWindow::on_action_G_triggered()
 		QMessageBox::warning(nullptr, "提示", "请先打开图片！", QMessageBox::Yes | QMessageBox::Yes);
 	}
 }
-
 
 //工具栏边缘原图复合
 void MainWindow::on_action_Y_triggered()

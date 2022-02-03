@@ -27,8 +27,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="en_tr.qm" />
-    <None Include="MainWindow.pro" />
     <None Include="myQss.qss" />
+    <None Include="README.md" />
     <None Include="zh_tr.qm" />
   </ItemGroup>
   <ItemGroup>

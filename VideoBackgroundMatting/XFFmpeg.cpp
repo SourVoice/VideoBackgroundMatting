@@ -185,7 +185,7 @@ void XFFmpeg::run()
 	while (!Abort)
 	{
 
-		QCoreApplication::processEvents();   //处理事件
+		//QCoreApplication::processEvents();   //处理事件
 
 		//根据标志位执行初始化操作
 		if (isPlay) {
@@ -222,7 +222,10 @@ void XFFmpeg::run()
 					}
 					fflush(stdout);
 
+					//emit receiveTotalVideoTime(totalVideoTime);
 					currentVideoTime = avFrame->pts * AVRationalr2Double(avFormatContext->streams[avPacket->stream_index]->time_base);
+					if(currentVideoTime)
+						emit receiveCurrentVideoTime(currentVideoTime);
 
 					sws_scale(swsContext, avFrame->data, avFrame->linesize, 0, videoHeight, avFrame->data, avFrame->linesize);
 					QImage image((uchar*)buffer, videoWidth, videoHeight, QImage::Format_RGB32);
@@ -242,7 +245,6 @@ void XFFmpeg::run()
 		//av_frame_free(&avFrameCopy);
 
 	}
-
 	//线程结束释放资源
 	free();
 	Abort = false;
@@ -343,8 +345,6 @@ std::string XFFmpeg::GetError()
 	return re;
 }
 
-
-
 XFFmpeg::~XFFmpeg()
 {
 }
@@ -369,7 +369,7 @@ double XFFmpeg::getFrameRate(void)
 double XFFmpeg::getCurrentVideoTime()
 {
 	mutex.lock();
-	double time = this->currentVideoTime;
+	double time = currentVideoTime;
 	mutex.unlock();
 	return time;
 }
@@ -377,7 +377,7 @@ double XFFmpeg::getCurrentVideoTime()
 double XFFmpeg::getTotalVideoTime()
 {
 	mutex.lock();
-	double time = this->totalVideoTime;
+	double time = totalVideoTime;
 	mutex.unlock();
 	return time;
 }
@@ -389,6 +389,5 @@ void XFFmpeg::play()
 
 void XFFmpeg::pause()
 {
-	//time.stop();
 	isPlay = false;
 }

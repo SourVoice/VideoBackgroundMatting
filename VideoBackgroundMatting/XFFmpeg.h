@@ -1,8 +1,8 @@
 #ifndef XFFMPEG_H
 #define XFFMPEG_H
 #pragma execution_character_set("utf-8")
-
 #pragma once
+
 #include <iostream>
 #include <string>
 //调用FFMpeg的头文件
@@ -31,10 +31,11 @@ extern "C" {
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
-using namespace cv;
 #include <opencv2/opencv.hpp>
 #include <opencv2/imgproc/types_c.h>
-#include <opencv2/imgproc/imgproc_c.h>///for cvSmooth
+#include <opencv2/imgproc/imgproc_c.h>//for cvSmooth
+using namespace cv;
+
 class XFFmpeg : public QThread
 {
 	Q_OBJECT
@@ -61,6 +62,9 @@ public:
 signals:
 
 	void receiveImage(const QImage&image);					//收到图片信号
+	void receiveTotalVideoTime(const double& time);
+	void receiveCurrentVideoTime(const double& time);
+
 
 protected:
 	void run();						//覆写run实现进程
@@ -97,7 +101,5 @@ public:
 	double frame_rate = 0;				//每秒帧数(fps)
 	double currentVideoTime = 0;		//当前帧(时间)
 	double totalVideoTime = 0;			//总时长
-
-
 };
 #endif

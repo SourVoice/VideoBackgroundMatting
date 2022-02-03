@@ -53,11 +53,11 @@
     <None Include="zh_tr.qm">
       <Filter>Translation Files</Filter>
     </None>
-    <None Include="MainWindow.pro">
-      <Filter>Translation Files</Filter>
-    </None>
     <None Include="myQss.qss">
       <Filter>Resource Files</Filter>
+    </None>
+    <None Include="README.md">
+      <Filter>Source Files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
