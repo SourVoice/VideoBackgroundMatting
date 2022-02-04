@@ -10,6 +10,7 @@ MainWindow::MainWindow(QWidget* parent) :QMainWindow(parent), ui(new Ui::MainWin
 	ui->pushButton_3->setDisabled(true);
 	ui->pushButton_4->setDisabled(true);
 
+
 	setWindowFlags(windowFlags() & ~Qt::WindowMaximizeButtonHint);    // 禁止最大化按钮
 	setFixedSize(this->width(), this->height());                     // 禁止拖动窗口大小
 
@@ -1220,22 +1221,23 @@ void MainWindow::on_action_V_triggered()
 	XFFmpeg* ffmpeg = new XFFmpeg(this);
 	connect(ffmpeg, SIGNAL(receiveTotalVideoTime(double)), this, SLOT(onGetTotalVideoTime(double)));
 	connect(ffmpeg, SIGNAL(receiveCurrentVideoTime(double)), this, SLOT(onGetCurrentVideoTime(double)));
-	connect(ffmpeg, SIGNAL(receiveImage(QImage)), this, SLOT(onTimeout(QImage)));
+	connect(ffmpeg, SIGNAL(receiveImage(QImage)), this, SLOT(onDisplayImage(QImage)));
+	connect(this, SIGNAL(receiveIsPlay(bool)), ffmpeg, SLOT(onGetIsPlay(bool)));
 
 	ffmpeg->Open(video_path);
 
 	type = 0;                                               //默认打开不进行处理
-
-	isStart = !isStart;
+	
+	isPlay = !isPlay;
 	ui->pushButton_6->setStyleSheet("border-radius:32px;"
 		"background-image: url(:/myImage/images/stop.png);border:none;");
-
+	
 	ffmpeg->start();
 
 }
 
 //ffmpeg->start()响应
-void MainWindow::onTimeout(const QImage& image)
+void MainWindow::onDisplayImage(const QImage& image)
 {
 	Mat cv_frame;
 	cv::Mat tmp(image.height(), image.width(), CV_8UC3, (uchar*)image.bits(), image.bytesPerLine());
@@ -1243,26 +1245,15 @@ void MainWindow::onTimeout(const QImage& image)
 	cvtColor(tmp, cv_frame, CV_BGR2RGB);
 	tmp.~Mat();
 
-	//AVFrame* copyFrame = av_frame_alloc();
-	//copyFrame->format = frame->format;
-	//copyFrame->width = frame->width;
-	//copyFrame->height = frame->height;
-	//copyFrame->channels = frame->channels;
-	//copyFrame->channel_layout = frame->channel_layout;
-	//copyFrame->nb_samples = frame->nb_samples;
-	//av_frame_get_buffer(copyFrame, 32);
-	//av_frame_copy(copyFrame, frame);
-	//av_frame_copy_props(copyFrame, frame);
 	//cv_frame = Avframe2cvMat(copyFrame,-1,-1);
 	//if (cv_frame.empty())
 	//    QMessageBox::warning(nullptr, "提示", "转换！(Line: 1329)", QMessageBox::Yes | QMessageBox::Yes);
 	//av_frame_free(&copyFrame);
 
-
 	//视频处理
-	if (!capture.read(cv_frame)) {
-		return;
-	}
+	//if (!capture.read(cv_frame)) {
+	//	return;
+	//}
 
 	if (type == 1) {
 		//image=gray2(image);
@@ -1308,8 +1299,7 @@ void MainWindow::onTimeout(const QImage& image)
 	ui->label_11->setAlignment(Qt::AlignCenter);
 	ui->label_11->repaint();
 
-
-	////=====================================进度位置()
+	//=====================================进度位置
 	ui->VideohorizontalSlider_2->setValue(currentVideoTime);
 	ui->VideohorizontalSlider_2->setMaximum(totalVideoTime);
 
@@ -1388,12 +1378,12 @@ Mat MainWindow::Avframe2cvMat(AVFrame* avframe, int w, int h)
 }
 
 //进度条随视频移动
-void MainWindow::updatePosition() {
-	long totalFrameNumber = capture.get(CAP_PROP_FRAME_COUNT);
-	ui->VideohorizontalSlider_2->setMaximum(totalFrameNumber);
-	long frame = capture.get(CAP_PROP_POS_FRAMES);
-	ui->VideohorizontalSlider_2->setValue(frame);
-}
+//void MainWindow::updatePosition() {
+//	long totalFrameNumber = capture.get(CAP_PROP_FRAME_COUNT);
+//	ui->VideohorizontalSlider_2->setMaximum(totalFrameNumber);
+//	long frame = capture.get(CAP_PROP_POS_FRAMES);
+//	ui->VideohorizontalSlider_2->setValue(frame);
+//}
 
 //秒转分函数
 QString MainWindow::stom(int s) {
@@ -1410,19 +1400,18 @@ QString MainWindow::stom(int s) {
 //暂停/播放
 void MainWindow::on_pushButton_6_clicked()
 {
-	if (isStart)
+	if (isPlay)
 	{
-		isStart = false;
-		ffmpeg->pause();
+		isPlay = false;
 		ui->pushButton_6->setStyleSheet("border-radius:32px;"
 			"background-image: url(:/myImage/images/start.png);border:none;");
 	}
 	else {
-		isStart = true;
-		ffmpeg->play();
+		isPlay = true;
 		ui->pushButton_6->setStyleSheet("border-radius:32px;"
 			"background-image: url(:/myImage/images/stop.png);border:none;");
 	}
+	emit receiveIsPlay(isPlay);
 }
 
 //灰度
@@ -1436,12 +1425,11 @@ void MainWindow::on_pushButton_8_clicked()
 	type = 0;
 }
 
-
 //进度条
-void MainWindow::on_VideohorizontalSlider_2_valueChanged(int value)
-{
-	capture.set(CAP_PROP_POS_FRAMES, value);
-}
+//void MainWindow::on_VideohorizontalSlider_2_valueChanged(int value)
+//{
+//	capture.set(CAP_PROP_POS_FRAMES, value);
+//}
 
 //均值滤波
 void MainWindow::on_pushButton_9_clicked()

@@ -23,7 +23,9 @@ XFFmpeg::XFFmpeg(QObject* parent) :QThread(parent)
 	videoCodec = nullptr;
 	audioDecoder = nullptr;
 
+
 	XFFmpeg::initalizeLib();
+
 }
 
 //软件中 只需初始化一次
@@ -39,8 +41,9 @@ void XFFmpeg::initalizeLib()
 }
 
 void XFFmpeg::Open(const QString& fileInput) {
+	this->path = fileInput;
 	std::string str = std::string(fileInput.toLocal8Bit());
-	in_file = (char*)calloc(fileInput.size(), sizeof(char));
+	this->in_file = (char*)calloc(fileInput.size(), sizeof(char));
 	strcpy(in_file, (char*)str.c_str());
 	//QString 转为 char*
 	this->init();
@@ -180,28 +183,40 @@ bool XFFmpeg::init()
 
 void XFFmpeg::run()
 {
-	Mat cv_frame;
-
+	QImage image(videoWidth, videoHeight, QImage::Format_RGB32);
+	int outputLineSize[3];                                                                         //构造AVFrame到QImage所需要的数据
+	av_image_fill_linesizes(outputLineSize, AV_PIX_FMT_RGB32, videoWidth);
+	uint8_t* outputDst[] = { image.bits() };
 	while (!Abort)
 	{
 
 		//QCoreApplication::processEvents();   //处理事件
 
 		//根据标志位执行初始化操作
-		if (isPlay) {
-			this->init();
-			isPlay = false;
+		if (!isPlay) {
+			if (first) {
+				this->init();
+				first = false;
+			}
+			//isPlay = false;
 			continue;
 		}
 
 		time.restart();
-		//AVFrame* avFrameCopy = av_frame_alloc();
-		//int buffer_size = av_image_get_buffer_size((enum AVPixelFormat)avFrame->format, videoWidth, videoHeight, 1);
-		//buffer = (uint8_t*)av_malloc(sizeof(uint8_t) * buffer_size);
-		//av_image_fill_arrays(avFrameCopy->data, avFrameCopy->linesize, buffer, (enum AVPixelFormat)avFrame->format, videoWidth, videoHeight, 1);
-		//if (!avFrameCopy) {
-		//	break;
-		//}
+		AVFrame* copyFrame = av_frame_alloc();
+		copyFrame->format = avFrame->format;
+		copyFrame->width = avFrame->width;
+		copyFrame->height = avFrame->height;
+		copyFrame->channels = avFrame->channels;
+		copyFrame->channel_layout = avFrame->channel_layout;
+		copyFrame->nb_samples = avFrame->nb_samples;
+		av_frame_get_buffer(copyFrame, 32);
+		av_frame_copy(copyFrame, avFrame);
+		av_frame_copy_props(copyFrame, avFrame);
+		if (!copyFrame) {
+			qDebug() << TIMEMS << "null copyImage";
+			break;
+		}
 		//处理一帧
 		if (av_read_frame(avFormatContext, avPacket) >= 0) {
 			if (avPacket->stream_index == videoStreamIndex) {
@@ -209,6 +224,7 @@ void XFFmpeg::run()
 
 				if (ret < 0) {
 					fprintf(stderr, "Error sending a packet for decoding\n");
+					qDebug() << stderr << "Error sending a packet for decoding\n";
 					break;
 				}
 
@@ -218,35 +234,41 @@ void XFFmpeg::run()
 						break;
 					else if (ret < 0) {
 						fprintf(stderr, "Error during decoding\n");
+						qDebug() << stderr << "Error during decoding\n\n";
 						break;
 					}
 					fflush(stdout);
 
-					//emit receiveTotalVideoTime(totalVideoTime);
+					if (totalVideoTime)
+						emit receiveTotalVideoTime(totalVideoTime);
 					currentVideoTime = avFrame->pts * AVRationalr2Double(avFormatContext->streams[avPacket->stream_index]->time_base);
 					if(currentVideoTime)
 						emit receiveCurrentVideoTime(currentVideoTime);
 
-					sws_scale(swsContext, avFrame->data, avFrame->linesize, 0, videoHeight, avFrame->data, avFrame->linesize);
-					QImage image((uchar*)buffer, videoWidth, videoHeight, QImage::Format_RGB32);
+
+					sws_scale(swsContext, (const uint8_t* const*)avFrame->data, avFrame->linesize, 0, videoHeight, outputDst, outputLineSize);
+					
+					//QImage image(copyFrame->data[0], videoWidth, videoHeight, QImage::Format_RGB888);
+					//QImage image((uchar*)buffer, videoWidth, videoHeight, QImage::Format_RGB32);
 					if (!image.isNull()) {
 						emit receiveImage(image);
+						qDebug() << TIMEMS << "显示一帧";
+					}
+					else {
+						qDebug() << TIMEMS << "Corrupted Qimage";
 					}
 					//if (avFrame) {
 					//	emit receiveImage(&avFrame);
 					//}
 					msleep(10);
-					//cv_frame = Avframe2cvMat(avFrame, videoWidth, videoHeight);
-
 				}
-				qDebug() << TIMEMS << "显示一帧";
 			}
 		}
-		//av_frame_free(&avFrameCopy);
-
+		av_frame_free(&copyFrame);
 	}
+	free(outputDst);
 	//线程结束释放资源
-	free();
+	releaseMem();
 	Abort = false;
 	isPlay = false;
 	qDebug() << TIMEMS << "stop ffmpeg thread";
@@ -286,7 +308,7 @@ cv::Mat XFFmpeg::Avframe2cvMat(AVFrame* avframe, int w, int h)
 	return mat;
 }
 
-void XFFmpeg::free()
+void XFFmpeg::releaseMem()
 {
 	//释放转码结构体
 	if (swsContext != NULL) {
@@ -366,20 +388,9 @@ double XFFmpeg::getFrameRate(void)
 	return frame_rate;
 }
 
-double XFFmpeg::getCurrentVideoTime()
+void XFFmpeg::onGetIsPlay(const bool& isPlay)
 {
-	mutex.lock();
-	double time = currentVideoTime;
-	mutex.unlock();
-	return time;
-}
-
-double XFFmpeg::getTotalVideoTime()
-{
-	mutex.lock();
-	double time = totalVideoTime;
-	mutex.unlock();
-	return time;
+	this->isPlay = isPlay;
 }
 
 void XFFmpeg::play()
