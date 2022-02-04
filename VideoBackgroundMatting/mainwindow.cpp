@@ -10,6 +10,7 @@ MainWindow::MainWindow(QWidget* parent) :QMainWindow(parent), ui(new Ui::MainWin
 	ui->pushButton_3->setDisabled(true);
 	ui->pushButton_4->setDisabled(true);
 
+
 	setWindowFlags(windowFlags() & ~Qt::WindowMaximizeButtonHint);    // 禁止最大化按钮
 	setFixedSize(this->width(), this->height());                     // 禁止拖动窗口大小
 
@@ -1220,8 +1221,8 @@ void MainWindow::on_action_V_triggered()
 	XFFmpeg* ffmpeg = new XFFmpeg(this);
 	connect(ffmpeg, SIGNAL(receiveTotalVideoTime(double)), this, SLOT(onGetTotalVideoTime(double)));
 	connect(ffmpeg, SIGNAL(receiveCurrentVideoTime(double)), this, SLOT(onGetCurrentVideoTime(double)));
-	connect(ffmpeg, SIGNAL(receiveImage(QImage)), this, SLOT(onTimeout(QImage)));
-	connect(this, SIGNAL(receiveIsPlay(isPlay)), ffmpeg, SLOT(onGetIsPlay(isPlay)));
+	connect(ffmpeg, SIGNAL(receiveImage(QImage)), this, SLOT(onDisplayImage(QImage)));
+	connect(this, SIGNAL(receiveIsPlay(bool)), ffmpeg, SLOT(onGetIsPlay(bool)));
 
 	ffmpeg->Open(video_path);
 
@@ -1230,13 +1231,13 @@ void MainWindow::on_action_V_triggered()
 	isPlay = !isPlay;
 	ui->pushButton_6->setStyleSheet("border-radius:32px;"
 		"background-image: url(:/myImage/images/stop.png);border:none;");
-
+	
 	ffmpeg->start();
 
 }
 
 //ffmpeg->start()响应
-void MainWindow::onTimeout(const QImage& image)
+void MainWindow::onDisplayImage(const QImage& image)
 {
 	Mat cv_frame;
 	cv::Mat tmp(image.height(), image.width(), CV_8UC3, (uchar*)image.bits(), image.bytesPerLine());
@@ -1244,26 +1245,15 @@ void MainWindow::onTimeout(const QImage& image)
 	cvtColor(tmp, cv_frame, CV_BGR2RGB);
 	tmp.~Mat();
 
-	//AVFrame* copyFrame = av_frame_alloc();
-	//copyFrame->format = frame->format;
-	//copyFrame->width = frame->width;
-	//copyFrame->height = frame->height;
-	//copyFrame->channels = frame->channels;
-	//copyFrame->channel_layout = frame->channel_layout;
-	//copyFrame->nb_samples = frame->nb_samples;
-	//av_frame_get_buffer(copyFrame, 32);
-	//av_frame_copy(copyFrame, frame);
-	//av_frame_copy_props(copyFrame, frame);
 	//cv_frame = Avframe2cvMat(copyFrame,-1,-1);
 	//if (cv_frame.empty())
 	//    QMessageBox::warning(nullptr, "提示", "转换！(Line: 1329)", QMessageBox::Yes | QMessageBox::Yes);
 	//av_frame_free(&copyFrame);
 
-
 	//视频处理
-	if (!capture.read(cv_frame)) {
-		return;
-	}
+	//if (!capture.read(cv_frame)) {
+	//	return;
+	//}
 
 	if (type == 1) {
 		//image=gray2(image);
@@ -1413,13 +1403,11 @@ void MainWindow::on_pushButton_6_clicked()
 	if (isPlay)
 	{
 		isPlay = false;
-		//ffmpeg->pause();
 		ui->pushButton_6->setStyleSheet("border-radius:32px;"
 			"background-image: url(:/myImage/images/start.png);border:none;");
 	}
 	else {
 		isPlay = true;
-		//ffmpeg->play();
 		ui->pushButton_6->setStyleSheet("border-radius:32px;"
 			"background-image: url(:/myImage/images/stop.png);border:none;");
 	}

@@ -99,7 +99,7 @@ private slots:
 
     void on_pushButton_clicked();
 
-    void onTimeout(const QImage& image);
+    void onDisplayImage(const QImage& image);
     void onGetCurrentVideoTime(const double& time);
     void onGetTotalVideoTime(const double& time);
 

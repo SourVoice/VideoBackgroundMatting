@@ -40,26 +40,21 @@ class XFFmpeg : public QThread
 {
 	Q_OBJECT
 public:
-
 	explicit XFFmpeg(QObject* parent = 0);
+	virtual ~XFFmpeg();
+
 	static void initalizeLib();								//初始注册
 	bool XFFmpeg::init();
 	void Open(const QString& fileInput);					//打开视频文件
 	cv::Mat Avframe2cvMat(AVFrame* avframe, int w, int h);	//Avframe*转为openCV中的Mat
-	void free();											//释放解码过程产生的内存
+	void releaseMem();										//释放解码过程产生的内存
 	void Close();											//关闭文件
 	std::string GetError();									//获取错误信息
-	virtual ~XFFmpeg();
 
 	static double AVRationalr2Double(AVRational r);			//计算avrational得到时间
 	double getFrameRate(void);								//获取每秒帧数
-	double getCurrentVideoTime();
-	double getTotalVideoTime();
-
-
 
 signals:
-
 	void receiveImage(const QImage&image);					//收到图片信号
 	void receiveTotalVideoTime(const double& time);
 	void receiveCurrentVideoTime(const double& time);
@@ -68,13 +63,13 @@ public slots:
 	void onGetIsPlay(const bool& isPlay);
 	void play();
 	void pause();
+
 protected:
-	void run();						//覆写run实现进程
+	void run();							//覆写run实现进程
 
 private:
-	char errorbuff[1024];			//打开时发生的错误信息
-	QMutex mutex;					//互斥变量，多线程时避免同时间的读写
-
+	char errorbuff[1024];				//打开时发生的错误信息
+	QMutex mutex;						//互斥变量，多线程时避免同时间的读写
 	QTime time;
 
 	uint8_t* buffer;					//存储解码后图片buffer
@@ -89,11 +84,14 @@ private:
 	AVDictionary* Options;				//参数对象
 	AVCodec* videoCodec;				//视频解码器
 	AVCodec* audioDecoder;				//音频解码器
+	//QImage image;
 
 public:
+	QString path;
 	char *in_file;						//视频地址(文件)
 	volatile bool Abort = false;		//线程停止标志位
 	volatile bool isPlay = true;		//播放视频标志位
+	bool first = true;					//第一帧
 	int stream_index = -1;				//解码信息( 0 for video and 1 for audio)
 	int videoStreamIndex = -1;			//解码信息( 0 for video and 1 for audio)
 	int audioStreamIndex = -1;			//解码信息( 0 for video and 1 for audio)
