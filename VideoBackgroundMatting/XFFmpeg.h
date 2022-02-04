@@ -55,8 +55,7 @@ public:
 	double getFrameRate(void);								//获取每秒帧数
 	double getCurrentVideoTime();
 	double getTotalVideoTime();
-	void play();
-	void pause();
+
 
 
 signals:
@@ -65,7 +64,10 @@ signals:
 	void receiveTotalVideoTime(const double& time);
 	void receiveCurrentVideoTime(const double& time);
 
-
+public slots:
+	void onGetIsPlay(const bool& isPlay);
+	void play();
+	void pause();
 protected:
 	void run();						//覆写run实现进程
 

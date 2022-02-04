@@ -23,7 +23,9 @@ XFFmpeg::XFFmpeg(QObject* parent) :QThread(parent)
 	videoCodec = nullptr;
 	audioDecoder = nullptr;
 
+
 	XFFmpeg::initalizeLib();
+
 }
 
 //软件中 只需初始化一次
@@ -188,7 +190,7 @@ void XFFmpeg::run()
 		//QCoreApplication::processEvents();   //处理事件
 
 		//根据标志位执行初始化操作
-		if (isPlay) {
+		if (!isPlay) {
 			this->init();
 			isPlay = false;
 			continue;
@@ -222,12 +224,14 @@ void XFFmpeg::run()
 					}
 					fflush(stdout);
 
-					//emit receiveTotalVideoTime(totalVideoTime);
+					emit receiveTotalVideoTime(totalVideoTime);
 					currentVideoTime = avFrame->pts * AVRationalr2Double(avFormatContext->streams[avPacket->stream_index]->time_base);
 					if(currentVideoTime)
 						emit receiveCurrentVideoTime(currentVideoTime);
 
 					sws_scale(swsContext, avFrame->data, avFrame->linesize, 0, videoHeight, avFrame->data, avFrame->linesize);
+					//QImage image(avFrame->data[0], videoWidth, videoHeight, QImage::Format_RGB32);
+
 					QImage image((uchar*)buffer, videoWidth, videoHeight, QImage::Format_RGB32);
 					if (!image.isNull()) {
 						emit receiveImage(image);
@@ -380,6 +384,11 @@ double XFFmpeg::getTotalVideoTime()
 	double time = totalVideoTime;
 	mutex.unlock();
 	return time;
+}
+
+void XFFmpeg::onGetIsPlay(const bool& isPlay)
+{
+	this->isPlay = !isPlay;
 }
 
 void XFFmpeg::play()

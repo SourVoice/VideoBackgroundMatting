@@ -1221,12 +1221,13 @@ void MainWindow::on_action_V_triggered()
 	connect(ffmpeg, SIGNAL(receiveTotalVideoTime(double)), this, SLOT(onGetTotalVideoTime(double)));
 	connect(ffmpeg, SIGNAL(receiveCurrentVideoTime(double)), this, SLOT(onGetCurrentVideoTime(double)));
 	connect(ffmpeg, SIGNAL(receiveImage(QImage)), this, SLOT(onTimeout(QImage)));
+	connect(this, SIGNAL(receiveIsPlay(isPlay)), ffmpeg, SLOT(onGetIsPlay(isPlay)));
 
 	ffmpeg->Open(video_path);
 
 	type = 0;                                               //默认打开不进行处理
-
-	isStart = !isStart;
+	
+	isPlay = !isPlay;
 	ui->pushButton_6->setStyleSheet("border-radius:32px;"
 		"background-image: url(:/myImage/images/stop.png);border:none;");
 
@@ -1308,8 +1309,7 @@ void MainWindow::onTimeout(const QImage& image)
 	ui->label_11->setAlignment(Qt::AlignCenter);
 	ui->label_11->repaint();
 
-
-	////=====================================进度位置()
+	//=====================================进度位置
 	ui->VideohorizontalSlider_2->setValue(currentVideoTime);
 	ui->VideohorizontalSlider_2->setMaximum(totalVideoTime);
 
@@ -1388,12 +1388,12 @@ Mat MainWindow::Avframe2cvMat(AVFrame* avframe, int w, int h)
 }
 
 //进度条随视频移动
-void MainWindow::updatePosition() {
-	long totalFrameNumber = capture.get(CAP_PROP_FRAME_COUNT);
-	ui->VideohorizontalSlider_2->setMaximum(totalFrameNumber);
-	long frame = capture.get(CAP_PROP_POS_FRAMES);
-	ui->VideohorizontalSlider_2->setValue(frame);
-}
+//void MainWindow::updatePosition() {
+//	long totalFrameNumber = capture.get(CAP_PROP_FRAME_COUNT);
+//	ui->VideohorizontalSlider_2->setMaximum(totalFrameNumber);
+//	long frame = capture.get(CAP_PROP_POS_FRAMES);
+//	ui->VideohorizontalSlider_2->setValue(frame);
+//}
 
 //秒转分函数
 QString MainWindow::stom(int s) {
@@ -1410,19 +1410,20 @@ QString MainWindow::stom(int s) {
 //暂停/播放
 void MainWindow::on_pushButton_6_clicked()
 {
-	if (isStart)
+	if (isPlay)
 	{
-		isStart = false;
-		ffmpeg->pause();
+		isPlay = false;
+		//ffmpeg->pause();
 		ui->pushButton_6->setStyleSheet("border-radius:32px;"
 			"background-image: url(:/myImage/images/start.png);border:none;");
 	}
 	else {
-		isStart = true;
-		ffmpeg->play();
+		isPlay = true;
+		//ffmpeg->play();
 		ui->pushButton_6->setStyleSheet("border-radius:32px;"
 			"background-image: url(:/myImage/images/stop.png);border:none;");
 	}
+	emit receiveIsPlay(isPlay);
 }
 
 //灰度
@@ -1436,12 +1437,11 @@ void MainWindow::on_pushButton_8_clicked()
 	type = 0;
 }
 
-
 //进度条
-void MainWindow::on_VideohorizontalSlider_2_valueChanged(int value)
-{
-	capture.set(CAP_PROP_POS_FRAMES, value);
-}
+//void MainWindow::on_VideohorizontalSlider_2_valueChanged(int value)
+//{
+//	capture.set(CAP_PROP_POS_FRAMES, value);
+//}
 
 //均值滤波
 void MainWindow::on_pushButton_9_clicked()

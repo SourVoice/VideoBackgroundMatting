@@ -79,7 +79,7 @@ public:
     int type = 0;                                                   //视频操作类型
     double currentVideoTime = 0;
     double totalVideoTime = 0;
-    bool isStart = false;
+    bool isPlay = false;
     
     //其他
 public:
@@ -87,6 +87,9 @@ public:
     QMessageBox customMsgBox;
 
     bool language = true;
+
+signals:
+    void receiveIsPlay(const bool& isPlay);
 
 private slots:
 
@@ -100,7 +103,7 @@ private slots:
     void onGetCurrentVideoTime(const double& time);
     void onGetTotalVideoTime(const double& time);
 
-    void updatePosition();
+    //void updatePosition();
 
     void on_action_Save_triggered();
 
@@ -148,7 +151,7 @@ private slots:
 
     void on_pushButton_8_clicked();
 
-    void on_VideohorizontalSlider_2_valueChanged(int value);
+    //void on_VideohorizontalSlider_2_valueChanged(int value);
 
     void on_pushButton_9_clicked();
 
