@@ -2,17 +2,16 @@
 #include "BackgroundMatting.h"
 
 
-BackgroundMatting::BackgroundMatting(int model_size)
+BackgroundMatting::BackgroundMatting()
 {
 	is_first = true;
 	device_count = 8;
 #if NCNN_VULKAN
 	device_count = ncnn::get_gpu_count();
 	net.opt.use_vulkan_compute = 1;
-#endif
-
 	net.opt.num_threads = device_count;
-	load(model_size);
+#endif
+	net.opt.num_threads = device_count;
 }
 
 

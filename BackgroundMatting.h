@@ -5,7 +5,7 @@
 class BackgroundMatting
 {
 public:
-	BackgroundMatting(int model_size=512);
+	BackgroundMatting();
 	~BackgroundMatting();
 
 	void load(int model_size=512);

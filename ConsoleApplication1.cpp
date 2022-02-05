@@ -7,18 +7,16 @@
 #include "BackgroundMatting.h"
 #include <net.h>
 #include "VideoWriter.h"
-#include "VideoReader.h"
 #include <ctime>
 
 #pragma comment(lib, "./lib/avcodec.lib")
 #pragma comment(lib, "./lib/avutil.lib")
 #pragma comment(lib, "./lib/avformat.lib")
-#pragma comment(lib, "./lib/swscale.lib")
 
 void test_image()
 {
 	BackgroundMatting bgm;
-	//bgm.load();
+	bgm.load();
 	cv::Mat img = cv::imread("E:/000000000785.jpg");
 	cv::cvtColor(img, img, cv::COLOR_BGR2RGB);
 	cv::Mat alpha;
@@ -99,13 +97,13 @@ void test_video_matting_ffmpeg()
 	double fps = capture.get(cv::CAP_PROP_FPS);
 	VideoWriter writer = VideoWriter(1440, 1080, "test_mat_ffmpeg.mp4", (int)fps);
 	BackgroundMatting bgm;
-	//bgm.load();
+	bgm.load();
 	cv::Mat alpha;
 	int i = 1;
 
 	double total = 0.0;
 	double start = clock();
-	while (i <= 1800)
+	while (i <= 200)
 	{
 		cv::Mat frame;
 		capture >> frame;
@@ -155,90 +153,8 @@ void test_opencv_matting()
 	capture.release();
 	writer.release();
 }
-
-//#include <thread>
-//#include <condition_variable>
-//#include <list>
-//#include <iomanip>
-//using namespace std;
-//
-//std::mutex mtx;
-//std::condition_variable oneFinished;
-//
-//const int MAX_QUEUE_LENGTH = 5;
-//const int TOTAL_TEST_NUMBER = 300 * 6;
-//std::queue<cv::Mat> arr;
-//
-//cv::VideoCapture capture("test.flv");
-//double fps = capture.get(cv::CAP_PROP_FPS);
-//VideoWriter writer = VideoWriter(1440, 1080, "test_mat_ffmpeg.mp4", (int)fps);
-//BackgroundMatting t_bgm;
-//cv::Mat alpha;
-//
-//int i = 1;
-//
-//
-//void producer()
-//{
-//	while (true)
-//	{
-//		std::unique_lock<std::mutex> lock(mtx);
-//		if (i >= TOTAL_TEST_NUMBER)
-//		{
-//			break;
-//		}
-//		oneFinished.wait(lock, []() {return arr.size() < MAX_QUEUE_LENGTH; });
-//		cv::Mat frame;
-//		capture >> frame;
-//		cv::cvtColor(frame, frame, cv::COLOR_BGR2RGB);
-//		
-//		arr.push(frame);
-//		i++;
-//		oneFinished.notify_all();
-//	}
-//}
-//
-//void consumer()
-//{
-//	while (true)
-//	{
-//		std::unique_lock<std::mutex> lock(mtx);
-//		if (i >= TOTAL_TEST_NUMBER && arr.empty())
-//		{
-//			break;
-//		}
-//		oneFinished.wait(lock, []() { return arr.size() > 0; });
-//		
-//		cv::Mat frame = arr.front();
-//		arr.pop();
-//		t_bgm.draw(frame, alpha);
-//		writer.write(frame);
-//		
-//		oneFinished.notify_all();
-//	}
-//}
-
-
-void test_video_read_ffmpeg() 
+int main()
 {
-	VideoReader reader("test.flv");
-	reader.read();
-}
-
-int main1(int argc, char *argv[])
-{
-	test_video_read_ffmpeg();
-	//test_video_matting_ffmpeg();
-
-	//std::thread p(producer);
-	//std::thread c(consumer);
-	//double start = clock();
-	//p.join();
-	//c.join();
-	//double current = clock();
-	//
-	//std::cout << (current - start) / i << "ms" << std::endl;
-	//writer.flush();
-	//capture.release();
+	test_video_matting_ffmpeg();
 	return 0;
 }
