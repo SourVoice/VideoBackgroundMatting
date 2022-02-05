@@ -13,10 +13,12 @@ extern "C"
 #define WIDTH 1440
 #define HEIGHT 1080
 
-cv::Mat AVFrame2Img(AVFrame *pFrame)
+void AVFrame2Img(AVFrame *pFrame)
 {
 	int frameHeight = pFrame->height;
 	int frameWidth = pFrame->width;
+	int channels = 3;
+	
 	
 	//创建保存yuv数据的buffer
 	uchar* pDecodedBuffer = (uchar*)malloc(frameHeight*frameWidth * sizeof(uchar)* 3 / 2);
@@ -48,13 +50,15 @@ cv::Mat AVFrame2Img(AVFrame *pFrame)
 	cv::Mat img = cv::Mat(frameHeight * 3 / 2, frameWidth, CV_8UC1, pDecodedBuffer);
 	cv::Mat bgr;
 	cv::cvtColor(img, bgr, cv::COLOR_YUV420p2RGB);
+	cv::imshow("", bgr);
+	cv::waitKey(10);
 	//释放buffer
 	free(pDecodedBuffer);
-	return bgr;
+
 }
 
 
-int decode_video2(std::string input_filename)
+int decode_video2(std::string input_filename, std::string output_filename)
 {
 	int ret = 0;
 
@@ -64,7 +68,6 @@ int decode_video2(std::string input_filename)
 
 	AVPacket* pkt = NULL;
 	AVFrame* frame = NULL;
-
 
 	pkt = av_packet_alloc();
 
@@ -86,47 +89,45 @@ int decode_video2(std::string input_filename)
 	}
 	av_dump_format(ifmt_ctx, 0, input_filename.data(), 0);
 
-	int video_stream_idx = -1;
-	for (size_t i = 0; i < ifmt_ctx->nb_streams; i++)
+
+	// 2、find解码器
+	auto decoders = { AV_CODEC_ID_MPEG4, AV_CODEC_ID_H264 };
+	for(const auto& decoder : decoders)
 	{
-		if (ifmt_ctx->streams[i]->codecpar->codec_type == AVMEDIA_TYPE_VIDEO)
+		codec = avcodec_find_decoder(decoder);
+		if (codec == NULL) continue;
+
+		// 3、分配解码器上下文
+		codec_ctx = avcodec_alloc_context3(codec);
+		if (codec_ctx == NULL)
 		{
-			//avcodec_parameters_to_context(codec_ctx, ifmt_ctx->streams[i]->codecpar);
-			video_stream_idx = i;
+			std::cout << "avcodec_alloc_context3 error, trying to find another decoder" << std::endl;
+			continue;
+		}
+
+		// 4、获取解码参数，支持mp4/H264文件,这几行代码非常重要，否则不能解码mp4到yuv
+		for (size_t i = 0; i < ifmt_ctx->nb_streams; i++)
+		{
+			if (ifmt_ctx->streams[i]->codecpar->codec_type == AVMEDIA_TYPE_VIDEO)
+			{
+				avcodec_parameters_to_context(codec_ctx, ifmt_ctx->streams[i]->codecpar);
+				break;
+			}
+		}
+		
+		// 5、open解码器
+		ret = avcodec_open2(codec_ctx, codec, NULL);
+		if (ret < 0)
+		{
+			std::cout << "avcodec_open2 error, trying to find another decoder, ret=" << ret << std::endl;
+			continue;
+		}
+		else 
+		{
+			std::cout << "success to open decoder" << std::endl;
 			break;
 		}
 	}
-	if (video_stream_idx == -1) {
-		exit(1);
-	}
-	// 2、find解码器
-	
-	codec = (AVCodec*)avcodec_find_decoder(ifmt_ctx->streams[video_stream_idx]->codecpar->codec_id);
-	if (codec == NULL) {
-		exit(1);
-	}
-
-	// 3、分配解码器上下文
-	codec_ctx = avcodec_alloc_context3(codec);
-	if (codec_ctx == NULL)
-	{
-		std::cout << "avcodec_alloc_context3 error" << std::endl;
-	}
-
-	// 4、获取解码参数，支持mp4/H264文件,这几行代码非常重要，否则不能解码mp4到yuv
-	//设置加速解码
-	codec_ctx->lowres = codec->max_lowres;
-	codec_ctx->flags2 |= AV_CODEC_FLAG2_FAST;
-	avcodec_parameters_to_context(codec_ctx, ifmt_ctx->streams[video_stream_idx]->codecpar);
-		
-	// 5、open解码器
-	ret = avcodec_open2(codec_ctx, codec, NULL);
-	if (ret < 0)
-	{
-		std::cout << "avcodec_open2 error, ret=" << ret << std::endl;
-		exit(1);
-	}
-	
 
 	while (av_read_frame(ifmt_ctx, pkt) >= 0)
 	{
@@ -147,9 +148,7 @@ int decode_video2(std::string input_filename)
 					std::cout << "avcodec_receive_packet: " << ret << std::endl;
 					continue;
 				}
-				cv::Mat img = AVFrame2Img(frame);
-				cv::imshow("", img);
-				cv::waitKey(1);
+				AVFrame2Img(frame);
 			}
 			av_packet_unref(pkt);
 			if (ret < 0)
@@ -168,7 +167,7 @@ int decode_video2(std::string input_filename)
 	return 0;
 }
 
-int main() {
-	decode_video2("test.flv");
+int main2() {
+	decode_video2("test_out_opendeopenenc.mp4", "test.yuv");
 	return 0;
 }
