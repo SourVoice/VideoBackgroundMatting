@@ -10,8 +10,6 @@ extern "C"
 #include <iostream>
 #include <opencv2/opencv.hpp>
 
-#define INBUF_SIZE 1920*1080
-
 
 class VideoReader
 {
@@ -21,9 +19,15 @@ public:
 	int init();
 	void flush();
 	int read(cv::Mat &frame);
+	int get_fps();
+	int get_frame_cnt();
+	int get_bit_rate();
+	int get_width();
+	int get_height();
+	int get_video_stream_idx();
 
 private:
-	cv::Mat AVFrame2Img(AVFrame *pFrame);
+	int AVFrame2Img(AVFrame *pFrame, cv::Mat &mat);
 
 	AVFormatContext* ifmt_ctx = NULL;
 	const AVCodec* codec = NULL;
@@ -31,7 +35,11 @@ private:
 
 	AVPacket* pkt = NULL;
 	AVFrame* frame = NULL;
-	//bool is_finished = false;
 	std::string in_filename;
+	int video_stream_idx = -1;
+	int frame_cnt;
+	int fps;
+	int bit_rate;
+	int width;
+	int height;
 };
-

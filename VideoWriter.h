@@ -10,12 +10,13 @@ extern "C"
 #include <libavutil/imgutils.h>
 #include <libavutil/frame.h>
 #include <libavformat/avformat.h>
+#include <libswscale/swscale.h>
 }
 
 class VideoWriter
 {
 public:
-	VideoWriter(int w, int h, std::string file_out, int fps);
+	VideoWriter(int w, int h, std::string file_out, int fps, int bit_rate);
 	~VideoWriter();
 
 	int init();
@@ -23,8 +24,8 @@ public:
 	int flush();
 
 private:
-	int fps = 30;
-	int bit_rate = 2048 * 1024;
+	int fps = -1;
+	int bit_rate = 0;
 	int input_w, input_h;
 	std::string filename_out;
 
@@ -38,7 +39,9 @@ private:
 	AVCodecID codec_id = AV_CODEC_ID_H264;
 	uint8_t* y_buf;
 	uint8_t* uv_buf;
-
+	int y_step;
+	int uv_step;
+	//SwsContext *sws_context = NULL;
 	void rgb2nv12(cv::Mat bgr);
 	
 };

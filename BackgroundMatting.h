@@ -5,10 +5,10 @@
 class BackgroundMatting
 {
 public:
-	BackgroundMatting();
+	BackgroundMatting(int model_size=512);
 	~BackgroundMatting();
 
-	void load(int model_size=512);
+	void load();
 	void process(cv::Mat bgr, cv::Mat &mask, cv::Mat &foreground);
 	int draw(cv::Mat &img, cv::Mat &alpha);
 
@@ -24,5 +24,6 @@ private:
 	ncnn::Mat r4o, r3o, r2o, r1o;
 	bool is_first;
 	int device_count; 
+	int model_size;
 };
 

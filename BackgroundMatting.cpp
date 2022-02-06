@@ -2,16 +2,17 @@
 #include "BackgroundMatting.h"
 
 
-BackgroundMatting::BackgroundMatting()
+BackgroundMatting::BackgroundMatting(int model_size)
 {
+	this->model_size = model_size;
 	is_first = true;
 	device_count = 8;
 #if NCNN_VULKAN
 	device_count = ncnn::get_gpu_count();
 	net.opt.use_vulkan_compute = 1;
-	net.opt.num_threads = device_count;
 #endif
 	net.opt.num_threads = device_count;
+	load();
 }
 
 
@@ -19,7 +20,7 @@ BackgroundMatting::~BackgroundMatting()
 {
 }
 
-void BackgroundMatting::load(int model_size)
+void BackgroundMatting::load()
 {
 	target_size = model_size;
 	if (model_size == 512) {

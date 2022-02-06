@@ -2,26 +2,22 @@
 #include "VideoWriter.h"
 
 
-VideoWriter::VideoWriter(int w, int h, std::string file_out, int fps)
+VideoWriter::VideoWriter(int w, int h, std::string file_out, int fps, int bit_rate)
 {
 	this->fps = fps;
-	this->bit_rate = 1000 * (w > h ? w : h) * 2;
+	this->bit_rate = bit_rate;
 	input_w = w;
 	input_h = h;
 	filename_out = file_out;
 	frame_cnt = 0;
-	int32_t y_size = w * h * 3 / 2;
-	int32_t uv_size = y_size / 2;
-	y_buf = (uint8_t*)_aligned_malloc(y_size, 64);
-	uv_buf = (uint8_t*)_aligned_malloc(uv_size, 64);
 	init();
 }
 
 
 VideoWriter::~VideoWriter()
 {
-	_aligned_free(y_buf);
-	_aligned_free(uv_buf);
+	free(y_buf);
+	free(uv_buf);
 
 	avcodec_free_context(&pCodecCtx);
 	av_frame_free(&pFrame);
@@ -54,7 +50,7 @@ int VideoWriter::init()
 	vStream->codecpar->format = AV_PIX_FMT_NV12;
 	vStream->codecpar->codec_type = AVMEDIA_TYPE_VIDEO;
 	vStream->codecpar->codec_id = AV_CODEC_ID_H264;// AV_CODEC_ID_H264;
-	vStream->codecpar->sample_aspect_ratio = av_make_q(4, 3);  // 这里设置4：3，视频就可以按照16：9显示
+	//vStream->codecpar->sample_aspect_ratio = input_w >= input_h ? AVRational{ 4, 3 } : AVRational{3, 4};  // 这里设置4：3，视频就可以按照16：9显示
 	
 	pCodec = avcodec_find_encoder_by_name("h264_qsv");
 	//pCodec = avcodec_find_encoder_by_name("libx264");
@@ -104,6 +100,17 @@ int VideoWriter::init()
 		return -1;
 	}
 
+	//sws_context = sws_getCachedContext(sws_context,
+	//	input_w, input_h, AV_PIX_FMT_BGR24,    // 源格式
+	//	input_w, input_h, AV_PIX_FMT_NV12,  // 目标格式
+	//	SWS_BICUBIC,    // 尺寸变化使用算法
+	//	0, 0, 0);
+
+	//if (NULL == sws_context) {
+	//	std::cout << "sws Context error" << std::endl;
+	//	return -1;
+	//}
+
 	pFrame = av_frame_alloc();
 	if (!pFrame) {
 		av_log(nullptr, AV_LOG_FATAL, "Failed to allocate an AVFrame.\n");
@@ -113,12 +120,22 @@ int VideoWriter::init()
 	pFrame->width = pCodecCtx->width;
 	pFrame->height = pCodecCtx->height;
 	pFrame->format = pCodecCtx->pix_fmt;
-
+	
 	//Allocate new buffer(s) for audio or video data
 	if (av_frame_get_buffer(pFrame, 0) < 0) {
 		av_log(nullptr, AV_LOG_FATAL, "Could not allocate the video frame data.\n");
 		return -1;
 	}
+	//av_frame_make_writable(pFrame);
+
+	y_step = pFrame->linesize[0];
+	uv_step = pFrame->linesize[1];
+
+	y_buf = (uint8_t *)malloc(y_step * input_h);
+	uv_buf = (uint8_t *)malloc(uv_step * input_h);
+	memset(y_buf, 0, y_step * input_h);
+	memset(uv_buf, 0, uv_step * input_h);
+
 
 	AVDictionary* opt = NULL;
 
@@ -131,12 +148,27 @@ int VideoWriter::init()
 	return 1;
 }
 
-int VideoWriter::write(cv::Mat bgr)
+int VideoWriter::write(cv::Mat rgb)
 {
-	rgb2nv12(bgr);
+	rgb2nv12(rgb);
+
+	//uint8_t *in_data[AV_NUM_DATA_POINTERS] = { 0 };
+	//in_data[0] = rgb.data;
+	//int in_size[AV_NUM_DATA_POINTERS] = { 0 };
+	//// 一行（宽）数据的字节数
+	//in_size[0] = rgb.cols * rgb.elemSize();
+	//int h = sws_scale(sws_context, in_data, in_size, 0, rgb.rows,
+	//	pFrame->data, pFrame->linesize);
+	//if (h <= 0) { 
+	//	av_log(nullptr, AV_LOG_FATAL, "sws scale failed.\n");
+	//	return -1;
+	//}
+
 	pFrame->data[0] = y_buf;
 	pFrame->data[1] = uv_buf;
 	pFrame->pts = frame_cnt++;
+
+
 	int res = avcodec_send_frame(pCodecCtx, pFrame);
 	if (res < 0) {
 		av_log(nullptr, AV_LOG_FATAL, "Error sending a frame for encoding.\n");
@@ -161,6 +193,7 @@ int VideoWriter::write(cv::Mat bgr)
 	}
 
 	//av_log(nullptr, AV_LOG_INFO, "frame pts: %d\n", i);
+	return 0;
 }
 
 
@@ -176,21 +209,32 @@ void VideoWriter::rgb2nv12(cv::Mat rgb)
 	int32_t y_width = yuv_mat.cols;
 
 	// copy y data
-	int32_t y_size = y_height * y_width;
-	memcpy(y_buf, yuv, y_size);
-
-	// copy uv data
-	int32_t u_size = y_size / 4;
-
-	uint8_t *uv_p = uv_buf;
-	uint8_t *u_data = yuv + y_size;
-	uint8_t *v_data = u_data + u_size;
-
-
-	for (int32_t j = 0; j < u_size; j++) {
-		*uv_p++ = *u_data++;
-		*uv_p++ = *v_data++;
+	int32_t y_size_ = y_height * y_width;
+	for (int i = 0; i < y_height; i++)
+	{
+		memcpy(y_buf + i * y_step, yuv + i * y_width, y_width);
 	}
+	int uv_height = y_height / 2;
+	int u_size = y_size_ / 4;
+	uint8_t *uv_p = uv_buf;
+	uint8_t *u_data = yuv + y_size_;
+	uint8_t *v_data = u_data + u_size;
+	
+	for (int32_t k = 0; k < uv_height; k++)
+	{
+		uv_p = uv_buf + k * uv_step;
+		for (int32_t i = 0; i < y_width / 2; i++)
+		{
+			*uv_p++ = *u_data++;
+			*uv_p++ = *v_data++;
+		}
+	}
+	//
+	//	for (int32_t j = 0; j < u_size; j++) {
+	//		*uv_p++ = *u_data++;
+	//		*uv_p++ = *v_data++;
+	//	}
+	//}
 }
 
 int VideoWriter::flush()
