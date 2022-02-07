@@ -17,9 +17,11 @@
     <QtMoc Include="XFFmpeg.h" />
     <QtMoc Include="videosurface.h" />
     <QtMoc Include="mainwindow.h" />
+    <QtMoc Include="BGProcess.h" />
     <ClInclude Include="x64\Debug\uic\ui_mainwindow.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BGProcess.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mainwindow.cpp" />
     <ClCompile Include="videosurface.cpp" />

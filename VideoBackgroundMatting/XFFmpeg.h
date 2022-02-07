@@ -44,7 +44,7 @@ public:
 	virtual ~XFFmpeg();
 
 	static void initalizeLib();								//初始注册
-	bool XFFmpeg::init();
+	bool init();
 	void Open(const QString& fileInput);					//打开视频文件
 	cv::Mat Avframe2cvMat(AVFrame* avframe, int w, int h);	//Avframe*转为openCV中的Mat
 	void releaseMem();										//释放解码过程产生的内存

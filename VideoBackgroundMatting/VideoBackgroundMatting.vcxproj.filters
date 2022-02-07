@@ -45,6 +45,9 @@
     <ClCompile Include="XFFmpeg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BGProcess.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="en_tr.qm">
@@ -89,6 +92,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="XFFmpeg.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="BGProcess.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

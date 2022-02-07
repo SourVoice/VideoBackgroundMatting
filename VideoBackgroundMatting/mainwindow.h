@@ -4,6 +4,7 @@
 
 #include "ui_mainwindow.h"
 #include "XFFmpeg.h"
+#include "BGProcess.h"
 #include <string>
 #include <iostream>
 #include <sstream>
@@ -81,6 +82,10 @@ public:
     double totalVideoTime = 0;
     bool isPlay = false;
     
+    //视频处理
+    BGProcess* process;
+
+    
     //其他
 public:
     Ui::MainWindow* ui;
@@ -145,6 +150,8 @@ private slots:
 
     void on_action_V_triggered();
 
+    void on_pushButton_5_clicked();//剪切视频中对象
+    
     void on_pushButton_6_clicked();
 
     void on_pushButton_7_clicked();
@@ -182,8 +189,6 @@ private slots:
     void on_pushButton_turnleft_2_clicked();
 
     void on_pushButton_turnleft_3_clicked();
-
-    void on_pushButton_5_clicked();
 
 
 };

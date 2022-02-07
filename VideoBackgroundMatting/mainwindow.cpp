@@ -1632,6 +1632,7 @@ void MainWindow::on_pushButton_turnleft_3_clicked()
 	}
 }
 
+//±³¾°´¦Àí
 void MainWindow::on_pushButton_5_clicked()
 {
 	QFile file(":/myImage/images/style.qss");
@@ -1640,4 +1641,8 @@ void MainWindow::on_pushButton_5_clicked()
 	QApplication* qapp;
 	qapp->setStyleSheet(styleSheet);
 
+	process = new BGProcess(this);
+	process->Open(video_path);
+
+	process->start();
 }
