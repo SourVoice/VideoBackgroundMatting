@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1131</width>
-    <height>723</height>
+    <width>1133</width>
+    <height>779</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -209,7 +209,7 @@ background-image: url(:/myImage/images/next.png);</string>
           <x>0</x>
           <y>10</y>
           <width>741</width>
-          <height>561</height>
+          <height>611</height>
          </rect>
         </property>
         <widget class="QLabel" name="label_11">
@@ -412,6 +412,19 @@ border:none;</string>
          </property>
          <property name="text">
           <string/>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="pushButton_5">
+         <property name="geometry">
+          <rect>
+           <x>570</x>
+           <y>560</y>
+           <width>93</width>
+           <height>28</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>剪切对象</string>
          </property>
         </widget>
        </widget>
@@ -778,7 +791,7 @@ background-image: url(:/myImage/images/vertical.png);</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1131</width>
+     <width>1133</width>
      <height>26</height>
     </rect>
    </property>

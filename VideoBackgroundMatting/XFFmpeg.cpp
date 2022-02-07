@@ -348,7 +348,6 @@ void XFFmpeg::releaseMem()
 	qDebug() << TIMEMS << "close ffmpeg ok";
 }
 
-
 void XFFmpeg::Close()
 {
 
