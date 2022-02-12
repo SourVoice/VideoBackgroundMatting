@@ -22,7 +22,7 @@ XFFmpeg::XFFmpeg(QObject* parent) :QThread(parent)
 	Options = nullptr;
 	videoCodec = nullptr;
 	audioDecoder = nullptr;
-
+	//connect(this, &QThread::finished, this, &QObject::deleteLater);
 
 	XFFmpeg::initalizeLib();
 
@@ -89,7 +89,7 @@ bool XFFmpeg::init()
 	}
 
 	//释放设置参数
-	if (Options != NULL) {
+	if (Options != nullptr) {
 		av_dict_free(&Options);
 	}
 
@@ -144,12 +144,15 @@ bool XFFmpeg::init()
 			.arg((avFormatContext->duration) / 1000000).arg(videoWidth).arg(videoHeight);
 		qDebug() << TIMEMS << videoInfo;
 	}
+
+	AVStream *s = avFormatContext->streams[videoStreamIndex];
+	frame_rate = s->avg_frame_rate.num / s->avg_frame_rate.den;
+	
 	//定义像素格式
 	AVPixelFormat srcFormat = AVPixelFormat::AV_PIX_FMT_YUV420P;
 	AVPixelFormat dstFormat = AVPixelFormat::AV_PIX_FMT_RGB32;
 	//通过解码器获取解码格式
 	srcFormat = videoCodecCtx->pix_fmt;
-
 	//avPacket, 存储解码前的数据
 	avPacket = av_packet_alloc();
 	av_init_packet(avPacket);
@@ -175,7 +178,6 @@ bool XFFmpeg::init()
 	
 	//输出格式信息
 	av_dump_format(avFormatContext, 0, in_file, 0);
-
 	mutex.unlock();
 	return true;
 
@@ -183,13 +185,13 @@ bool XFFmpeg::init()
 
 void XFFmpeg::run()
 {
+	
 	QImage image(videoWidth, videoHeight, QImage::Format_RGB32);
 	int outputLineSize[3];                                                                         //构造AVFrame到QImage所需要的数据
 	av_image_fill_linesizes(outputLineSize, AV_PIX_FMT_RGB32, videoWidth);
 	uint8_t* outputDst[] = { image.bits() };
 	while (!Abort)
-	{
-
+	{	
 		//QCoreApplication::processEvents();   //处理事件
 
 		//根据标志位执行初始化操作
@@ -252,7 +254,7 @@ void XFFmpeg::run()
 					//QImage image((uchar*)buffer, videoWidth, videoHeight, QImage::Format_RGB32);
 					if (!image.isNull()) {
 						emit receiveImage(image);
-						qDebug() << TIMEMS << "显示一帧";
+						//qDebug() << TIMEMS << "显示一帧";
 					}
 					else {
 						qDebug() << TIMEMS << "Corrupted Qimage";
@@ -260,18 +262,17 @@ void XFFmpeg::run()
 					//if (avFrame) {
 					//	emit receiveImage(&avFrame);
 					//}
-					msleep(10);
+					msleep(frame_rate);
 				}
 			}
 		}
 		av_frame_free(&copyFrame);
 	}
 	free(outputDst);
-	//线程结束释放资源
-	releaseMem();
-	Abort = false;
-	isPlay = false;
-	qDebug() << TIMEMS << "stop ffmpeg thread";
+	this->quit();
+	//Abort = false;
+	//isPlay = false;
+	qDebug() << TIMEMS << "stop ffmpeg thread" << this->currentThreadId;
 }
 
 //Avframe*转为openCV中的Mat
@@ -310,41 +311,54 @@ cv::Mat XFFmpeg::Avframe2cvMat(AVFrame* avframe, int w, int h)
 
 void XFFmpeg::releaseMem()
 {
+	if (buffer != nullptr) {
+		av_free(buffer);
+		buffer = nullptr;
+	}
+
+	if (in_file != nullptr)
+	{
+		free(in_file);
+		in_file = nullptr;
+	}
 	//释放转码结构体
-	if (swsContext != NULL) {
+	if (swsContext != nullptr) {
 		sws_freeContext(swsContext);
-		swsContext = NULL;
+		swsContext = nullptr;
 	}
 
 	//释放解码前该帧
-	if (avPacket != NULL) {
+	if (avPacket != nullptr) {
 		av_packet_unref(avPacket);
-		avPacket = NULL;
+		avPacket = nullptr;
 	}
 
 	//释放解码后该帧
-	if (avFrame != NULL) {
+	if (avFrame != nullptr) {
 		av_frame_free(&avFrame);
-		avFrame = NULL;
+		avFrame = nullptr;
 	}
 
 	//释放上下文结构体
-	if (videoCodecCtx != NULL) {
+	if (videoCodecCtx != nullptr) {
 		avcodec_close(videoCodecCtx);
-		videoCodecCtx = NULL;
+		videoCodecCtx = nullptr;
 	}
 
-	if (audioCodec != NULL) {
+	if (audioCodec != nullptr) {
 		avcodec_close(audioCodec);
-		audioCodec = NULL;
+		audioCodec = nullptr;
 	}
 
-	if (avFormatContext != NULL) {
+	if (avFormatContext != nullptr) {
 		avformat_close_input(&avFormatContext);
-		avFormatContext = NULL;
+		avFormatContext = nullptr;
 	}
 
-	av_dict_free(&Options);
+	if (Options != nullptr) {
+		av_dict_free(&Options);
+		Options = nullptr;
+	}
 	qDebug() << TIMEMS << "close ffmpeg ok";
 }
 
@@ -355,6 +369,13 @@ void XFFmpeg::Close()
 	if (avFormatContext) avformat_close_input(&avFormatContext);//关闭ic上下文
 	mutex.unlock();
 
+}
+
+void XFFmpeg::Stop()
+{
+	mutex.lock();
+	this->Abort = true;
+	mutex.unlock();
 }
 
 std::string XFFmpeg::GetError()
@@ -368,6 +389,10 @@ std::string XFFmpeg::GetError()
 
 XFFmpeg::~XFFmpeg()
 {
+	
+	//线程结束释放资源
+	qDebug() << this->Abort << this->isFinished();
+	releaseMem();
 }
 
 double XFFmpeg::AVRationalr2Double(AVRational r)
@@ -378,11 +403,11 @@ double XFFmpeg::AVRationalr2Double(AVRational r)
 double XFFmpeg::getFrameRate(void)
 {
 
-	mutex.lock();
+	/*mutex.lock();
 	stream = avFormatContext->streams[avPacket->stream_index];
 
-	frame_rate = stream->avg_frame_rate.num / stream->avg_frame_rate.den;
-	mutex.unlock();
+	double frame_rate = stream->avg_frame_rate.num / stream->avg_frame_rate.den;
+	mutex.unlock();*/
 
 	return frame_rate;
 }
@@ -401,3 +426,5 @@ void XFFmpeg::pause()
 {
 	isPlay = false;
 }
+
+

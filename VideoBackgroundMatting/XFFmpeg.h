@@ -49,6 +49,7 @@ public:
 	cv::Mat Avframe2cvMat(AVFrame* avframe, int w, int h);	//Avframe*转为openCV中的Mat
 	void releaseMem();										//释放解码过程产生的内存
 	void Close();											//关闭文件
+	void Stop();
 	std::string GetError();									//获取错误信息
 
 	static double AVRationalr2Double(AVRational r);			//计算avrational得到时间
@@ -85,6 +86,7 @@ private:
 	AVCodec* videoCodec;				//视频解码器
 	AVCodec* audioDecoder;				//音频解码器
 	//QImage image;
+	
 
 public:
 	QString path;

@@ -35,7 +35,7 @@ MainWindow::MainWindow(QWidget* parent) :QMainWindow(parent), ui(new Ui::MainWin
 MainWindow::~MainWindow()
 {
 	delete ui;
-	capture.release();
+	//capture.release();
 }
 
 void MainWindow::on_action_Dock_triggered()
@@ -1209,29 +1209,42 @@ void MainWindow::on_action_V_triggered()
 {
 	video_path = QFileDialog::getOpenFileName(this, tr("选择视频"), "./images", tr("Video (*.WMV *.mp4 *.rmvb *.flv)"));
 
-	//打开视频文件：建立一个VideoCapture结构
-	if (video_path != nullptr)
-		capture.open(video_path.toStdString());
-	else
+	if (video_path.isEmpty())
+	{
 		return;
+	}
 
 	ui->tabWidget->setCurrentIndex(1);
 	ui->pushButton_6->setEnabled(true);
 
-	XFFmpeg* ffmpeg = new XFFmpeg(this);
+	if (ffmpeg != nullptr)
+	{
+		XFFmpeg *p = ffmpeg;
+		p->Stop();
+		qDebug() << "p:" << p->Abort << p->currentThreadId;
+		//ffmpeg->quit();
+		p->deleteLater();
+
+		isPlay = false;
+		//disconnect(ffmpeg, SIGNAL(receiveTotalVideoTime(double)), this, SLOT(onGetTotalVideoTime(double)));
+		//disconnect(ffmpeg, SIGNAL(receiveCurrentVideoTime(double)), this, SLOT(onGetCurrentVideoTime(double)));
+		//disconnect(ffmpeg, SIGNAL(receiveImage(QImage)), this, SLOT(onDisplayImage(QImage)));
+		//disconnect(this, SIGNAL(receiveIsPlay(bool)), ffmpeg, SLOT(onGetIsPlay(bool)));
+	}
+
+	ffmpeg = new XFFmpeg(this);
+	qDebug() << "construct" << ffmpeg->currentThreadId;
 	connect(ffmpeg, SIGNAL(receiveTotalVideoTime(double)), this, SLOT(onGetTotalVideoTime(double)));
 	connect(ffmpeg, SIGNAL(receiveCurrentVideoTime(double)), this, SLOT(onGetCurrentVideoTime(double)));
 	connect(ffmpeg, SIGNAL(receiveImage(QImage)), this, SLOT(onDisplayImage(QImage)));
 	connect(this, SIGNAL(receiveIsPlay(bool)), ffmpeg, SLOT(onGetIsPlay(bool)));
-
 	ffmpeg->Open(video_path);
 
 	type = 0;                                               //默认打开不进行处理
-	
 	isPlay = !isPlay;
 	ui->pushButton_6->setStyleSheet("border-radius:32px;"
 		"background-image: url(:/myImage/images/stop.png);border:none;");
-	
+
 	ffmpeg->start();
 
 }
