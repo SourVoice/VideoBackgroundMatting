@@ -10,7 +10,6 @@ MainWindow::MainWindow(QWidget* parent) :QMainWindow(parent), ui(new Ui::MainWin
 	ui->pushButton_3->setDisabled(true);
 	ui->pushButton_4->setDisabled(true);
 
-
 	setWindowFlags(windowFlags() & ~Qt::WindowMaximizeButtonHint);    // 禁止最大化按钮
 	setFixedSize(this->width(), this->height());                     // 禁止拖动窗口大小
 
@@ -35,7 +34,7 @@ MainWindow::MainWindow(QWidget* parent) :QMainWindow(parent), ui(new Ui::MainWin
 MainWindow::~MainWindow()
 {
 	delete ui;
-	capture.release();
+	//capture.release();
 }
 
 void MainWindow::on_action_Dock_triggered()
@@ -1209,51 +1208,41 @@ void MainWindow::on_action_V_triggered()
 {
 	video_path = QFileDialog::getOpenFileName(this, tr("选择视频"), "./images", tr("Video (*.WMV *.mp4 *.rmvb *.flv)"));
 
-	//打开视频文件：建立一个VideoCapture结构
-	if (video_path != nullptr)
-		capture.open(video_path.toStdString());
-	else
+	if (video_path.isEmpty())
+	{
 		return;
+	}
 
 	ui->tabWidget->setCurrentIndex(1);
 	ui->pushButton_6->setEnabled(true);
 
-	XFFmpeg* ffmpeg = new XFFmpeg(this);
+	if (ffmpeg != nullptr) {
+		ffmpeg->Stop();
+	}
+
+	ffmpeg = new XFFmpeg(this);
+	ffmpeg->Abort = false;
+	qDebug() << "construct" << ffmpeg->currentThreadId;
 	connect(ffmpeg, SIGNAL(receiveTotalVideoTime(double)), this, SLOT(onGetTotalVideoTime(double)));
 	connect(ffmpeg, SIGNAL(receiveCurrentVideoTime(double)), this, SLOT(onGetCurrentVideoTime(double)));
 	connect(ffmpeg, SIGNAL(receiveImage(QImage)), this, SLOT(onDisplayImage(QImage)));
 	connect(this, SIGNAL(receiveIsPlay(bool)), ffmpeg, SLOT(onGetIsPlay(bool)));
+	connect(ffmpeg, SIGNAL(finished()), this, SLOT(deleteLater()));
 
 	ffmpeg->Open(video_path);
 
 	type = 0;                                               //默认打开不进行处理
-	
-	isPlay = !isPlay;
+	isPlay = true;
 	ui->pushButton_6->setStyleSheet("border-radius:32px;"
 		"background-image: url(:/myImage/images/stop.png);border:none;");
-	
-	ffmpeg->start();
 
+	ffmpeg->start();
 }
 
 //ffmpeg->start()响应
 void MainWindow::onDisplayImage(const QImage& image)
 {
-	Mat cv_frame;
-	cv::Mat tmp(image.height(), image.width(), CV_8UC3, (uchar*)image.bits(), image.bytesPerLine());
-	//cv::Mat result; // deep copy just in case (my lack of knowledge with open cv)  
-	cvtColor(tmp, cv_frame, CV_BGR2RGB);
-	tmp.~Mat();
-
-	//cv_frame = Avframe2cvMat(copyFrame,-1,-1);
-	//if (cv_frame.empty())
-	//    QMessageBox::warning(nullptr, "提示", "转换！(Line: 1329)", QMessageBox::Yes | QMessageBox::Yes);
-	//av_frame_free(&copyFrame);
-
-	//视频处理
-	//if (!capture.read(cv_frame)) {
-	//	return;
-	//}
+	cv::Mat cv_frame = QImage2cvMat(image);
 
 	if (type == 1) {
 		//image=gray2(image);
@@ -1299,12 +1288,11 @@ void MainWindow::onDisplayImage(const QImage& image)
 	ui->label_11->setAlignment(Qt::AlignCenter);
 	ui->label_11->repaint();
 
-	//=====================================进度位置
+	//进度位置
 	ui->VideohorizontalSlider_2->setValue(currentVideoTime);
 	ui->VideohorizontalSlider_2->setMaximum(totalVideoTime);
 
-	//======================================lable_l2播放时间显示
-	//double frame_rate = ffmpeg->getFrameRate();//获取fps
+	//lable_l2播放时间显示
 	ui->label_12->setText(stom((long)currentVideoTime) + "/" + stom((long)totalVideoTime));
 }
 
@@ -1316,6 +1304,27 @@ void MainWindow::onGetCurrentVideoTime(const double& time)
 void MainWindow::onGetTotalVideoTime(const double& time)
 {
 	this->totalVideoTime = time;
+}
+
+cv::Mat MainWindow::QImage2cvMat(QImage image)
+{
+	cv::Mat mat;
+	switch (image.format())
+	{
+	case QImage::Format_ARGB32:
+	case QImage::Format_RGB32:
+	case QImage::Format_ARGB32_Premultiplied:
+		mat = cv::Mat(image.height(), image.width(), CV_8UC4, (void*)image.constBits(), image.bytesPerLine());
+		break;
+	case QImage::Format_RGB888:
+		mat = cv::Mat(image.height(), image.width(), CV_8UC3, (void*)image.constBits(), image.bytesPerLine());
+		cv::cvtColor(mat, mat, CV_BGR2RGB);
+		break;
+	case QImage::Format_Indexed8:
+		mat = cv::Mat(image.height(), image.width(), CV_8UC1, (void*)image.constBits(), image.bytesPerLine());
+		break;
+	}
+	return mat;
 }
 
 //Mat转图像
@@ -1364,7 +1373,7 @@ QImage MainWindow::Mat2QImage(const cv::Mat& mat)
 }
 
 //Avframe*转为openCV中的Mat
-Mat MainWindow::Avframe2cvMat(AVFrame* avframe, int w, int h)
+cv::Mat MainWindow::Avframe2cvMat(AVFrame* avframe, int w, int h)
 {
 	int width = avframe->width;
 	int height = avframe->height;
@@ -1376,14 +1385,6 @@ Mat MainWindow::Avframe2cvMat(AVFrame* avframe, int w, int h)
 	sws_freeContext(conversion);
 	return image;
 }
-
-//进度条随视频移动
-//void MainWindow::updatePosition() {
-//	long totalFrameNumber = capture.get(CAP_PROP_FRAME_COUNT);
-//	ui->VideohorizontalSlider_2->setMaximum(totalFrameNumber);
-//	long frame = capture.get(CAP_PROP_POS_FRAMES);
-//	ui->VideohorizontalSlider_2->setValue(frame);
-//}
 
 //秒转分函数
 QString MainWindow::stom(int s) {

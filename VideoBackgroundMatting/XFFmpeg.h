@@ -49,6 +49,7 @@ public:
 	cv::Mat Avframe2cvMat(AVFrame* avframe, int w, int h);	//Avframe*转为openCV中的Mat
 	void releaseMem();										//释放解码过程产生的内存
 	void Close();											//关闭文件
+	void Stop();
 	std::string GetError();									//获取错误信息
 
 	static double AVRationalr2Double(AVRational r);			//计算avrational得到时间
@@ -61,8 +62,6 @@ signals:
 
 public slots:
 	void onGetIsPlay(const bool& isPlay);
-	void play();
-	void pause();
 
 protected:
 	void run();							//覆写run实现进程
@@ -85,13 +84,13 @@ private:
 	AVCodec* videoCodec;				//视频解码器
 	AVCodec* audioDecoder;				//音频解码器
 	//QImage image;
+	
 
 public:
 	QString path;
 	char *in_file;						//视频地址(文件)
 	volatile bool Abort = false;		//线程停止标志位
 	volatile bool isPlay = true;		//播放视频标志位
-	bool first = true;					//第一帧
 	int stream_index = -1;				//解码信息( 0 for video and 1 for audio)
 	int videoStreamIndex = -1;			//解码信息( 0 for video and 1 for audio)
 	int audioStreamIndex = -1;			//解码信息( 0 for video and 1 for audio)
