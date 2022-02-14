@@ -62,8 +62,6 @@ signals:
 
 public slots:
 	void onGetIsPlay(const bool& isPlay);
-	void play();
-	void pause();
 
 protected:
 	void run();							//覆写run实现进程
@@ -93,7 +91,6 @@ public:
 	char *in_file;						//视频地址(文件)
 	volatile bool Abort = false;		//线程停止标志位
 	volatile bool isPlay = true;		//播放视频标志位
-	bool first = true;					//第一帧
 	int stream_index = -1;				//解码信息( 0 for video and 1 for audio)
 	int videoStreamIndex = -1;			//解码信息( 0 for video and 1 for audio)
 	int audioStreamIndex = -1;			//解码信息( 0 for video and 1 for audio)

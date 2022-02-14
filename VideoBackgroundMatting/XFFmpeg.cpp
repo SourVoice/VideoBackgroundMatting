@@ -190,19 +190,22 @@ void XFFmpeg::run()
 	int outputLineSize[3];                                                                         //构造AVFrame到QImage所需要的数据
 	av_image_fill_linesizes(outputLineSize, AV_PIX_FMT_RGB32, videoWidth);
 	uint8_t* outputDst[] = { image.bits() };
-	while (!Abort)
+	while (1)
 	{	
 		//QCoreApplication::processEvents();   //处理事件
-
+		
+		// 检测是否停止
+		{
+			QMutexLocker locker(&mutex);
+			if (Abort)
+				break;
+		}
+		
 		//根据标志位执行初始化操作
 		if (!isPlay) {
-			if (first) {
-				this->init();
-				first = false;
-			}
-			//isPlay = false;
 			continue;
 		}
+		QMutexLocker locker(&mutex);// 此处加锁,防止访问冲突
 
 		time.restart();
 		AVFrame* copyFrame = av_frame_alloc();
@@ -254,25 +257,18 @@ void XFFmpeg::run()
 					//QImage image((uchar*)buffer, videoWidth, videoHeight, QImage::Format_RGB32);
 					if (!image.isNull()) {
 						emit receiveImage(image);
-						//qDebug() << TIMEMS << "显示一帧";
 					}
 					else {
 						qDebug() << TIMEMS << "Corrupted Qimage";
 					}
-					//if (avFrame) {
-					//	emit receiveImage(&avFrame);
-					//}
 					msleep(frame_rate);
 				}
 			}
 		}
 		av_frame_free(&copyFrame);
 	}
+	releaseMem();
 	free(outputDst);
-	this->quit();
-	//Abort = false;
-	//isPlay = false;
-	qDebug() << TIMEMS << "stop ffmpeg thread" << this->currentThreadId;
 }
 
 //Avframe*转为openCV中的Mat
@@ -362,20 +358,28 @@ void XFFmpeg::releaseMem()
 	qDebug() << TIMEMS << "close ffmpeg ok";
 }
 
+XFFmpeg::~XFFmpeg()
+{
+	Stop();
+	quit();
+	wait();
+	//线程结束释放资源
+	qDebug() << TIMEMS << "isFinished";
+}
+
 void XFFmpeg::Close()
 {
-
 	mutex.lock();								//需要上锁，以防多线程中你这里在close，另一个线程中在读取，
 	if (avFormatContext) avformat_close_input(&avFormatContext);//关闭ic上下文
 	mutex.unlock();
-
 }
 
 void XFFmpeg::Stop()
 {
+
+	qDebug() << "Xffmpeg Stop Thread : " << QThread::currentThreadId();
 	mutex.lock();
 	this->Abort = true;
-	mutex.unlock();
 }
 
 std::string XFFmpeg::GetError()
@@ -385,14 +389,6 @@ std::string XFFmpeg::GetError()
 	std::string re = this->errorbuff;
 	mutex.unlock();
 	return re;
-}
-
-XFFmpeg::~XFFmpeg()
-{
-	
-	//线程结束释放资源
-	qDebug() << this->Abort << this->isFinished();
-	releaseMem();
 }
 
 double XFFmpeg::AVRationalr2Double(AVRational r)
@@ -416,15 +412,3 @@ void XFFmpeg::onGetIsPlay(const bool& isPlay)
 {
 	this->isPlay = isPlay;
 }
-
-void XFFmpeg::play()
-{
-	isPlay = true;
-}
-
-void XFFmpeg::pause()
-{
-	isPlay = false;
-}
-
-
