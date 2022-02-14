@@ -68,13 +68,13 @@ public:
     QImage gamma(QImage image);                                     //伽马变换
 
     //视频部分
+    cv::Mat QImage2cvMat(QImage image);
     QImage Mat2QImage(const cv::Mat& mat);
-    Mat Avframe2cvMat(AVFrame* avframe, int w, int h);
+    cv::Mat Avframe2cvMat(AVFrame* avframe, int w, int h);
     cv::Mat Mosaic(cv::Mat image);                                  //马赛克
     QString stom(int s);                                            //video播放,时间转换函数
-
-    XFFmpeg* ffmpeg = nullptr;                                                //ffmpeg解码
-    //cv::VideoCapture capture;                                       //用来读取视频结构(仅作测试使用)
+    XFFmpeg* ffmpeg = nullptr;                                      //ffmpeg解码
+    //cv::VideoCapture capture;                                     //用来读取视频结构(仅作测试使用)
     QString video_path;                                             //视频路径
 
     int type = 0;                                                   //视频操作类型
