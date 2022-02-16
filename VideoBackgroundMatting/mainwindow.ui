@@ -424,7 +424,7 @@ border:none;</string>
           </rect>
          </property>
          <property name="text">
-          <string>剪切对象</string>
+          <string>抠图</string>
          </property>
         </widget>
        </widget>

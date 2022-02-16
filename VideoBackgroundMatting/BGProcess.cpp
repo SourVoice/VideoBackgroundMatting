@@ -2,25 +2,28 @@
 
 #define TIMEMS      qPrintable(QTime::currentTime().toString("HH:mm:ss zzz"))
 
-BGProcess::BGProcess(QObject* parent) :QThread(parent)
+BGProcess::BGProcess(string in_file, string out_file, QObject* parent) :QThread(parent)
 {
-	video_path = nullptr;
+	this->in_file = in_file;
+	this->out_file = out_file;
+	frame_cnt = 0;
 }
 BGProcess::~BGProcess()
 {
 }
 
-void BGProcess::Open(const QString& fileInput)
-{
-	this->video_path = fileInput;
-	std::string str = std::string(fileInput.toLocal8Bit());
-	this->in_file = (char*)calloc(fileInput.size(), sizeof(char));
-	strcpy(in_file, (char*)str.c_str());
-}
 
 void BGProcess::run()
 {
+	
 	while (1) {
-		qDebug() << TIMEMS << "BackgroundProcessing.";
+
+
+		frame_cnt++;
+		emit processed_frame_cnt(frame_cnt);
+		if (frame_cnt >= 99) {
+			break;
+		}
+		QThread::msleep(20);
 	}
 }
