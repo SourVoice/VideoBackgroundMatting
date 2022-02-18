@@ -1,69 +1,69 @@
 <RCC>
-    <qresource prefix="/bg">
-        <file>图标/大背景.png</file>
-        <file>图标/添加视频.png</file>
-    </qresource>
-    <qresource prefix="/saveAndComposite">
-        <file>图标/保存与合成/资源 46@4x.png</file>
-        <file>图标/保存与合成/资源 47@4x.png</file>
-    </qresource>
-    <qresource prefix="/editbar">
-        <file>图标/编辑栏/撤销.png</file>
-        <file>图标/编辑栏/复制.png</file>
-        <file>图标/编辑栏/剪刀@4x.png</file>
-        <file>图标/编辑栏/镜像.png</file>
-        <file>图标/编辑栏/可看.png</file>
-        <file>图标/编辑栏/前进.png</file>
-        <file>图标/编辑栏/删除.png</file>
-        <file>图标/编辑栏/声音.png</file>
-        <file>图标/编辑栏/视频.png</file>
-        <file>图标/编辑栏/文字.png</file>
-        <file>图标/编辑栏/指针.png</file>
-    </qresource>
-    <qresource prefix="/player">
-        <file>图标/播放栏/开端@4x.png</file>
-        <file>图标/播放栏/快进@4x.png</file>
-        <file>图标/播放栏/快退@4x.png</file>
-        <file>图标/播放栏/末端@4x.png</file>
-        <file>图标/播放栏/视频尺寸.png</file>
-        <file>图标/播放栏/暂停@4x.png</file>
-        <file>图标/播放栏/资源 27@4x.png</file>
-    </qresource>
-    <qresource prefix="/menubar">
-        <file>图标/菜单栏/菜单@4x.png</file>
-        <file>图标/菜单栏/调节@4x.png</file>
-        <file>图标/菜单栏/快速操作@4x.png</file>
-        <file>图标/菜单栏/色彩调整@4x.png</file>
-        <file>图标/菜单栏/视频@4x.png</file>
-        <file>图标/菜单栏/视频2@4x.png</file>
-        <file>图标/菜单栏/图片@4x.png</file>
-    </qresource>
-    <qresource prefix="/window">
-        <file>图标/窗口/资源 29@4x.png</file>
-        <file>图标/窗口/资源 30@4x.png</file>
-        <file>图标/窗口/资源 31@4x.png</file>
-    </qresource>
-    <qresource prefix="/adjust">
-        <file>图标/调节和色彩调整/调节.png</file>
-        <file>图标/调节和色彩调整/调节条.png</file>
-        <file>图标/调节和色彩调整/色彩调整.png</file>
-    </qresource>
-    <qresource prefix="/shortcut">
-        <file>图标/快速操作/资源 35@4x.png</file>
-        <file>图标/快速操作/资源 36@4x.png</file>
-        <file>图标/快速操作/资源 37@4x.png</file>
-        <file>图标/快速操作/资源 38@4x.png</file>
-        <file>图标/快速操作/资源 39@4x.png</file>
-        <file>图标/快速操作/资源 40@4x.png</file>
-        <file>图标/快速操作/资源 41@4x.png</file>
-    </qresource>
-    <qresource prefix="/settingAndHelp">
-        <file>图标/设置和帮助/资源 20@4x.png</file>
-        <file>图标/设置和帮助/资源 21@4x.png</file>
-    </qresource>
-    <qresource prefix="/bottomEditbar">
-        <file>图标/左下角编辑栏调整/bian ji 栏@4x.png</file>
-        <file>图标/左下角编辑栏调整/资源 25@4x.png</file>
-        <file>图标/左下角编辑栏调整/资源 26@4x.png</file>
-    </qresource>
+  <qresource prefix="/bg">
+    <file>icon/addVideo.png</file>
+    <file>icon/bg.png</file>
+  </qresource>
+  <qresource prefix="/saveAndComposite">
+    <file>icon/saveAndComposite/composite.png</file>
+    <file>icon/saveAndComposite/save.png</file>
+  </qresource>
+  <qresource prefix="/editbar">
+    <file>icon/editBar/advance.png</file>
+    <file>icon/editBar/copy.png</file>
+    <file>icon/editBar/cut.png</file>
+    <file>icon/editBar/delet.png</file>
+    <file>icon/editBar/mirror.png</file>
+    <file>icon/editBar/pointer.png</file>
+    <file>icon/editBar/text.png</file>
+    <file>icon/editBar/undo.png</file>
+    <file>icon/editBar/video.png</file>
+    <file>icon/editBar/Visible.png</file>
+    <file>icon/editBar/volume.png</file>
+  </qresource>
+  <qresource prefix="/player">
+    <file>icon/player/backward.png</file>
+    <file>icon/player/begin.png</file>
+    <file>icon/player/end.png</file>
+    <file>icon/player/forward.png</file>
+    <file>icon/player/pause.png</file>
+    <file>icon/player/play.png</file>
+    <file>icon/player/videoSize.png</file>
+  </qresource>
+  <qresource prefix="/menubar">
+    <file>icon/menuBar/adjust.png</file>
+    <file>icon/menuBar/colorAdjust.png</file>
+    <file>icon/menuBar/fastOp.png</file>
+    <file>icon/menuBar/menuBar.png</file>
+    <file>icon/menuBar/openImage.png</file>
+    <file>icon/menuBar/openVideo.png</file>
+    <file>icon/menuBar/videoBlock.png</file>
+  </qresource>
+  <qresource prefix="/window">
+    <file>icon/window/close.png</file>
+    <file>icon/window/maximum.png</file>
+    <file>icon/window/minimum.png</file>
+  </qresource>
+  <qresource prefix="/adjust">
+    <file>icon/adjustColor/adjust.png</file>
+    <file>icon/adjustColor/colorAdjust.png</file>
+    <file>icon/adjustColor/horizionBar.png</file>
+  </qresource>
+  <qresource prefix="/shortcut">
+    <file>icon/fastOperate/binarization.png</file>
+    <file>icon/fastOperate/edgeDetect.png</file>
+    <file>icon/fastOperate/fastOpbg.png</file>
+    <file>icon/fastOperate/fliter.png</file>
+    <file>icon/fastOperate/gamma.png</file>
+    <file>icon/fastOperate/gray.png</file>
+    <file>icon/fastOperate/smooth.png</file>
+  </qresource>
+  <qresource prefix="/settingAndHelp">
+    <file>icon/setAndHelp/help.png</file>
+    <file>icon/setAndHelp/setting.png</file>
+  </qresource>
+  <qresource prefix="/bottomEditbar">
+    <file>icon/bottomBar/bigger.png</file>
+    <file>icon/bottomBar/edit.png</file>
+    <file>icon/bottomBar/smaller.png</file>
+  </qresource>
 </RCC>
