@@ -31,6 +31,9 @@
     <ClInclude Include="x64\Debug\uic\ui_mainwindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -70,6 +73,9 @@
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="myimage.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
+    <QtRcc Include="Resource.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
   </ItemGroup>

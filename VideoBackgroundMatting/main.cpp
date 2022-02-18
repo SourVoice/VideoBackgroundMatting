@@ -27,8 +27,6 @@ int main(int argc, char* argv[])
 		Sleep(10 * static_cast<uint64>(mv.speed()));
 	}
 
-
-
 	MainWindow w;
 	w.setWindowTitle(QObject::tr("图像视频处理工具"));
 	w.show();

@@ -1,0 +1,69 @@
+<RCC>
+    <qresource prefix="/bg">
+        <file>图标/大背景.png</file>
+        <file>图标/添加视频.png</file>
+    </qresource>
+    <qresource prefix="/saveAndComposite">
+        <file>图标/保存与合成/资源 46@4x.png</file>
+        <file>图标/保存与合成/资源 47@4x.png</file>
+    </qresource>
+    <qresource prefix="/editbar">
+        <file>图标/编辑栏/撤销.png</file>
+        <file>图标/编辑栏/复制.png</file>
+        <file>图标/编辑栏/剪刀@4x.png</file>
+        <file>图标/编辑栏/镜像.png</file>
+        <file>图标/编辑栏/可看.png</file>
+        <file>图标/编辑栏/前进.png</file>
+        <file>图标/编辑栏/删除.png</file>
+        <file>图标/编辑栏/声音.png</file>
+        <file>图标/编辑栏/视频.png</file>
+        <file>图标/编辑栏/文字.png</file>
+        <file>图标/编辑栏/指针.png</file>
+    </qresource>
+    <qresource prefix="/player">
+        <file>图标/播放栏/开端@4x.png</file>
+        <file>图标/播放栏/快进@4x.png</file>
+        <file>图标/播放栏/快退@4x.png</file>
+        <file>图标/播放栏/末端@4x.png</file>
+        <file>图标/播放栏/视频尺寸.png</file>
+        <file>图标/播放栏/暂停@4x.png</file>
+        <file>图标/播放栏/资源 27@4x.png</file>
+    </qresource>
+    <qresource prefix="/menubar">
+        <file>图标/菜单栏/菜单@4x.png</file>
+        <file>图标/菜单栏/调节@4x.png</file>
+        <file>图标/菜单栏/快速操作@4x.png</file>
+        <file>图标/菜单栏/色彩调整@4x.png</file>
+        <file>图标/菜单栏/视频@4x.png</file>
+        <file>图标/菜单栏/视频2@4x.png</file>
+        <file>图标/菜单栏/图片@4x.png</file>
+    </qresource>
+    <qresource prefix="/window">
+        <file>图标/窗口/资源 29@4x.png</file>
+        <file>图标/窗口/资源 30@4x.png</file>
+        <file>图标/窗口/资源 31@4x.png</file>
+    </qresource>
+    <qresource prefix="/adjust">
+        <file>图标/调节和色彩调整/调节.png</file>
+        <file>图标/调节和色彩调整/调节条.png</file>
+        <file>图标/调节和色彩调整/色彩调整.png</file>
+    </qresource>
+    <qresource prefix="/shortcut">
+        <file>图标/快速操作/资源 35@4x.png</file>
+        <file>图标/快速操作/资源 36@4x.png</file>
+        <file>图标/快速操作/资源 37@4x.png</file>
+        <file>图标/快速操作/资源 38@4x.png</file>
+        <file>图标/快速操作/资源 39@4x.png</file>
+        <file>图标/快速操作/资源 40@4x.png</file>
+        <file>图标/快速操作/资源 41@4x.png</file>
+    </qresource>
+    <qresource prefix="/settingAndHelp">
+        <file>图标/设置和帮助/资源 20@4x.png</file>
+        <file>图标/设置和帮助/资源 21@4x.png</file>
+    </qresource>
+    <qresource prefix="/bottomEditbar">
+        <file>图标/左下角编辑栏调整/bian ji 栏@4x.png</file>
+        <file>图标/左下角编辑栏调整/资源 25@4x.png</file>
+        <file>图标/左下角编辑栏调整/资源 26@4x.png</file>
+    </qresource>
+</RCC>

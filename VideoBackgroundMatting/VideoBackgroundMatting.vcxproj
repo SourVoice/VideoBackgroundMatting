@@ -18,6 +18,7 @@
     <QtMoc Include="videosurface.h" />
     <QtMoc Include="mainwindow.h" />
     <QtMoc Include="BGProcess.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="x64\Debug\uic\ui_mainwindow.h" />
   </ItemGroup>
   <ItemGroup>
@@ -38,6 +39,7 @@
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="myimage.qrc" />
+    <QtRcc Include="Resource.qrc" />
   </ItemGroup>
   <ItemGroup>
     <QtTranslation Include="en_tr.ts" />
