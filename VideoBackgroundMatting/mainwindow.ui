@@ -20,26 +20,7 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QMainWindow{
-background-color:rgb(0, 0, 0)
-}
-
-QPushButton{
-border-radius:10px;
-/*color: rgb(255, 255, 255);*/
-background-color: rgb(255, 255, 255);
-border:2px solid rgb(0,0,0);
-outline: none;
-}
-QPushButton:pressed{
-background-color: rgb(204, 204, 215);
-}
-QPushButton:disabled{
-background-color: rgb(167, 164, 170);
-}
-QSlider::handle:vertical{
-color:black;
-}</string>
+   <string notr="true"/>
   </property>
   <widget class="QWidget" name="centralWidget">
    <property name="enabled">
@@ -218,8 +199,8 @@ background-image: url(:/myImage/images/next.png);</string>
        <widget class="QWidget" name="label_widget" native="true">
         <property name="geometry">
          <rect>
-          <x>0</x>
-          <y>10</y>
+          <x>120</x>
+          <y>20</y>
           <width>841</width>
           <height>701</height>
          </rect>
@@ -359,7 +340,7 @@ border:none;</string>
     {
         height: 20px;
         width:20px;
-        border-image: url(:/adjust/图标/调节和色彩调整/调节条.png);
+        border-image:url(:/adjust/icon/adjustColor/horizionBar.png)
         margin: -8 0px;
     }
 </string>
@@ -561,7 +542,7 @@ border:none;</string>
    <addaction name="menu_H"/>
    <addaction name="menu_T"/>
   </widget>
-  <widget class="QDockWidget" name="dockWidget_2">
+  <widget class="QDockWidget" name="dockWidget">
    <property name="minimumSize">
     <size>
      <width>350</width>
@@ -618,8 +599,7 @@ border:none;</string>
     {
         height: 20px;
         width:20px;
-        border-image: url(:/myImage/images/slide.png);
-        margin: -8 0px;
+        border-image: url(:/adjust/icon/adjustColor/horizionBar.png);        margin: -8 0px;
     }
 </string>
      </property>
@@ -643,30 +623,7 @@ border:none;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">QSlider::add-page:Horizontal
-     {     
-        background-color: rgb(223, 223, 223);
-        height:4px;
-     }
-     QSlider::sub-page:Horizontal 
-    {
-        background-color:black;
-        height:4px;
-     }
-    QSlider::groove:Horizontal 
-    {
-        background:transparent;
-        height:10px;
-		border-radius: 5px;
-    }
-    QSlider::handle:Horizontal 
-    {
-        height: 20px;
-        width:20px;
-        border-image: url(:/myImage/images/slide.png);
-        margin: -8 0px;
-    }
-</string>
+      <string notr="true"/>
      </property>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -695,30 +652,7 @@ border:none;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">QSlider::add-page:Horizontal
-     {     
-        background-color: rgb(223, 223, 223);
-        height:4px;
-     }
-     QSlider::sub-page:Horizontal 
-    {
-        background-color:black;
-        height:4px;
-     }
-    QSlider::groove:Horizontal 
-    {
-        background:transparent;
-        height:10px;
-		border-radius: 5px;
-    }
-    QSlider::handle:Horizontal 
-    {
-        height: 20px;
-        width:20px;
-        border-image: url(:/myImage/images/slide.png);
-        margin: -8 0px;
-    }
-</string>
+      <string notr="true"/>
      </property>
      <property name="maximum">
       <number>255</number>
@@ -757,8 +691,7 @@ border:none;</string>
     {
         height: 20px;
         width:20px;
-        border-image: url(:/myImage/images/slide.png);
-        margin: -8 0px;
+        border-image: url(:/adjust/icon/adjustColor/horizionBar.png);        margin: -8 0px;
     }
 </string>
      </property>
@@ -826,7 +759,7 @@ border:none;</string>
     </widget>
    </widget>
   </widget>
-  <widget class="QDockWidget" name="dockWidget">
+  <widget class="QDockWidget" name="dockWidget_2">
    <property name="minimumSize">
     <size>
      <width>350</width>
@@ -870,8 +803,7 @@ border:none;</string>
     {
         height: 20px;
         width:20px;
-        border-image: url(:/myImage/images/slide.png);
-        margin: -8 0px;
+        border-image: url(:/adjust/icon/adjustColor/horizionBar.png);        margin: -8 0px;
     }
 </string>
      </property>
@@ -1038,7 +970,7 @@ border:none;</string>
     {
         height: 20px;
         width:20px;
-        border-image: url(:/adjust/图标/调节和色彩调整/调节条.png);
+        border-image: url(:/adjust/icon/adjustColor/horizionBar.png);
         margin: -8 0px;
     }
 
@@ -1094,7 +1026,7 @@ border:none;</string>
     {
         height: 20px;
         width:20px;
-        border-image: url(:/adjust/图标/调节和色彩调整/调节条.png);
+        border-image: url(:/adjust/icon/adjustColor/horizionBar.png);
         margin: -8 0px;
     }
 
@@ -1156,7 +1088,7 @@ border:none;</string>
     {
         height: 20px;
         width:20px;
-        border-image: url(:/adjust/图标/调节和色彩调整/调节条.png);
+        border-image: url(:/adjust/icon/adjustColor/horizionBar.png);
         margin: -8 0px;
     }
 
@@ -1180,6 +1112,16 @@ border:none;</string>
        <width>31</width>
        <height>16</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel 
+{
+    font-family: &quot;Microsoft YaHei&quot;;
+    font-size: 14px;
+    color: rgb(160, 160, 160);
+    background-color: rgb(29, 30, 31);
+}
+</string>
      </property>
      <property name="text">
       <string>R值：</string>
@@ -1309,7 +1251,7 @@ background-image: url(:/myImage/images/horizon.png);</string>
   <action name="action_Open">
    <property name="icon">
     <iconset resource="Resource.qrc">
-     <normaloff>:/menubar/图标/菜单栏/图片@4x.png</normaloff>:/menubar/图标/菜单栏/图片@4x.png</iconset>
+     <normaloff>:/menubar/icon/menuBar/openImage.png</normaloff>:/menubar/icon/menuBar/openImage.png</iconset>
    </property>
    <property name="text">
     <string>打开图片(&amp;O)</string>
@@ -1354,7 +1296,7 @@ background-image: url(:/myImage/images/horizon.png);</string>
   <action name="action_About">
    <property name="icon">
     <iconset resource="Resource.qrc">
-     <normaloff>:/settingAndHelp/图标/设置和帮助/资源 21@4x.png</normaloff>:/settingAndHelp/图标/设置和帮助/资源 21@4x.png</iconset>
+     <normaloff>:/settingAndHelp/icon/setAndHelp/help.png</normaloff>:/settingAndHelp/icon/setAndHelp/help.png</iconset>
    </property>
    <property name="text">
     <string>关于(&amp;A)</string>
@@ -1423,7 +1365,7 @@ background-image: url(:/myImage/images/horizon.png);</string>
   <action name="action_V">
    <property name="icon">
     <iconset resource="Resource.qrc">
-     <normaloff>:/menubar/图标/菜单栏/视频@4x.png</normaloff>:/menubar/图标/菜单栏/视频@4x.png</iconset>
+     <normaloff>:/menubar/icon/menuBar/openVideo.png</normaloff>:/menubar/icon/menuBar/openVideo.png</iconset>
    </property>
    <property name="text">
     <string>打开视频(&amp;V)</string>
@@ -1492,8 +1434,8 @@ background-image: url(:/myImage/images/horizon.png);</string>
     <string>Ctrl+G</string>
    </property>
   </action>
-  <zorder>dockWidget_2</zorder>
   <zorder>dockWidget</zorder>
+  <zorder>dockWidget_2</zorder>
   <zorder>dockWidget_3</zorder>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

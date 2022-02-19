@@ -1,0 +1,55 @@
+
+
+//centurl widgets qss
+QMainWindow
+{
+	background-color:rgb(255,255,255)
+}
+
+QPushButton\
+{
+	border-radius:10px;
+	/*color: rgb(255, 255, 255);*/
+	background-color: rgb(255, 255, 255);
+	border:2px solid rgb(0,0,0);
+	outline: none;
+}
+QPushButton:pressed
+{
+	background-color: rgb(204, 204, 215);
+}
+QPushButton:disabled
+{
+	background-color: rgb(167, 164, 170);
+}
+QSlider::handle:vertical
+{
+	color:black;
+}
+
+
+//滑动条
+QSlider::add-page:Horizontal
+{     
+    background-color: rgb(223, 223, 223);
+    height:4px;
+}
+//划过部分
+QSlider::sub-page:Horizontal 
+{
+    background-color:rgb(196, 196, 196);
+    height:4px;
+}
+QSlider::groove:Horizontal 
+{
+    background:transparent;
+    height:10px;
+    border-radius: 5px;
+}
+QSlider::handle:Horizontal 
+{
+    height: 20px;
+    width:20px;
+    border-image: url(:/adjust/icon/adjustColor/horizionBar.png);
+    margin: -2 0px;
+}

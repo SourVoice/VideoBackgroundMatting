@@ -62,6 +62,9 @@
     <None Include="README.md">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="myQss.qss">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="myico.ico">
