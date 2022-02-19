@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget* parent) :QMainWindow(parent), ui(new Ui::MainWin
 	if (p)
 		delete p;
 	setDockNestingEnabled(true);
-	dockSetting();
+	dockSetting();+
 
 	customMsgBox.setWindowTitle(tr("关于本软件"));
 	customMsgBox.addButton(tr("好的"), QMessageBox::ActionRole);
