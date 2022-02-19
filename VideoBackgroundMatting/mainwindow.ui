@@ -26,447 +26,7 @@
    <property name="enabled">
     <bool>true</bool>
    </property>
-   <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
-     <widget class="QTabWidget" name="tabWidget">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
-      <property name="currentIndex">
-       <number>1</number>
-      </property>
-      <widget class="QWidget" name="tab">
-       <attribute name="title">
-        <string>图像处理</string>
-       </attribute>
-       <widget class="QWidget" name="widget" native="true">
-        <property name="geometry">
-         <rect>
-          <x>50</x>
-          <y>0</y>
-          <width>763</width>
-          <height>571</height>
-         </rect>
-        </property>
-        <widget class="QLabel" name="label_show">
-         <property name="geometry">
-          <rect>
-           <x>90</x>
-           <y>10</y>
-           <width>581</width>
-           <height>401</height>
-          </rect>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::WinPanel</enum>
-         </property>
-         <property name="lineWidth">
-          <number>1</number>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="pushButton_3">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>180</y>
-           <width>64</width>
-           <height>64</height>
-          </rect>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">border-radius:32px;
-background-image: url(:/myImage/images/prev.png);</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="pushButton_4">
-         <property name="geometry">
-          <rect>
-           <x>690</x>
-           <y>180</y>
-           <width>64</width>
-           <height>64</height>
-          </rect>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">border-radius:32px;
-background-image: url(:/myImage/images/next.png);</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-        <widget class="QLabel" name="label_other">
-         <property name="geometry">
-          <rect>
-           <x>130</x>
-           <y>430</y>
-           <width>151</width>
-           <height>91</height>
-          </rect>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">border:2px solid red;</string>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::NoFrame</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Plain</enum>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-        <widget class="QLabel" name="label_other_1">
-         <property name="geometry">
-          <rect>
-           <x>310</x>
-           <y>430</y>
-           <width>151</width>
-           <height>91</height>
-          </rect>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::WinPanel</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Plain</enum>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-        <widget class="QLabel" name="label_other_3">
-         <property name="geometry">
-          <rect>
-           <x>490</x>
-           <y>430</y>
-           <width>151</width>
-           <height>91</height>
-          </rect>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::WinPanel</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Plain</enum>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="pushButton_save">
-         <property name="geometry">
-          <rect>
-           <x>260</x>
-           <y>540</y>
-           <width>151</width>
-           <height>28</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>保存图片</string>
-         </property>
-        </widget>
-        <widget class="QCheckBox" name="checkBox">
-         <property name="geometry">
-          <rect>
-           <x>450</x>
-           <y>540</y>
-           <width>61</width>
-           <height>21</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>水印</string>
-         </property>
-        </widget>
-       </widget>
-      </widget>
-      <widget class="QWidget" name="tab_2">
-       <attribute name="title">
-        <string>视频处理</string>
-       </attribute>
-       <widget class="QWidget" name="label_widget" native="true">
-        <property name="geometry">
-         <rect>
-          <x>120</x>
-          <y>20</y>
-          <width>841</width>
-          <height>701</height>
-         </rect>
-        </property>
-        <widget class="QLabel" name="label_11">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>0</y>
-           <width>721</width>
-           <height>411</height>
-          </rect>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::WinPanel</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Plain</enum>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="pushButton_6">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="geometry">
-          <rect>
-           <x>350</x>
-           <y>470</y>
-           <width>64</width>
-           <height>64</height>
-          </rect>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">border-radius:32px;
-background-image: url(:/myImage/images/start.png);
-border:none;</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="pushButton_7">
-         <property name="geometry">
-          <rect>
-           <x>570</x>
-           <y>480</y>
-           <width>93</width>
-           <height>28</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>灰度化</string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="pushButton_8">
-         <property name="geometry">
-          <rect>
-           <x>110</x>
-           <y>480</y>
-           <width>93</width>
-           <height>28</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>原画</string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="pushButton_9">
-         <property name="geometry">
-          <rect>
-           <x>440</x>
-           <y>520</y>
-           <width>93</width>
-           <height>28</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>边缘检测</string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="pushButton_10">
-         <property name="geometry">
-          <rect>
-           <x>570</x>
-           <y>520</y>
-           <width>93</width>
-           <height>28</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>平滑</string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="pushButton_11">
-         <property name="geometry">
-          <rect>
-           <x>440</x>
-           <y>480</y>
-           <width>93</width>
-           <height>28</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>二值化</string>
-         </property>
-        </widget>
-        <widget class="QSlider" name="horizontalSlider_suofang">
-         <property name="geometry">
-          <rect>
-           <x>110</x>
-           <y>520</y>
-           <width>221</width>
-           <height>22</height>
-          </rect>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QSlider::add-page:Horizontal
-     {     
-        background-color: rgb(223, 223, 223);
-        height:4px;
-     }
-     QSlider::sub-page:Horizontal 
-    {
-        background-color:black;
-        height:4px;
-     }
-    QSlider::groove:Horizontal 
-    {
-        background:transparent;
-        height:10px;
-		border-radius: 5px;
-    }
-    QSlider::handle:Horizontal 
-    {
-        height: 20px;
-        width:20px;
-        border-image:url(:/adjust/icon/adjustColor/horizionBar.png)
-        margin: -8 0px;
-    }
-</string>
-         </property>
-         <property name="maximum">
-          <number>200</number>
-         </property>
-         <property name="value">
-          <number>100</number>
-         </property>
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-        <widget class="QLabel" name="label_suofangvalue">
-         <property name="geometry">
-          <rect>
-           <x>70</x>
-           <y>520</y>
-           <width>31</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>1</string>
-         </property>
-        </widget>
-        <widget class="QLabel" name="label_13">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>520</y>
-           <width>71</width>
-           <height>16</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string> 缩放：X</string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="pushButton_2">
-         <property name="geometry">
-          <rect>
-           <x>230</x>
-           <y>480</y>
-           <width>93</width>
-           <height>28</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>马赛克</string>
-         </property>
-        </widget>
-        <widget class="QLabel" name="label_12">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>460</y>
-           <width>121</width>
-           <height>20</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="pushButton_5">
-         <property name="geometry">
-          <rect>
-           <x>570</x>
-           <y>560</y>
-           <width>93</width>
-           <height>28</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>剪切对象</string>
-         </property>
-        </widget>
-        <widget class="QSlider" name="VideohorizontalSlider_2">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>420</y>
-           <width>721</width>
-           <height>22</height>
-          </rect>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QSlider::add-page:Horizontal
-     {     
-        background-color: rgb(223, 223, 223);
-        height:4px;
-     }
-     QSlider::sub-page:Horizontal 
-    {
-        background-color:black;
-        height:4px;
-     }
-    QSlider::groove:Horizontal 
-    {
-        background:transparent;
-        height:10px;
-		border-radius: 5px;
-    }
-    QSlider::handle:Horizontal 
-    {
-        height: 25px;
-        width:25px;
-        border-image: url(:/myImage/images/handle2.png);
-        margin: -8 0px;
-    }
-</string>
-         </property>
-         <property name="maximum">
-          <number>1000</number>
-         </property>
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-       </widget>
-      </widget>
-     </widget>
-    </item>
-   </layout>
+   <layout class="QGridLayout" name="gridLayout"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -542,7 +102,7 @@ border:none;</string>
    <addaction name="menu_H"/>
    <addaction name="menu_T"/>
   </widget>
-  <widget class="QDockWidget" name="dockWidget">
+  <widget class="QDockWidget" name="dockWidget_1">
    <property name="minimumSize">
     <size>
      <width>350</width>
@@ -579,29 +139,7 @@ border:none;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">QSlider::add-page:Horizontal
-     {     
-        background-color: rgb(223, 223, 223);
-        height:4px;
-     }
-     QSlider::sub-page:Horizontal 
-    {
-        background-color:black;
-        height:4px;
-     }
-    QSlider::groove:Horizontal 
-    {
-        background:transparent;
-        height:10px;
-		border-radius: 5px;
-    }
-    QSlider::handle:Horizontal 
-    {
-        height: 20px;
-        width:20px;
-        border-image: url(:/adjust/icon/adjustColor/horizionBar.png);        margin: -8 0px;
-    }
-</string>
+      <string notr="true"/>
      </property>
      <property name="minimum">
       <number>-300</number>
@@ -671,29 +209,7 @@ border:none;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">QSlider::add-page:Horizontal
-     {     
-        background-color: rgb(223, 223, 223);
-        height:4px;
-     }
-     QSlider::sub-page:Horizontal 
-    {
-        background-color:black;
-        height:4px;
-     }
-    QSlider::groove:Horizontal 
-    {
-        background:transparent;
-        height:10px;
-		border-radius: 5px;
-    }
-    QSlider::handle:Horizontal 
-    {
-        height: 20px;
-        width:20px;
-        border-image: url(:/adjust/icon/adjustColor/horizionBar.png);        margin: -8 0px;
-    }
-</string>
+      <string notr="true"/>
      </property>
      <property name="maximum">
       <number>255</number>
@@ -776,7 +292,7 @@ border:none;</string>
     <widget class="QSlider" name="horizontalSlider_2">
      <property name="geometry">
       <rect>
-       <x>180</x>
+       <x>190</x>
        <y>170</y>
        <width>151</width>
        <height>31</height>
@@ -877,12 +393,18 @@ border:none;</string>
       <rect>
        <x>180</x>
        <y>20</y>
-       <width>151</width>
+       <width>141</width>
        <height>28</height>
       </rect>
      </property>
      <property name="text">
       <string>均值滤波</string>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>173</width>
+       <height>29</height>
+      </size>
      </property>
     </widget>
     <widget class="QPushButton" name="pushButton_gray">
@@ -903,9 +425,12 @@ border:none;</string>
       <rect>
        <x>180</x>
        <y>70</y>
-       <width>151</width>
-       <height>28</height>
+       <width>141</width>
+       <height>31</height>
       </rect>
+     </property>
+     <property name="toolTipDuration">
+      <number>-1</number>
      </property>
      <property name="text">
       <string>显示原图</string>
@@ -950,31 +475,7 @@ border:none;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">QSlider::add-page:Horizontal
-     {     
-        background-color: blue;
-        height:4px;
-     }
-     QSlider::sub-page:Horizontal 
-    {
-        background-color:white;
-        height:4px;
-     }
-    QSlider::groove:Horizontal 
-    {
-        background:transparent;
-        height:10px;
-		border-radius: 5px;
-    }
-    QSlider::handle:Horizontal 
-    {
-        height: 20px;
-        width:20px;
-        border-image: url(:/adjust/icon/adjustColor/horizionBar.png);
-        margin: -8 0px;
-    }
-
-</string>
+      <string notr="true"/>
      </property>
      <property name="maximum">
       <number>255</number>
@@ -1006,31 +507,7 @@ border:none;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">QSlider::add-page:Horizontal
-     {     
-        background-color: green;
-        height:4px;
-     }
-     QSlider::sub-page:Horizontal 
-    {
-        background-color:white;
-        height:4px;
-     }
-    QSlider::groove:Horizontal 
-    {
-        background:transparent;
-        height:10px;
-		border-radius: 5px;
-    }
-    QSlider::handle:Horizontal 
-    {
-        height: 20px;
-        width:20px;
-        border-image: url(:/adjust/icon/adjustColor/horizionBar.png);
-        margin: -8 0px;
-    }
-
-</string>
+      <string notr="true"/>
      </property>
      <property name="maximum">
       <number>255</number>
@@ -1068,31 +545,7 @@ border:none;</string>
       <number>1</number>
      </property>
      <property name="styleSheet">
-      <string notr="true">QSlider::add-page:Horizontal
-     {     
-        background-color: red;
-        height:4px;
-     }
-     QSlider::sub-page:Horizontal 
-    {
-        background-color:white;
-        height:4px;
-     }
-    QSlider::groove:Horizontal 
-    {
-        background:transparent;
-        height:10px;
-		border-radius: 5px;
-    }
-    QSlider::handle:Horizontal 
-    {
-        height: 20px;
-        width:20px;
-        border-image: url(:/adjust/icon/adjustColor/horizionBar.png);
-        margin: -8 0px;
-    }
-
-</string>
+      <string notr="true"/>
      </property>
      <property name="maximum">
       <number>255</number>
@@ -1114,14 +567,7 @@ border:none;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">QLabel 
-{
-    font-family: &quot;Microsoft YaHei&quot;;
-    font-size: 14px;
-    color: rgb(160, 160, 160);
-    background-color: rgb(29, 30, 31);
-}
-</string>
+      <string notr="true"/>
      </property>
      <property name="text">
       <string>R值：</string>
@@ -1215,6 +661,464 @@ background-image: url(:/myImage/images/horizon.png);</string>
      <property name="text">
       <string>伽马变换</string>
      </property>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="dockWidget_4">
+   <property name="minimumSize">
+    <size>
+     <width>962</width>
+     <height>42</height>
+    </size>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_3">
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>4</x>
+       <y>0</y>
+       <width>921</width>
+       <height>739</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
+       <string>图像处理</string>
+      </attribute>
+      <widget class="QWidget" name="widget" native="true">
+       <property name="geometry">
+        <rect>
+         <x>50</x>
+         <y>0</y>
+         <width>763</width>
+         <height>571</height>
+        </rect>
+       </property>
+       <widget class="QLabel" name="label_show">
+        <property name="geometry">
+         <rect>
+          <x>90</x>
+          <y>10</y>
+          <width>581</width>
+          <height>401</height>
+         </rect>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::WinPanel</enum>
+        </property>
+        <property name="lineWidth">
+         <number>1</number>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_3">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>180</y>
+          <width>64</width>
+          <height>64</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border-radius:32px;
+background-image: url(:/myImage/images/prev.png);</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_4">
+        <property name="geometry">
+         <rect>
+          <x>690</x>
+          <y>180</y>
+          <width>64</width>
+          <height>64</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border-radius:32px;
+background-image: url(:/myImage/images/next.png);</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_other">
+        <property name="geometry">
+         <rect>
+          <x>130</x>
+          <y>430</y>
+          <width>151</width>
+          <height>91</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border:2px solid red;</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::NoFrame</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Plain</enum>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_other_1">
+        <property name="geometry">
+         <rect>
+          <x>310</x>
+          <y>430</y>
+          <width>151</width>
+          <height>91</height>
+         </rect>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::WinPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Plain</enum>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_other_3">
+        <property name="geometry">
+         <rect>
+          <x>490</x>
+          <y>430</y>
+          <width>151</width>
+          <height>91</height>
+         </rect>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::WinPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Plain</enum>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_save">
+        <property name="geometry">
+         <rect>
+          <x>260</x>
+          <y>540</y>
+          <width>151</width>
+          <height>28</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>保存图片</string>
+        </property>
+       </widget>
+       <widget class="QCheckBox" name="checkBox">
+        <property name="geometry">
+         <rect>
+          <x>450</x>
+          <y>540</y>
+          <width>61</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>水印</string>
+        </property>
+       </widget>
+      </widget>
+     </widget>
+     <widget class="QWidget" name="tab_2">
+      <attribute name="title">
+       <string>视频处理</string>
+      </attribute>
+      <widget class="QWidget" name="label_widget" native="true">
+       <property name="geometry">
+        <rect>
+         <x>120</x>
+         <y>20</y>
+         <width>841</width>
+         <height>701</height>
+        </rect>
+       </property>
+       <widget class="QLabel" name="label_11">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>0</y>
+          <width>721</width>
+          <height>411</height>
+         </rect>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::WinPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Plain</enum>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_6">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>350</x>
+          <y>470</y>
+          <width>64</width>
+          <height>64</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border-radius:32px;
+background-image: url(:/myImage/images/start.png);
+border:none;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_7">
+        <property name="geometry">
+         <rect>
+          <x>570</x>
+          <y>480</y>
+          <width>93</width>
+          <height>28</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>灰度化</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_8">
+        <property name="geometry">
+         <rect>
+          <x>110</x>
+          <y>480</y>
+          <width>93</width>
+          <height>28</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>原画</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_9">
+        <property name="geometry">
+         <rect>
+          <x>440</x>
+          <y>520</y>
+          <width>93</width>
+          <height>28</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>边缘检测</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_10">
+        <property name="geometry">
+         <rect>
+          <x>570</x>
+          <y>520</y>
+          <width>93</width>
+          <height>28</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>平滑</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_11">
+        <property name="geometry">
+         <rect>
+          <x>440</x>
+          <y>480</y>
+          <width>93</width>
+          <height>28</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>二值化</string>
+        </property>
+       </widget>
+       <widget class="QSlider" name="horizontalSlider_suofang">
+        <property name="geometry">
+         <rect>
+          <x>110</x>
+          <y>520</y>
+          <width>221</width>
+          <height>22</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QSlider::add-page:Horizontal
+     {     
+        background-color: rgb(223, 223, 223);
+        height:4px;
+     }
+     QSlider::sub-page:Horizontal 
+    {
+        background-color:black;
+        height:4px;
+     }
+    QSlider::groove:Horizontal 
+    {
+        background:transparent;
+        height:10px;
+		border-radius: 5px;
+    }
+    QSlider::handle:Horizontal 
+    {
+        height: 20px;
+        width:20px;
+        border-image:url(:/adjust/icon/adjustColor/horizionBar.png)
+        margin: -8 0px;
+    }
+</string>
+        </property>
+        <property name="maximum">
+         <number>200</number>
+        </property>
+        <property name="value">
+         <number>100</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_suofangvalue">
+        <property name="geometry">
+         <rect>
+          <x>70</x>
+          <y>520</y>
+          <width>31</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>1</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_13">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>520</y>
+          <width>71</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string> 缩放：X</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_2">
+        <property name="geometry">
+         <rect>
+          <x>230</x>
+          <y>480</y>
+          <width>93</width>
+          <height>28</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>马赛克</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_12">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>460</y>
+          <width>121</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_5">
+        <property name="geometry">
+         <rect>
+          <x>570</x>
+          <y>560</y>
+          <width>93</width>
+          <height>28</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>剪切对象</string>
+        </property>
+       </widget>
+       <widget class="QSlider" name="VideohorizontalSlider_2">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>420</y>
+          <width>721</width>
+          <height>22</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QSlider::add-page:Horizontal
+     {     
+        background-color: rgb(223, 223, 223);
+        height:4px;
+     }
+     QSlider::sub-page:Horizontal 
+    {
+        background-color:black;
+        height:4px;
+     }
+    QSlider::groove:Horizontal 
+    {
+        background:transparent;
+        height:10px;
+		border-radius: 5px;
+    }
+    QSlider::handle:Horizontal 
+    {
+        height: 25px;
+        width:25px;
+        border-image: url(:/myImage/images/handle2.png);
+        margin: -8 0px;
+    }
+</string>
+        </property>
+        <property name="maximum">
+         <number>1000</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </widget>
+     </widget>
     </widget>
    </widget>
   </widget>
@@ -1434,9 +1338,10 @@ background-image: url(:/myImage/images/horizon.png);</string>
     <string>Ctrl+G</string>
    </property>
   </action>
-  <zorder>dockWidget</zorder>
+  <zorder>dockWidget_1</zorder>
   <zorder>dockWidget_2</zorder>
   <zorder>dockWidget_3</zorder>
+  <zorder>dockWidget_4</zorder>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>

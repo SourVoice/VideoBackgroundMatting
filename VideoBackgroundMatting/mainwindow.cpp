@@ -13,6 +13,12 @@ MainWindow::MainWindow(QWidget* parent) :QMainWindow(parent), ui(new Ui::MainWin
 	setWindowFlags(windowFlags() & ~Qt::WindowMaximizeButtonHint);    // 禁止最大化按钮
 	setFixedSize(this->width(), this->height());                     // 禁止拖动窗口大小
 
+	QWidget* p = takeCentralWidget();
+	if (p)
+		delete p;
+	setDockNestingEnabled(true);
+	dockSetting();
+
 	customMsgBox.setWindowTitle(tr("关于本软件"));
 	customMsgBox.addButton(tr("好的"), QMessageBox::ActionRole);
 	customMsgBox.setIconPixmap(QPixmap(":/myImage/images/about1.png"));
@@ -34,12 +40,49 @@ MainWindow::MainWindow(QWidget* parent) :QMainWindow(parent), ui(new Ui::MainWin
 MainWindow::~MainWindow()
 {
 	delete ui;
-	//capture.release();
 }
 
-void MainWindow::on_action_Dock_triggered()
+void MainWindow::dockSetting()
 {
-	ui->dockWidget->show();
+
+	//记录所有的dock指针
+	m_docks.append(ui->dockWidget_1);
+	m_docks.append(ui->dockWidget_2);
+	m_docks.append(ui->dockWidget_3);
+	m_docks.append(ui->dockWidget_4);
+
+	removeAllDock();
+	addDockWidget(Qt::LeftDockWidgetArea, ui->dockWidget_1);
+	splitDockWidget(ui->dockWidget_1, ui->dockWidget_4, Qt::Horizontal);
+	splitDockWidget(ui->dockWidget_1, ui->dockWidget_2, Qt::Vertical);
+	splitDockWidget(ui->dockWidget_2, ui->dockWidget_3, Qt::Vertical);
+	showDock(QList<int>() << 0 << 1 << 2 << 3);
+
+}
+
+void MainWindow::removeAllDock()
+{
+	for (int i = 0; i < 3; ++i)
+	{
+		removeDockWidget(m_docks[i]);
+	}
+}
+
+void MainWindow::showDock(const QList<int>& index)
+{
+	if (index.isEmpty())
+	{
+		for (int i = 0; i < 3; ++i)
+		{
+			m_docks[i]->show();
+		}
+	}
+	else
+	{
+		foreach(int i, index) {
+			m_docks[i]->show();
+		}
+	}
 }
 
 void MainWindow::on_action_Open_triggered()

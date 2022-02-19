@@ -51,6 +51,9 @@ public:
 
 	explicit MainWindow(QWidget* parent = 0);
 	~MainWindow();
+	void dockSetting();
+	void removeAllDock();											//移除并隐藏所有dock
+	void showDock(const QList<int>& index = QList<int>());			//显示dock窗口
 
 	//图片部分
 	int index = 0;                                                  //图片index
@@ -74,7 +77,6 @@ public:
 	cv::Mat Mosaic(cv::Mat image);                                  //马赛克
 	QString stom(int s);                                            //video播放,时间转换函数
 	XFFmpeg* ffmpeg = nullptr;                                      //ffmpeg解码
-	//cv::VideoCapture capture;                                     //用来读取视频结构(仅作测试使用)
 	QString video_path;                                             //视频路径
 
 	int type = 0;                                                   //视频操作类型
@@ -85,21 +87,16 @@ public:
 	//视频处理
 	BGProcess* process = nullptr;
 
-
-	//其他
 public:
 	Ui::MainWindow* ui;
 	QMessageBox customMsgBox;
-
+	QList<QDockWidget*> m_docks;									//记录所有dockWidget的指针
 	bool language = true;
 
 signals:
 	void receiveIsPlay(const bool& isPlay);
 
 private slots:
-
-	void on_action_Dock_triggered();
-
 	void on_action_Open_triggered();
 
 	void on_pushButton_clicked();
