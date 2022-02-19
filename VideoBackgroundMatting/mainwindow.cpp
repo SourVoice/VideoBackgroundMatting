@@ -1648,12 +1648,10 @@ void MainWindow::on_pushButton_5_clicked()
 		return;
 	}
 
-	//ffmpeg->Stop();
+	this->on_pushButton_6_clicked();
 	ProcessBarWindow *pbw = new ProcessBarWindow(video_path);
 	pbw->show();
-	//ffmpeg->Play();
-	/*process = new BGProcess(this);
-	process->Open(video_path);
 
-	process->start();*/
+	//ffmpeg->Play();
+
 }

@@ -4,7 +4,7 @@
 
 #include "ui_mainwindow.h"
 #include "XFFmpeg.h"
-#include "BGProcess.h"
+//#include "BGProcess.h"
 #include "ProcessBarWindow.h"
 #include <string>
 #include <iostream>
