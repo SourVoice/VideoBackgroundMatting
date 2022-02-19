@@ -376,10 +376,15 @@ void XFFmpeg::Close()
 
 void XFFmpeg::Stop()
 {
-
-	qDebug() << "Xffmpeg Stop Thread : " << QThread::currentThreadId();
 	mutex.lock();
 	this->Abort = true;
+}
+
+void XFFmpeg::Play()
+{
+
+	mutex.unlock();
+	this->Abort = false;
 }
 
 std::string XFFmpeg::GetError()

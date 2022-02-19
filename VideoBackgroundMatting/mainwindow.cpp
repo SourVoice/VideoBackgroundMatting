@@ -1222,7 +1222,7 @@ void MainWindow::on_action_V_triggered()
 
 	ffmpeg = new XFFmpeg(this);
 	ffmpeg->Abort = false;
-	qDebug() << "construct" << ffmpeg->currentThreadId;
+	
 	connect(ffmpeg, SIGNAL(receiveTotalVideoTime(double)), this, SLOT(onGetTotalVideoTime(double)));
 	connect(ffmpeg, SIGNAL(receiveCurrentVideoTime(double)), this, SLOT(onGetCurrentVideoTime(double)));
 	connect(ffmpeg, SIGNAL(receiveImage(QImage)), this, SLOT(onDisplayImage(QImage)));
@@ -1636,14 +1636,22 @@ void MainWindow::on_pushButton_turnleft_3_clicked()
 //背景处理
 void MainWindow::on_pushButton_5_clicked()
 {
-	QFile file(":/myImage/images/style.qss");
+	/*QFile file(":/myImage/images/style.qss");
 	file.open(QFile::ReadOnly);
 	QString styleSheet = QString::fromLatin1(file.readAll());
 	QApplication* qapp;
-	qapp->setStyleSheet(styleSheet);
+	qapp->setStyleSheet(styleSheet);*/
 
-	process = new BGProcess(this);
-	process->Open(video_path);
+	if (video_path.isEmpty())
+	{
+		QMessageBox::warning(this, tr("警告"), tr("请打开视频后，重试"));
+		return;
+	}
 
-	process->start();
+	this->on_pushButton_6_clicked();
+	ProcessBarWindow *pbw = new ProcessBarWindow(video_path);
+	pbw->show();
+
+	//ffmpeg->Play();
+
 }
