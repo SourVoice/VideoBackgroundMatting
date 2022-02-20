@@ -47,6 +47,7 @@
         <file>icon/adjustColor/adjust.png</file>
         <file>icon/adjustColor/colorAdjust.png</file>
         <file>icon/adjustColor/horizionBar.png</file>
+        <file>icon/adjustColor/handler.png</file>
     </qresource>
     <qresource prefix="/shortcut">
         <file>icon/fastOperate/binarization.png</file>

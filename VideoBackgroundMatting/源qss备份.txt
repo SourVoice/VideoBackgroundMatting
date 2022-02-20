@@ -53,3 +53,77 @@ QSlider::handle:Horizontal
     border-image: url(:/adjust/icon/adjustColor/horizionBar.png);
     margin: -2 0px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void MainWindow::dockSetting()
+{
+
+	//记录所有的dock指针
+	m_docks.append(ui->dockWidget_1);
+	m_docks.append(ui->dockWidget_2);
+	m_docks.append(ui->dockWidget_3);
+	m_docks.append(ui->dockWidget_4);
+
+	removeAllDock();
+	addDockWidget(Qt::LeftDockWidgetArea, ui->dockWidget_1);
+	splitDockWidget(ui->dockWidget_1, ui->dockWidget_4, Qt::Horizontal);
+	splitDockWidget(ui->dockWidget_1, ui->dockWidget_2, Qt::Vertical);
+	splitDockWidget(ui->dockWidget_2, ui->dockWidget_3, Qt::Vertical);
+	showDock(QList<int>() << 0 << 1 << 2 << 3);
+
+}
+
+void MainWindow::removeAllDock()
+{
+	for (int i = 0; i < 3; ++i)
+	{
+		removeDockWidget(m_docks[i]);
+	}
+}
+
+void MainWindow::showDock(const QList<int>& index)
+{
+	if (index.isEmpty())
+	{
+		for (int i = 0; i < 3; ++i)
+		{
+			m_docks[i]->show();
+		}
+	}
+	else
+	{
+		foreach(int i, index) {
+			m_docks[i]->show();
+		}
+	}
+}
+
+
+
+构造函数
+
+	QWidget* p = takeCentralWidget();
+	if (p)
+		delete p;
+	setDockNestingEnabled(true);
+	dockSetting();

@@ -1,31 +1,89 @@
 QMainWindow
 {
-	background-color:rgb(29, 30, 31);
+	background-color:rgb(23, 24, 25)
 }
 
-//lable
+/*dockWidget                                                                    dockWidget*/
+QDockWidget 
+{
+    border: 1px solid red;
+    titlebar-normal-icon: url(:/window/icon/window/maximum.png);
+    titlebar-close-icon: url(:/window/icon/window/close.png);
+}
+
+/* 标题设置 */
+QDockWidget::title 
+{
+    text-align: right;
+    /*background: lightgray;*/
+    background-color:rgb(29, 30, 31);
+    padding-left: 35px;
+}
+
+/* 关闭和显示按钮 */
+QDockWidget::close-button, QDockWidget::float-button 
+{
+    border: 2px solid transparent;
+    background: darkgray;
+    padding: 2px;
+    icon-size: 14px; /* maximum icon size */
+}
+
+/* 鼠标悬浮状态 */
+QDockWidget::close-button:hover, QDockWidget::float-button:hover 
+{
+    background: red;
+}
+
+/* 鼠标按下状态 */
+QDockWidget::close-button:pressed, QDockWidget::float-button:pressed 
+{
+    padding: 1px -1px -1px 1px;
+}
+
+/* 把按钮移到右上角 */
+QDockWidget::close-button 
+{
+    subcontrol-position: top right;
+    subcontrol-origin: margin;
+    position: absolute;
+    top: 0px; left: 0px; bottom: 0px;
+    width: 14px;
+}
+
+QDockWidget::float-button 
+{
+    subcontrol-position: top right;
+    subcontrol-origin: margin;
+    position: absolute;
+    top: 0px; left: 16px; bottom: 0px;
+    width: 14px;
+}
+
+/*Lable                                                                             Lable*/
 QLabel 
 {
-    font-family: "Microsoft YaHei";
+    font-family: Microsoft YaHei;
     font-size: 14px;
     color: rgb(160, 160, 160);
-    background-color: rgb(29, 30, 31);
+    background-color: rgba(255, 255, 255, 10);
 }
 
 /*按钮普通态*/
 QPushButton
 {
     /*字体为微软雅黑*/
-    font-family:"Microsoft Yahei";
+    font-family:Microsoft Yahei;
     /*字体大小为20点*/
     font-size:10pt;
     /*字体颜色为白色*/    
     color:rgb(160, 160, 160);
-    background:transparent;	
+    /*background:transparent;*/
     /*背景颜色*/  
     background-color:rgb(29, 30, 31);
     /*边框圆角半径为8像素*/ 
     border-radius:8px;
+    border-color:rgb(105, 105, 105)
 }
 
 /*按钮停留态*/
@@ -46,28 +104,41 @@ QPushButton:pressed
     padding-top:3px;
 }
 
-//划过部分
-QSlider::sub-page:Horizontal 
+/*QSlider滑动条                                                                            QSlider滑动条*/
+/*划过部分*/
+QSlider::sub-page:horizontal
 {
-    background-color:rgb(163, 163, 163)
-    height:4px;
+	   background:rgb(81, 166, 233);
 }
 
-QSlider::groove:Horizontal 
-{
-    background:transparent;
-    height:10px;
-    border-radius: 5px;
+/*未划过*/
+QSlider::groove:horizontal
+{ 
+		height: 12px; 
+		left: 0px; 
+		right: 0px; 
+		border:0px;    //指定无边框
+	    border-radius:6px;    //指定圆角
+		background:rgba(0,0,0,50);
+} 
+
+QSlider::handle:horizontal { 
+	    background-color: red; 
+	    border: 2px solid red; 
+	    width: 16px; 
+	    height: 20px; 
+	    line-height: 20px; 
+	    //margin-top: -5px; 
+	    //margin-bottom: -5px; 
+	    border-radius: 10px; 
+
+		margin-top: -20px; 
+		margin-left: 0px; 
+		margin-bottom: -20px; 
+		margin-right: 0px; 
+
 }
 
-QSlider::handle:Horizontal 
-{
-    height: 20px;
-    width:20px;
-    border:0px;             //指定无边框
-    border-radius:6px;      //指定圆角
-    border-image: url(:/adjust/icon/adjustColor/horizionBar.png);
-    margin: -2 0px;
+QSlider::handle:horizontal:hover { 
+	border-radius: 10px;
 }
-
-

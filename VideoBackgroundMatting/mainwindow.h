@@ -51,9 +51,9 @@ public:
 
 	explicit MainWindow(QWidget* parent = 0);
 	~MainWindow();
-	void dockSetting();
-	void removeAllDock();											//移除并隐藏所有dock
-	void showDock(const QList<int>& index = QList<int>());			//显示dock窗口
+	//void dockSetting();
+	//void removeAllDock();											//移除并隐藏所有dock
+	//void showDock(const QList<int>& index = QList<int>());			//显示dock窗口
 
 	//图片部分
 	int index = 0;                                                  //图片index
@@ -90,7 +90,6 @@ public:
 public:
 	Ui::MainWindow* ui;
 	QMessageBox customMsgBox;
-	QList<QDockWidget*> m_docks;									//记录所有dockWidget的指针
 	bool language = true;
 
 signals:
