@@ -3,72 +3,6 @@ QMainWindow
 	background-color:rgb(23, 24, 25)
 }
 
-/*dockWidget                                                                    dockWidget*/
-QDockWidget 
-{
-    border: 1px solid red;
-    titlebar-normal-icon: url(:/window/icon/window/maximum.png);
-    titlebar-close-icon: url(:/window/icon/window/close.png);
-}
-
-/* 标题设置 */
-QDockWidget::title 
-{
-    text-align: right;
-    /*background: lightgray;*/
-    background-color:rgb(29, 30, 31);
-    padding-left: 35px;
-}
-
-/* 关闭和显示按钮 */
-QDockWidget::close-button, QDockWidget::float-button 
-{
-    border: 2px solid transparent;
-    background: darkgray;
-    padding: 2px;
-    icon-size: 14px; /* maximum icon size */
-}
-
-/* 鼠标悬浮状态 */
-QDockWidget::close-button:hover, QDockWidget::float-button:hover 
-{
-    background: red;
-}
-
-/* 鼠标按下状态 */
-QDockWidget::close-button:pressed, QDockWidget::float-button:pressed 
-{
-    padding: 1px -1px -1px 1px;
-}
-
-/* 把按钮移到右上角 */
-QDockWidget::close-button 
-{
-    subcontrol-position: top right;
-    subcontrol-origin: margin;
-    position: absolute;
-    top: 0px; left: 0px; bottom: 0px;
-    width: 14px;
-}
-
-QDockWidget::float-button 
-{
-    subcontrol-position: top right;
-    subcontrol-origin: margin;
-    position: absolute;
-    top: 0px; left: 16px; bottom: 0px;
-    width: 14px;
-}
-
-/*Lable                                                                             Lable*/
-QLabel 
-{
-    font-family: Microsoft YaHei;
-    font-size: 14px;
-    color: rgb(160, 160, 160);
-    background-color: rgba(255, 255, 255, 10);
-}
-
 /*按钮普通态*/
 QPushButton
 {
@@ -104,7 +38,7 @@ QPushButton:pressed
     padding-top:3px;
 }
 
-/*QSlider滑动条                                                                            QSlider滑动条*/
+/*QSlider滑动条*/
 /*划过部分*/
 QSlider::sub-page:horizontal
 {
@@ -120,7 +54,7 @@ QSlider::groove:horizontal
 		border:0px;    //指定无边框
 	    border-radius:6px;    //指定圆角
 		background:rgba(0,0,0,50);
-} 
+}
 
 QSlider::handle:horizontal { 
 	    background-color: red; 
@@ -141,4 +75,13 @@ QSlider::handle:horizontal {
 
 QSlider::handle:horizontal:hover { 
 	border-radius: 10px;
+}
+
+
+
+QLabel{
+    "background-image:url(:/images/bd.png);"
+    "background-position:top right;"
+    "background-origin:content;"
+    "background-repeat:none;
 }

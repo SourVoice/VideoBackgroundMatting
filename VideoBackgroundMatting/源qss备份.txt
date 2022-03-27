@@ -127,3 +127,14 @@ void MainWindow::showDock(const QList<int>& index)
 		delete p;
 	setDockNestingEnabled(true);
 	dockSetting();
+
+
+
+	/*Lable                                                                             Lable*/
+QLabel 
+{
+    font-family: Microsoft YaHei;
+    font-size: 14px;
+    color: rgb(160, 160, 160);
+    background-color:rgb(29, 30, 31);
+}
