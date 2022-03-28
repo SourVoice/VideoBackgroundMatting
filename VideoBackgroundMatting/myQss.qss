@@ -1,150 +1,87 @@
-QProgressBar{
-    color : solid gray;
-    border: 2px solid gray;
-    border-radius: 5px;
-    background: transparent;
-    padding: 0px;
-    text-align : center ;
-}
-QProgressBar::chunk{
-    background: #B22222;
-}
-
-QToolTip{
-    border: 1px solid black;
-    background: rgb(255,255,255);
-    color: rgb(102,102,102);
-}
-
-QTextEdit{
-    border: 10px;
-    border-image: url(image/system/border.png) 10 10 10 10;
-    background-color: rgba(43, 45, 31, 120);
-
-}
-
-QLabel#guhuo_text {
-    background-color: rgba(43, 45, 31, 220);
-    border-radius: 5px;
-}
-
-QTextEdit[description = true]{
-    border: 10px;
-    border-image: none;
-    background-color: rgba(255,255,255,255);
-}
-
-QTextEdit QScrollBar:vertical  {
-     margin: 22px 0 22px 0;
-}
-
-QScrollBar:add-page
+QMainWindow
 {
-     background-color: rgba(0,0,0,255);
+	background-color:rgb(23, 24, 25)
 }
 
-QScrollBar:sub-page
+/*按钮普通态*/
+QPushButton
 {
-     background-color: rgba(0,0,0,255);
+    /*字体为微软雅黑*/
+    font-family:Microsoft Yahei;
+    /*字体大小为20点*/
+    font-size:10pt;
+    /*字体颜色为白色*/    
+    color:rgb(160, 160, 160);
+    /*background:transparent;*/
+    /*背景颜色*/  
+    background-color:rgb(29, 30, 31);
+    /*边框圆角半径为8像素*/ 
+    border-radius:8px;
+    border-color:rgb(105, 105, 105)
 }
 
- QScrollBar::add-line:vertical  {
-
-     background-color: rgba(43,45,31,255);
-     height: 15px;
-     subcontrol-position: bottom;
-     subcontrol-origin: margin;
- }
-
- QScrollBar::sub-line:vertical  {
-
-     background-color: rgba(43,45,31,255);
-     height: 15px;
-     subcontrol-position: top;
-     subcontrol-origin: margin;
- }
-
-QScrollBar::handle:vertical    {    
-    border : 2px solid gray;
-    border-radius: 6px;
-    background-color: solid gray;
-    min-height : 12px;
-}
-
-QScrollBar::up-arrow:vertical
+/*按钮停留态*/
+QPushButton:hover
 {
-    border-image: url(image/system/button/scroll-up-arrow.png);
+    /*背景颜色*/  
+    background-color:rgb(29, 30, 31);
 }
 
-QScrollBar::down-arrow:vertical
+/*按钮按下态*/
+QPushButton:pressed
 {
-    border-image: url(image/system/button/scroll-down-arrow.png);
+    /*背景颜色*/  
+    background-color:rgb(14 , 135 , 228);
+    /*左内边距为3像素，让按下时字向右移动3像素*/  
+    padding-left:3px;
+    /*上内边距为3像素，让按下时字向下移动3像素*/  
+    padding-top:3px;
 }
 
- QLineEdit#chat_edit{
-    background-color: rgba(20,20,20,255);
-    color: white;
-    border: 10px transparent;
-    height: 20px;
-    border-image: url(image/system/border.png)10 10 10 10 ;
- }
-
-QStatusBar::item {
-     border: 0px solid grey;
- }
- 
-QStatusBar{
-    background-image: url(image/system/skill-dock.png);
-    color:white;
+/*QSlider滑动条*/
+/*划过部分*/
+QSlider::sub-page:horizontal
+{
+	   background:rgb(81, 166, 233);
 }
 
-QMenu[private_pile = true]{
-    background-color: rgba(43,63,53,200);
-    border-radius: 1px;
-    color: white;
+/*未划过*/
+QSlider::groove:horizontal
+{ 
+		height: 12px; 
+		left: 0px; 
+		right: 0px; 
+		border:0px;    //指定无边框
+	    border-radius:6px;    //指定圆角
+		background:rgba(0,0,0,50);
 }
 
-QPushButton[private_pile = true]{
-    background-color: rgba(43,63,53,200);
-    border-radius: 1px;
-    color: white;
+QSlider::handle:horizontal { 
+	    background-color: red; 
+	    border: 2px solid red; 
+	    width: 16px; 
+	    height: 20px; 
+	    line-height: 20px; 
+	    //margin-top: -5px; 
+	    //margin-bottom: -5px; 
+	    border-radius: 10px; 
+
+		margin-top: -20px; 
+		margin-left: 0px; 
+		margin-bottom: -20px; 
+		margin-right: 0px; 
+
 }
 
-QPushButton[game_control = true]{
-    border: 0px solid gray;
-    font: 12px;
-    border-radius: 5px;
-    padding: 6px 12px 6px 12px;
+QSlider::handle:horizontal:hover { 
+	border-radius: 10px;
 }
 
-QPushButton#pause{
-    background-image: url(image/system/button/pause.png);
-}
 
-QPushButton#play{
-    background-image: url(image/system/button/play.png);
-}
 
-QPushButton#slow-down{
-    background-image: url(image/system/button/slow-down.png);
-}
-
-QPushButton#speed-up{
-    background-image: url(image/system/button/speed-up.png);
-}
-
-QPushButton#uniform{
-    background-image: url(image/system/button/uniform.png);
-}
-
-QMenu[treasure = true] {
-    background-color: rgba(64, 52, 0, 200);
-    border-radius: 5px;
-    color: white;
-}
-
-QPushButton[treasure = true] {
-    background-color: rgba(64, 52, 0, 200);
-    border-radius: 5px;
-    color: white;
+QLabel{
+    "background-image:url(:/images/bd.png);"
+    "background-position:top right;"
+    "background-origin:content;"
+    "background-repeat:none;
 }
