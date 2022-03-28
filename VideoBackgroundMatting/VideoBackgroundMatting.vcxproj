@@ -42,6 +42,8 @@
   <ItemGroup>
     <None Include="en_tr.qm" />
     <None Include="README.md" />
+    <None Include="rvm-512.bin" />
+    <None Include="rvm-512.param" />
     <None Include="zh_tr.qm" />
   </ItemGroup>
   <ItemGroup>
@@ -50,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="myimage.qrc" />
+    <QtRcc Include="Resource.qrc" />
   </ItemGroup>
   <ItemGroup>
     <QtTranslation Include="en_tr.ts" />
@@ -106,21 +109,35 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\workstation\sdks\ffmpeg\ffmpeg-N-104643-g7e9e2cf93b-win64-gpl-shared\include;D:\workstation\sdks\Opencv\opencv4.0.1\build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\workstation\sdks\Opencv\opencv4.0.1\build\include;D:\workstation\sdks\Opencv\opencv4.0.1\build\include\opencv2;D:\workstation\sdks\protobuf\protobuf-3.4.0\build-Debug\install\include;D:\workstation\sdks\ncnn\build-Debug\install\include\ncnn;D:\workstation\sdks\ffmpeg\ffmpeg-N-104643-g7e9e2cf93b-win64-gpl-shared\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>D:\workstation\sdks\ffmpeg\ffmpeg-N-104643-g7e9e2cf93b-win64-gpl-shared\lib;D:\workstation\sdks\Opencv\opencv4.0.1\build\x64\vc15\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opencv_world401d.lib;%(AdditionalDependencies);D:\workstation\sdks\ffmpeg\ffmpeg-N-104643-g7e9e2cf93b-win64-gpl-shared\lib\*.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\workstation\sdks\Opencv\opencv4.0.1\build\x64\vc15\lib;D:\workstation\sdks\protobuf\protobuf-3.4.0\build-Debug\install\lib;D:\workstation\sdks\ncnn\build-Debug\install\lib;D:\workstation\sdks\ffmpeg\ffmpeg-N-104643-g7e9e2cf93b-win64-gpl-shared\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opencv_world401d.lib;%(AdditionalDependencies);D:\workstation\sdks\ffmpeg\ffmpeg-N-104643-g7e9e2cf93b-win64-gpl-shared\lib\*.lib;libprotobufd.lib;ncnnd.lib</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>
+      </IgnoreSpecificDefaultLibraries>
     </Link>
+    <ProjectReference>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\workstation\sdks\ffmpeg\ffmpeg-N-104643-g7e9e2cf93b-win64-gpl-shared\include;D:\workstation\sdks\Opencv\opencv4.0.1\build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\workstation\sdks\Opencv\opencv4.0.1\build\include;D:\workstation\sdks\Opencv\opencv4.0.1\build\include\opencv2;D:\workstation\sdks\protobuf\protobuf-3.4.0\build-Debug\install\include;D:\workstation\sdks\ncnn\build-Debug\install\include\ncnn;D:\workstation\sdks\ffmpeg\ffmpeg-N-104643-g7e9e2cf93b-win64-gpl-shared\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>D:\workstation\sdks\ffmpeg\ffmpeg-N-104643-g7e9e2cf93b-win64-gpl-shared\lib;D:\workstation\sdks\Opencv\opencv4.0.1\build\x64\vc15\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opencv_world401d.lib;%(AdditionalDependencies);D:\workstation\sdks\ffmpeg\ffmpeg-N-104643-g7e9e2cf93b-win64-gpl-shared\lib\*.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\workstation\sdks\Opencv\opencv4.0.1\build\x64\vc15\lib;D:\workstation\sdks\protobuf\protobuf-3.4.0\build-Debug\install\lib;D:\workstation\sdks\ncnn\build-Debug\install\lib;D:\workstation\sdks\ffmpeg\ffmpeg-N-104643-g7e9e2cf93b-win64-gpl-shared\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opencv_world401d.lib;%(AdditionalDependencies);D:\workstation\sdks\ffmpeg\ffmpeg-N-104643-g7e9e2cf93b-win64-gpl-shared\lib\*.lib;libprotobufd.lib;ncnnd.lib</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>
+      </IgnoreSpecificDefaultLibraries>
     </Link>
+    <ProjectReference>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
     <ClCompile>

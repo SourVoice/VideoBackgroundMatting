@@ -3,11 +3,12 @@
 #include <QWidget>
 #include "ui_ProcessBarWindow.h"
 #include <qstring.h>
-#include <filesystem>
+#include <cstdlib>
 #include "BGProcess.h"
+#include <filesystem>
 using namespace std;
-using namespace std::tr2::sys;
-
+//using namespace std::tr2::sys;
+using namespace std::filesystem;
 
 class ProcessBarWindow : public QWidget
 {

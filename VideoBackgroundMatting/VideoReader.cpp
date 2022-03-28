@@ -259,4 +259,5 @@ int main2s()
 		}
 		
 	}
+	return 1;
 }
