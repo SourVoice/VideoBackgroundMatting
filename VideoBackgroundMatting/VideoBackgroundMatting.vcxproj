@@ -12,19 +12,30 @@
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="mainwindow.ui" />
+    <QtUic Include="ProcessBarWindow.ui" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="XFFmpeg.h" />
     <QtMoc Include="videosurface.h" />
     <QtMoc Include="mainwindow.h" />
     <QtMoc Include="BGProcess.h" />
+    <ClInclude Include="BackgroundMatting.h" />
+    <QtMoc Include="ProcessBarWindow.h" />
+    <ClInclude Include="VideoReader.h" />
+    <ClInclude Include="VideoWriter.h" />
+    <QtMoc Include="Worker.h" />
     <ClInclude Include="x64\Debug\uic\ui_mainwindow.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BackgroundMatting.cpp" />
     <ClCompile Include="BGProcess.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mainwindow.cpp" />
+    <ClCompile Include="ProcessBarWindow.cpp" />
+    <ClCompile Include="VideoReader.cpp" />
     <ClCompile Include="videosurface.cpp" />
+    <ClCompile Include="VideoWriter.cpp" />
+    <ClCompile Include="Worker.cpp" />
     <ClCompile Include="XFFmpeg.cpp" />
   </ItemGroup>
   <ItemGroup>
