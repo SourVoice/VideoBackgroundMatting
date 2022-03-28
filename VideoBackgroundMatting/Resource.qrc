@@ -67,7 +67,4 @@
         <file>icon/bottomBar/edit.png</file>
         <file>icon/bottomBar/smaller.png</file>
     </qresource>
-    <qresource prefix="/qss">
-        <file>myQss.qss</file>
-    </qresource>
 </RCC>

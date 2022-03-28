@@ -89,6 +89,12 @@
     <None Include="README.md">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="rvm-512.bin">
+      <Filter>Form Files</Filter>
+    </None>
+    <None Include="rvm-512.param">
+      <Filter>Form Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="myico.ico">
@@ -100,6 +106,9 @@
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="myimage.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
+    <QtRcc Include="Resource.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
   </ItemGroup>
