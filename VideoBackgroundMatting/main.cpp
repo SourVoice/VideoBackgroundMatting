@@ -27,17 +27,11 @@ int main(int argc, char* argv[])
 		Sleep(10 * static_cast<uint64>(mv.speed()));
 	}
 
-	//set qss style
-	QString qss;
-	QFile qssFile(":/qssFile/myQss.qss");
-	qssFile.open(QFile::ReadOnly);
-	if (qssFile.isOpen())
-	{
-		qApp->setStyleSheet("");
-		qss = QLatin1String(qssFile.readAll());
-		qApp->setStyleSheet(qss);
-		qssFile.close();
-	}
+	a.setStyle(QStyleFactory::create("fusion"));
+	
+	// 设置程序运行时任务栏的图标
+	QIcon icon(":/menubar/icon/menuBar/videoBlock.png");
+	a.setWindowIcon(icon);
 
 	MainWindow w;
 	w.setWindowTitle(QObject::tr("图像视频处理工具"));

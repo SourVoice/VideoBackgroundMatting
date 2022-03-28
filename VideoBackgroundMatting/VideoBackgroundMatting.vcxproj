@@ -12,24 +12,35 @@
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="mainwindow.ui" />
+    <QtUic Include="ProcessBarWindow.ui" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="x64\Debug\uic\ui_ProcessBarWindow.h" />
     <QtMoc Include="XFFmpeg.h" />
     <QtMoc Include="videosurface.h" />
     <QtMoc Include="mainwindow.h" />
     <QtMoc Include="BGProcess.h" />
+    <ClInclude Include="BackgroundMatting.h" />
+    <QtMoc Include="ProcessBarWindow.h" />
+    <ClInclude Include="VideoReader.h" />
+    <ClInclude Include="VideoWriter.h" />
+    <QtMoc Include="Worker.h" />
     <ClInclude Include="x64\Debug\uic\ui_mainwindow.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BackgroundMatting.cpp" />
     <ClCompile Include="BGProcess.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mainwindow.cpp" />
+    <ClCompile Include="ProcessBarWindow.cpp" />
+    <ClCompile Include="VideoReader.cpp" />
     <ClCompile Include="videosurface.cpp" />
+    <ClCompile Include="VideoWriter.cpp" />
+    <ClCompile Include="Worker.cpp" />
     <ClCompile Include="XFFmpeg.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="en_tr.qm" />
-    <None Include="myQss.qss" />
     <None Include="README.md" />
     <None Include="zh_tr.qm" />
   </ItemGroup>
@@ -43,9 +54,6 @@
   <ItemGroup>
     <QtTranslation Include="en_tr.ts" />
     <QtTranslation Include="zh_tr.ts" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="源qss备份.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{3B1B6079-69EF-4518-BC0B-924061495D7B}</ProjectGuid>
