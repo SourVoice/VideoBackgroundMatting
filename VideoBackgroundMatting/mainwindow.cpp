@@ -1279,11 +1279,11 @@ void MainWindow::onDisplayImage(const QImage& image)
 	QImage imageDisplay = Mat2QImage(cv_frame);
 
 	//绘制到指定位置
-	ui->label_11->setScaledContents(true);
 	double scale = ui->horizontalSlider_suofang->value() / 100.0;
+	QImage Image = ImageCenter(imageDisplay, ui->label_11);
+	QSize qs = Image.size() * scale;
 
-	QSize qs = ui->label_11->rect().size() * scale;
-	ui->label_11->setPixmap(QPixmap::fromImage(imageDisplay).scaled(qs));
+	ui->label_11->setPixmap(QPixmap::fromImage(Image).scaled(qs, Qt::KeepAspectRatio));
 	ui->label_11->setAlignment(Qt::AlignCenter);
 	ui->label_11->repaint();
 
