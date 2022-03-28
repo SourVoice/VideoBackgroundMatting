@@ -27,11 +27,6 @@ int main(int argc, char* argv[])
 		Sleep(10 * static_cast<uint64>(mv.speed()));
 	}
 
-	//set qss
-	//QFile qss(":/qss/myQss.qss");
-	//qss.open(QFile::ReadOnly);
-	//a.setStyleSheet(qss.readAll());
-	//qss.close();
 	a.setStyle(QStyleFactory::create("fusion"));
 	
 	// 设置程序运行时任务栏的图标

@@ -15,6 +15,7 @@
     <QtUic Include="ProcessBarWindow.ui" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="x64\Debug\uic\ui_ProcessBarWindow.h" />
     <QtMoc Include="XFFmpeg.h" />
     <QtMoc Include="videosurface.h" />
     <QtMoc Include="mainwindow.h" />
@@ -40,7 +41,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="en_tr.qm" />
-    <None Include="myQss.qss" />
     <None Include="README.md" />
     <None Include="zh_tr.qm" />
   </ItemGroup>
@@ -54,9 +54,6 @@
   <ItemGroup>
     <QtTranslation Include="en_tr.ts" />
     <QtTranslation Include="zh_tr.ts" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="源qss备份.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{3B1B6079-69EF-4518-BC0B-924061495D7B}</ProjectGuid>

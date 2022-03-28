@@ -43,6 +43,9 @@
     <ClInclude Include="VideoWriter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="x64\Debug\uic\ui_ProcessBarWindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -82,9 +85,6 @@
     </None>
     <None Include="zh_tr.qm">
       <Filter>Translation Files</Filter>
-    </None>
-    <None Include="myQss.qss">
-      <Filter>Resource Files</Filter>
     </None>
     <None Include="README.md">
       <Filter>Source Files</Filter>
@@ -130,10 +130,5 @@
     <QtMoc Include="Worker.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="源qss备份.txt">
-      <Filter>Source Files</Filter>
-    </Text>
   </ItemGroup>
 </Project>
