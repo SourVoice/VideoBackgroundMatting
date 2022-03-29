@@ -13,12 +13,13 @@ ProcessBarWindow::ProcessBarWindow(QString in_filepath, QWidget *parent)
 	ui.text_browser->setStyleSheet("QTextEdit{background-color:white;}");
 
 	this->in_filepath = in_filepath;
-	std::string str = std::string(in_filepath.toLocal8Bit());
-
 	//path p(in_filepath.toStdString().c_str());
 	//path filename = p.stem();
 	//p.replace_filename(filename.string() + "_matting.mp4");
-	this->out_filepath = str + "_matting.mp4";
+	QFileInfo info(in_filepath);
+	QString strNewName = info.path() + "/" + info.completeBaseName() + "_matting.mp4";
+	std::string str = std::string(strNewName.toLocal8Bit());
+	this->out_filepath = str;
 
 	init();
 

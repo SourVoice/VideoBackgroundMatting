@@ -1645,7 +1645,8 @@ void MainWindow::on_pushButton_5_clicked()
 		return;
 	}
 
-	this->on_pushButton_6_clicked();
+	//this->on_pushButton_6_clicked();
+	ui->pushButton_6->animateClick();
 	ProcessBarWindow *pbw = new ProcessBarWindow(video_path);
 	pbw->show();
 
