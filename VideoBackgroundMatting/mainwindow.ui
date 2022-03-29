@@ -38,7 +38,7 @@
       <item>
        <widget class="QTabWidget" name="tabWidget">
         <property name="currentIndex">
-         <number>1</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="tab_2">
          <attribute name="title">
@@ -240,7 +240,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="pushButton_2">
+               <widget class="QPushButton" name="pushButton_20">
                 <property name="minimumSize">
                  <size>
                   <width>92</width>
@@ -352,13 +352,13 @@
                <widget class="QLabel" name="label_20">
                 <property name="minimumSize">
                  <size>
-                  <width>60</width>
+                  <width>80</width>
                   <height>0</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>60</width>
+                  <width>16777215</width>
                   <height>16777215</height>
                  </size>
                 </property>
@@ -385,9 +385,12 @@
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Fixed</enum>
+                </property>
                 <property name="sizeHint" stdset="0">
                  <size>
-                  <width>40</width>
+                  <width>20</width>
                   <height>20</height>
                  </size>
                 </property>
@@ -1157,7 +1160,7 @@ background-image: url(:/myImage/images/vertical.png);</string>
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_15" stretch="1,10,1,0,3">
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_24" stretch="0,1,0,1,1,1,1,1,0,0,0">
+             <layout class="QHBoxLayout" name="horizontalLayout_24" stretch="0,1,0,1,1,1,1,1,0,0,0,0">
               <item>
                <widget class="QPushButton" name="pushButton_3">
                 <property name="minimumSize">
@@ -1308,6 +1311,13 @@ background-image: url(:/myImage/images/vertical.png);</string>
                </spacer>
               </item>
               <item>
+               <widget class="QPushButton" name="pushButton_2">
+                <property name="text">
+                 <string>马赛克</string>
+                </property>
+               </widget>
+              </item>
+              <item>
                <widget class="QPushButton" name="pushButton_5">
                 <property name="text">
                  <string>剪切对象</string>
@@ -1396,13 +1406,13 @@ border-color: rgb(0, 0, 0)</string>
                <widget class="QLabel" name="label_12">
                 <property name="minimumSize">
                  <size>
-                  <width>60</width>
+                  <width>80</width>
                   <height>0</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>60</width>
+                  <width>16777215</width>
                   <height>16777215</height>
                  </size>
                 </property>
@@ -1418,7 +1428,7 @@ border-color: rgb(0, 0, 0)</string>
                 </property>
                 <property name="sizeHint" stdset="0">
                  <size>
-                  <width>40</width>
+                  <width>20</width>
                   <height>20</height>
                  </size>
                 </property>
@@ -1429,9 +1439,12 @@ border-color: rgb(0, 0, 0)</string>
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Fixed</enum>
+                </property>
                 <property name="sizeHint" stdset="0">
                  <size>
-                  <width>40</width>
+                  <width>20</width>
                   <height>20</height>
                  </size>
                 </property>

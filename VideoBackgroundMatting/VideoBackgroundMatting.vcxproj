@@ -109,13 +109,13 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\workstation\sdks\Opencv\opencv4.0.1\build\include;D:\workstation\sdks\Opencv\opencv4.0.1\build\include\opencv2;D:\workstation\sdks\protobuf\protobuf-3.4.0\build-Debug\install\include;D:\workstation\sdks\ncnn\build-Debug\install\include\ncnn;D:\workstation\sdks\ffmpeg\ffmpeg-N-104643-g7e9e2cf93b-win64-gpl-shared\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\workstation\sdks\Opencv\opencv4.0.1\build\include;D:\workstation\sdks\Opencv\opencv4.0.1\build\include\opencv2;D:\workstation\sdks\protobuf\protobuf-3.4.0\build-Debug\install\include;D:\workstation\sdks\VulkanSDK\1.3.204.1\Include;D:\workstation\sdks\ncnn\build-Debug\install\include\ncnn;D:\workstation\sdks\ffmpeg\ffmpeg-N-104643-g7e9e2cf93b-win64-gpl-shared\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>D:\workstation\sdks\Opencv\opencv4.0.1\build\x64\vc15\lib;D:\workstation\sdks\protobuf\protobuf-3.4.0\build-Debug\install\lib;D:\workstation\sdks\ncnn\build-Debug\install\lib;D:\workstation\sdks\ffmpeg\ffmpeg-N-104643-g7e9e2cf93b-win64-gpl-shared\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opencv_world401d.lib;%(AdditionalDependencies);D:\workstation\sdks\ffmpeg\ffmpeg-N-104643-g7e9e2cf93b-win64-gpl-shared\lib\*.lib;libprotobufd.lib;ncnnd.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\workstation\sdks\VulkanSDK\1.3.204.1\Lib;D:\workstation\sdks\Opencv\opencv4.0.1\build\x64\vc15\lib;D:\workstation\sdks\protobuf\protobuf-3.4.0\build-Debug\install\lib;D:\workstation\sdks\ncnn\build-Debug\install\lib;D:\workstation\sdks\ffmpeg\ffmpeg-N-104643-g7e9e2cf93b-win64-gpl-shared\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opencv_world401d.lib;%(AdditionalDependencies);D:\workstation\sdks\ffmpeg\ffmpeg-N-104643-g7e9e2cf93b-win64-gpl-shared\lib\*.lib;libprotobufd.lib;ncnnd.lib;vulkan-1.lib</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
     </Link>
@@ -125,13 +125,13 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\workstation\sdks\Opencv\opencv4.0.1\build\include;D:\workstation\sdks\Opencv\opencv4.0.1\build\include\opencv2;D:\workstation\sdks\protobuf\protobuf-3.4.0\build-Debug\install\include;D:\workstation\sdks\ncnn\build-Debug\install\include\ncnn;D:\workstation\sdks\ffmpeg\ffmpeg-N-104643-g7e9e2cf93b-win64-gpl-shared\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\workstation\sdks\Opencv\opencv4.0.1\build\include;D:\workstation\sdks\Opencv\opencv4.0.1\build\include\opencv2;D:\workstation\sdks\protobuf\protobuf-3.4.0\build-Debug\install\include;D:\workstation\sdks\VulkanSDK\1.3.204.1\Include;D:\workstation\sdks\ncnn\build-Debug\install\include\ncnn;D:\workstation\sdks\ffmpeg\ffmpeg-N-104643-g7e9e2cf93b-win64-gpl-shared\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>D:\workstation\sdks\Opencv\opencv4.0.1\build\x64\vc15\lib;D:\workstation\sdks\protobuf\protobuf-3.4.0\build-Debug\install\lib;D:\workstation\sdks\ncnn\build-Debug\install\lib;D:\workstation\sdks\ffmpeg\ffmpeg-N-104643-g7e9e2cf93b-win64-gpl-shared\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opencv_world401d.lib;%(AdditionalDependencies);D:\workstation\sdks\ffmpeg\ffmpeg-N-104643-g7e9e2cf93b-win64-gpl-shared\lib\*.lib;libprotobufd.lib;ncnnd.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\workstation\sdks\VulkanSDK\1.3.204.1\Lib;D:\workstation\sdks\Opencv\opencv4.0.1\build\x64\vc15\lib;D:\workstation\sdks\protobuf\protobuf-3.4.0\build-Debug\install\lib;D:\workstation\sdks\ncnn\build-Debug\install\lib;D:\workstation\sdks\ffmpeg\ffmpeg-N-104643-g7e9e2cf93b-win64-gpl-shared\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opencv_world401d.lib;%(AdditionalDependencies);D:\workstation\sdks\ffmpeg\ffmpeg-N-104643-g7e9e2cf93b-win64-gpl-shared\lib\*.lib;libprotobufd.lib;ncnnd.lib;vulkan-1.lib</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
     </Link>
