@@ -4,12 +4,12 @@
 
 <!-- PROJECT SHIELDS -->
 
-[![Contributors][contributors-shield]][contributors-url]
+<!-- [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
+[![LinkedIn][linkedin-shield]][linkedin-url] -->
 
 <!-- PROJECT LOGO -->
 <br />
@@ -29,8 +29,6 @@
   </p>
 
 </p>
-
-本篇 README.md 面向开发者
 
 ## 目录
 
@@ -58,7 +56,7 @@
 - 编辑图像
   ![ImageProcess](/images/ImageProcess.png)
 
-  2.视频人物扣取
+2.视频人物扣取
 
 - 打开视频
   ![VideoPlayWindow](/images/VideoPlayWindow.png)
@@ -66,13 +64,13 @@
    "工具栏"->"文件"->"打开视频"->播放页右上方"剪切对象":等待处理
   ![VideoBGMatting](images/VideoBGMattingWindow.png)
 
-  3.视频结果截图
-    <center class="half">
-        输入
-        <img src="/images/Input.png" />
-        输出
-        <img src="/images/Output.png"/>
-    </center>
+3.视频结果截图
+  <center class="half">
+      输入
+      <img src="/images/Input.png" />
+      输出
+      <img src="/images/Output.png"/>
+  </center>
 
 #### **安装步骤**
 
@@ -98,7 +96,7 @@ git clone https://github.com/SourVoice/VideoBackgroundMatting.git
 [ncnn-20210322] 高性能神经网络前向计算框架
 [VulkanSDK] ncnn 依赖
 [Opencv4.0.1] ncnn 依赖
-[ffmpeg 库] 视频解码依赖
+[ffmpeg] 视频解码依赖
 
 ### 贡献者
 
@@ -144,11 +142,11 @@ _您也可以在贡献者名单中参看所有参与该项目的开发者。_
 [ncnn-20210322]: https://github.com/Tencent/ncnn/releases/tag/20210322
 [vulkansdk]: https://vulkan.lunarg.com/sdk/home#windows
 [opencv4.0.1]: https://opencv.org/releases
-[ffmpeg 库]: https://github.com/BtbN/FFmpeg-Builds
+[ffmpeg]: https://github.com/BtbN/FFmpeg-Builds
 
 <!-- links -->
 
-[your-project-path]: SourVoice/VideoBackgroundMatting
+[your-project-path]: https://github.com/SourVoice/VideoBackgroundMatting
 [contributors-shield]: https://img.shields.io/github/contributors/SourVoice/VideoBackgroundMatting.svg?style=flat-square
 [contributors-url]: https://github.com/SourVoice/VideoBackgroundMatting/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/SourVoice/VideoBackgroundMatting.svg?style=flat-square
