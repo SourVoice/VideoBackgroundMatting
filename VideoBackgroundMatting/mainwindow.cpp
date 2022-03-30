@@ -10,10 +10,6 @@ MainWindow::MainWindow(QWidget* parent) :QMainWindow(parent), ui(new Ui::MainWin
 	ui->pushButton_3->setDisabled(true);
 	ui->pushButton_4->setDisabled(true);
 
-	//setWindowFlags(windowFlags() & ~Qt::WindowMaximizeButtonHint);    // 禁止最大化按钮
-	//setFixedSize(this->width(), this->height());                     // 禁止拖动窗口大小
-
-
 
 	customMsgBox.setWindowTitle(tr("关于本软件"));
 	customMsgBox.addButton(tr("好的"), QMessageBox::ActionRole);

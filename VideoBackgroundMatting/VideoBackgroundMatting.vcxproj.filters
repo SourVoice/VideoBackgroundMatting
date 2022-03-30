@@ -86,23 +86,12 @@
     <None Include="zh_tr.qm">
       <Filter>Translation Files</Filter>
     </None>
-    <None Include="README.md">
-      <Filter>Source Files</Filter>
-    </None>
     <None Include="rvm-512.bin">
       <Filter>Form Files</Filter>
     </None>
     <None Include="rvm-512.param">
       <Filter>Form Files</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="myico.ico">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="picture.ico">
-      <Filter>Resource Files</Filter>
-    </Image>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="myimage.qrc">
