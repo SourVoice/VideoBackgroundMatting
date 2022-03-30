@@ -50,6 +50,7 @@ public:
 	void releaseMem();										//释放解码过程产生的内存
 	void Close();											//关闭文件
 	void Stop();
+	void Play();
 	std::string GetError();									//获取错误信息
 
 	static double AVRationalr2Double(AVRational r);			//计算avrational得到时间

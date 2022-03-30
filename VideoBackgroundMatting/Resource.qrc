@@ -1,0 +1,70 @@
+<RCC>
+    <qresource prefix="/bg">
+        <file>icon/addVideo.png</file>
+        <file>icon/bg.png</file>
+    </qresource>
+    <qresource prefix="/saveAndComposite">
+        <file>icon/saveAndComposite/composite.png</file>
+        <file>icon/saveAndComposite/save.png</file>
+    </qresource>
+    <qresource prefix="/editbar">
+        <file>icon/editBar/advance.png</file>
+        <file>icon/editBar/copy.png</file>
+        <file>icon/editBar/cut.png</file>
+        <file>icon/editBar/delet.png</file>
+        <file>icon/editBar/mirror.png</file>
+        <file>icon/editBar/pointer.png</file>
+        <file>icon/editBar/text.png</file>
+        <file>icon/editBar/undo.png</file>
+        <file>icon/editBar/video.png</file>
+        <file>icon/editBar/Visible.png</file>
+        <file>icon/editBar/volume.png</file>
+    </qresource>
+    <qresource prefix="/player">
+        <file>icon/player/backward.png</file>
+        <file>icon/player/begin.png</file>
+        <file>icon/player/end.png</file>
+        <file>icon/player/forward.png</file>
+        <file>icon/player/pause.png</file>
+        <file>icon/player/play.png</file>
+        <file>icon/player/videoSize.png</file>
+    </qresource>
+    <qresource prefix="/menubar">
+        <file>icon/menuBar/adjust.png</file>
+        <file>icon/menuBar/colorAdjust.png</file>
+        <file>icon/menuBar/fastOp.png</file>
+        <file>icon/menuBar/menuBar.png</file>
+        <file>icon/menuBar/openImage.png</file>
+        <file>icon/menuBar/openVideo.png</file>
+        <file>icon/menuBar/videoBlock.png</file>
+    </qresource>
+    <qresource prefix="/window">
+        <file>icon/window/close.png</file>
+        <file>icon/window/maximum.png</file>
+        <file>icon/window/minimum.png</file>
+    </qresource>
+    <qresource prefix="/adjust">
+        <file>icon/adjustColor/adjust.png</file>
+        <file>icon/adjustColor/colorAdjust.png</file>
+        <file>icon/adjustColor/horizionBar.png</file>
+        <file>icon/adjustColor/handler.png</file>
+    </qresource>
+    <qresource prefix="/shortcut">
+        <file>icon/fastOperate/binarization.png</file>
+        <file>icon/fastOperate/edgeDetect.png</file>
+        <file>icon/fastOperate/fastOpbg.png</file>
+        <file>icon/fastOperate/fliter.png</file>
+        <file>icon/fastOperate/gamma.png</file>
+        <file>icon/fastOperate/gray.png</file>
+        <file>icon/fastOperate/smooth.png</file>
+    </qresource>
+    <qresource prefix="/settingAndHelp">
+        <file>icon/setAndHelp/help.png</file>
+        <file>icon/setAndHelp/setting.png</file>
+    </qresource>
+    <qresource prefix="/bottomEditbar">
+        <file>icon/bottomBar/bigger.png</file>
+        <file>icon/bottomBar/edit.png</file>
+        <file>icon/bottomBar/smaller.png</file>
+    </qresource>
+</RCC>

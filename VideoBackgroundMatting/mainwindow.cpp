@@ -10,8 +10,6 @@ MainWindow::MainWindow(QWidget* parent) :QMainWindow(parent), ui(new Ui::MainWin
 	ui->pushButton_3->setDisabled(true);
 	ui->pushButton_4->setDisabled(true);
 
-	setWindowFlags(windowFlags() & ~Qt::WindowMaximizeButtonHint);    // 禁止最大化按钮
-	setFixedSize(this->width(), this->height());                     // 禁止拖动窗口大小
 
 	customMsgBox.setWindowTitle(tr("关于本软件"));
 	customMsgBox.addButton(tr("好的"), QMessageBox::ActionRole);
@@ -34,13 +32,8 @@ MainWindow::MainWindow(QWidget* parent) :QMainWindow(parent), ui(new Ui::MainWin
 MainWindow::~MainWindow()
 {
 	delete ui;
-	//capture.release();
 }
 
-void MainWindow::on_action_Dock_triggered()
-{
-	ui->dockWidget->show();
-}
 
 void MainWindow::on_action_Open_triggered()
 {
@@ -1222,7 +1215,7 @@ void MainWindow::on_action_V_triggered()
 
 	ffmpeg = new XFFmpeg(this);
 	ffmpeg->Abort = false;
-	qDebug() << "construct" << ffmpeg->currentThreadId;
+	
 	connect(ffmpeg, SIGNAL(receiveTotalVideoTime(double)), this, SLOT(onGetTotalVideoTime(double)));
 	connect(ffmpeg, SIGNAL(receiveCurrentVideoTime(double)), this, SLOT(onGetCurrentVideoTime(double)));
 	connect(ffmpeg, SIGNAL(receiveImage(QImage)), this, SLOT(onDisplayImage(QImage)));
@@ -1233,8 +1226,10 @@ void MainWindow::on_action_V_triggered()
 
 	type = 0;                                               //默认打开不进行处理
 	isPlay = true;
-	ui->pushButton_6->setStyleSheet("border-radius:32px;"
-		"background-image: url(:/myImage/images/stop.png);border:none;");
+	ui->pushButton_6->setStyleSheet(
+		"border-image:url(:/player/icon/player/play.png);"
+		"background-color:transparent;"
+		"border:none");
 
 	ffmpeg->start();
 }
@@ -1280,11 +1275,11 @@ void MainWindow::onDisplayImage(const QImage& image)
 	QImage imageDisplay = Mat2QImage(cv_frame);
 
 	//绘制到指定位置
-	ui->label_11->setScaledContents(true);
 	double scale = ui->horizontalSlider_suofang->value() / 100.0;
+	QImage Image = ImageCenter(imageDisplay, ui->label_11);
+	QSize qs = Image.size() * scale;
 
-	QSize qs = ui->label_11->rect().size() * scale;
-	ui->label_11->setPixmap(QPixmap::fromImage(imageDisplay).scaled(qs));
+	ui->label_11->setPixmap(QPixmap::fromImage(Image).scaled(qs, Qt::KeepAspectRatio));
 	ui->label_11->setAlignment(Qt::AlignCenter);
 	ui->label_11->repaint();
 
@@ -1404,13 +1399,16 @@ void MainWindow::on_pushButton_6_clicked()
 	if (isPlay)
 	{
 		isPlay = false;
-		ui->pushButton_6->setStyleSheet("border-radius:32px;"
-			"background-image: url(:/myImage/images/start.png);border:none;");
+		ui->pushButton_6->setStyleSheet(
+			"border-image:url(:/player/icon/player/pause.png);"
+			"background-color:transparent;"
+			"border:none");
 	}
 	else {
 		isPlay = true;
-		ui->pushButton_6->setStyleSheet("border-radius:32px;"
-			"background-image: url(:/myImage/images/stop.png);border:none;");
+		ui->pushButton_6->setStyleSheet("border-image:url(:/player/icon/player/play.png);"
+			"background-color:transparent;"
+			"border:none");
 	}
 	emit receiveIsPlay(isPlay);
 }
@@ -1421,16 +1419,11 @@ void MainWindow::on_pushButton_7_clicked()
 	type = 1;
 }
 
+//边缘检测
 void MainWindow::on_pushButton_8_clicked()
 {
 	type = 0;
 }
-
-//进度条
-//void MainWindow::on_VideohorizontalSlider_2_valueChanged(int value)
-//{
-//	capture.set(CAP_PROP_POS_FRAMES, value);
-//}
 
 //均值滤波
 void MainWindow::on_pushButton_9_clicked()
@@ -1636,14 +1629,23 @@ void MainWindow::on_pushButton_turnleft_3_clicked()
 //背景处理
 void MainWindow::on_pushButton_5_clicked()
 {
-	QFile file(":/myImage/images/style.qss");
+	/*QFile file(":/myImage/images/style.qss");
 	file.open(QFile::ReadOnly);
 	QString styleSheet = QString::fromLatin1(file.readAll());
 	QApplication* qapp;
-	qapp->setStyleSheet(styleSheet);
+	qapp->setStyleSheet(styleSheet);*/
 
-	process = new BGProcess(this);
-	process->Open(video_path);
+	if (video_path.isEmpty())
+	{
+		QMessageBox::warning(this, tr("警告"), tr("请打开视频后，重试"));
+		return;
+	}
 
-	process->start();
+	//this->on_pushButton_6_clicked();
+	ui->pushButton_6->animateClick();
+	ProcessBarWindow *pbw = new ProcessBarWindow(video_path);
+	pbw->show();
+
+	//ffmpeg->Play();
+
 }
