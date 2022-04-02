@@ -1,6 +1,6 @@
-# ������Ƶ������������
+# 简易视频背景处理功能
 
-ʵ���˲���ͼ�������ܺ���Ƶ������ٳ���������
+实现了部分图像处理功能和视频内人物抠除背景功能
 
 <!-- PROJECT SHIELDS -->
 
@@ -19,92 +19,108 @@
     <img src="/images/logo.png" alt="Logo" width="72" height="60">
   </a>
 
-  <h3 align="center">��Ƶ�����ͼӦ��</h3>
+  <h3 align="center">视频人像抠图应用</h3>
     <br />
-    <a href="https://github.com/SourVoice/VideoBackgroundMatting">�鿴Demo</a>
-    ��
-    <a href="https://github.com/SourVoice/VideoBackgroundMatting/issues">����Bug</a>
-    ��
-    <a href="https://github.com/SourVoice/VideoBackgroundMatting/issues">���������</a>
+    <a href="https://github.com/SourVoice/VideoBackgroundMatting">查看Demo</a>
+    ·
+    <a href="https://github.com/SourVoice/VideoBackgroundMatting/issues">报告Bug</a>
+    ·
+    <a href="https://github.com/SourVoice/VideoBackgroundMatting/issues">提出新特性</a>
   </p>
 
 </p>
 
-## Ŀ¼
+## 目录
 
-- [������Ƶ������������](#������Ƶ������������)
-  - [Ŀ¼](#Ŀ¼)
-    - [����ָ��](#����ָ��)
-      - [����ʵ��](#����ʵ��)
-      - [**��װ����**](#��װ����)
-    - [�����ļܹ�](#�����ļܹ�)
-    - [ʹ�õ��Ŀ�ܺ͵�������](#ʹ�õ��Ŀ�ܺ͵�������)
-    - [������](#������)
-      - [��β��뿪Դ��Ŀ](#��β��뿪Դ��Ŀ)
-    - [�汾����](#�汾����)
-    - [����](#����)
-    - [��Ȩ˵��](#��Ȩ˵��)
-    - [��л](#��л)
+- [简易视频背景处理功能](#简易视频背景处理功能)
+  - [目录](#目录)
+    - [上手指南](#上手指南)
+      - [功能实现](#功能实现)
+      - [**安装步骤**](#安装步骤)
+    - [开发的架构](#开发的架构)
+    - [使用到的框架和第三方库](#使用到的框架和第三方库)
+    - [贡献者](#贡献者)
+      - [如何参与开源项目](#如何参与开源项目)
+    - [版本控制](#版本控制)
+    - [作者](#作者)
+    - [版权说明](#版权说明)
+    - [鸣谢](#鸣谢)
 
-### ����ָ��
+### 上手指南
+------
+#### 功能实现
 
-#### ����ʵ��
+1.图像实现了 RGB,对比度等调整
 
-1.ͼ��ʵ���� RGB,�Աȶȵȵ���
-"������"->"�ļ�"->"��ͼƬ":���б༭
+"工具栏"->"文件"->"打开图片":进行编辑
 
-- �༭ͼ��
-  ![ImageProcess](/images/ImageProcess.png)
+- 编辑图像
 
-2.��Ƶ�����ȡ
-
-- ����Ƶ
-  ![VideoPlayWindow](/images/VideoPlayWindow.png)
-- ������Ƶ���������  
-   "������"->"�ļ�"->"����Ƶ"->����ҳ���Ϸ�"���ж���":�ȴ�����
-  ![VideoBGMatting](images/VideoBGMattingWindow.png)
-
-3.��Ƶ�����ͼ
   <center class="half">
-      ����
-      <img src="/images/Input.png" />
-      ���
-      <img src="/images/Output.png"/>
+  <img src="/images/ImageProcess.png" width=600/>
+  </center>
+  
+2.视频人物扣取
+
+- 打开视频
+
+  <center class="half">
+  <img src="/images/VideoPlayWindow.png" width=600/>
+  </center>
+  
+- 剪切视频内人物对象
+
+   "工具栏"->"文件"->"打开视频"->播放页右上方"剪切对象":等待处理
+
+  <center class="half">
+  <img src="/images/VideoBGMattingWindow.png" width=600/>
   </center>
 
-#### **��װ����**
+3.视频结果截图
+  <center class="half">
+      输入
+      <img src="/images/Input.png" width=400/>
+      输出
+      <img src="/images/Output.png" width=400/>
+  </center>
 
+#### **安装步骤**
+-------
 1.Clone the repo
 
 ```sh
 git clone https://github.com/SourVoice/VideoBackgroundMatting.git
 ```
 
-2.ʹ�� VS2019/2017 ��.sln �ļ�
+2.使用 VS2019/2017 打开.sln 文件
 
-3.Ϊ��Ŀ�������軷��
+3.为项目配置所需环境
 
-[��Ҫ����Ŀ�������������µ�������](###ʹ�õ��Ŀ�ܺ͵�������)
+[需要在项目的属性配置以下第三方库](#使用到的框架和第三方库)
 
-### �����ļܹ�
+### 开发的架构
+-----
+使用 Visual Studio 2019 + QtCreator 进行开发
 
-ʹ�� Visual Studio 2019 + QtCreator ���п���
+### 使用到的框架和第三方库
 
-### ʹ�õ��Ŀ�ܺ͵�������
+[Qt5.11.3] GUI 框架
 
-[Qt5.11.3] GUI ���
-[ncnn-20210322] ������������ǰ�������
-[VulkanSDK] ncnn ����
-[Opencv4.0.1] ncnn ����
-[ffmpeg] ��Ƶ��������
+[ncnn-20210322] 高性能神经网络前向计算框架
 
-### ������
+[VulkanSDK] ncnn 依赖
 
-���Ķ�**CONTRIBUTING.md** ����Ϊ����Ŀ�������׵Ŀ����ߡ�
+[Opencv4.0.1] ncnn 依赖
 
-#### ��β��뿪Դ��Ŀ
+[ffmpeg] 视频解码依赖
 
-����ʹ��Դ������Ϊһ��ѧϰ�������ʹ���ľ��ѳ��������������κι��׶���**�ǳ���л**�ġ�
+### 贡献者
+
+请阅读**CONTRIBUTING.md** 查阅为该项目做出贡献的开发者。
+
+#### 如何参与开源项目
+
+贡献使开源社区成为一个学习、激励和创造的绝佳场所。你所作的任何贡献都是**非常感谢**的。
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
@@ -112,23 +128,23 @@ git clone https://github.com/SourVoice/VideoBackgroundMatting.git
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-### �汾����
+### 版本控制
 
-����Ŀʹ�� Git ���а汾�������������� repository �ο���ǰ���ð汾����Ŀ����
+该项目使用 Git 进行版本管理。您可以在 repository 参看当前可用版本和项目进度
 
-### ����
+### 作者
 
 @SourVoice
 @shaoeric
 @luoshiyong
 
-_��Ҳ�����ڹ����������вο����в������Ŀ�Ŀ����ߡ�_
+_您也可以在贡献者名单中参看所有参与该项目的开发者。_
 
-### ��Ȩ˵��
+### 版权说明
 
-����Ŀǩ���� MIT ��Ȩ���ɣ���������� [LICENSE.txt](https://github.com/SourVoice/VideoBackgroundMatting/blob/master/LICENSE.txt)
+该项目签署了 MIT 授权许可，详情请参阅 [LICENSE.txt](https://github.com/SourVoice/VideoBackgroundMatting/blob/master/LICENSE.txt)
 
-### ��л
+### 鸣谢
 
 - [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
 - [Img Shields](https://shields.io)
