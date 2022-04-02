@@ -126,8 +126,9 @@ bool XFFmpeg::init()
 			qDebug() << TIMEMS << "avcodec_alloc_context3 error!";
 
 		//设置加速解码
-		videoCodecCtx->lowres = videoCodec->max_lowres;
-		videoCodecCtx->flags2 |= AV_CODEC_FLAG2_FAST;
+		//videoCodecCtx->lowres = videoCodec->max_lowres;
+		//videoCodecCtx->flags |= AV_CODEC_FLAG_LOW_DELAY;
+		videoCodecCtx->flags |= AV_CODEC_FLAG_LOW_DELAY;
 		avcodec_parameters_to_context(videoCodecCtx, avFormatContext->streams[videoStreamIndex]->codecpar);
 
 		//打开视频解码器

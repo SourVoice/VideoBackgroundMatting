@@ -100,8 +100,8 @@ int VideoReader::init()
 
 	// 4、获取解码参数，支持mp4/H264文件,这几行代码非常重要，否则不能解码mp4到yuv
 	//设置加速解码
-	codec_ctx->lowres = codec->max_lowres;
-	codec_ctx->flags2 |= AV_CODEC_FLAG2_FAST;
+	//codec_ctx->lowres = codec->max_lowres;
+	codec_ctx->flags2 |= AV_CODEC_FLAG_LOW_DELAY;
 	avcodec_parameters_to_context(codec_ctx, ifmt_ctx->streams[video_stream_idx]->codecpar);
 
 	
